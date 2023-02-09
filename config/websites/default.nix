@@ -3,7 +3,7 @@
 
   listenAddresses = [ "0.0.0.0" "[::]" ];
 
-  locations."/".return = "403";
+  locations."/".return = "401";
 
   rejectSSL = true;
   #sslCertificate = "";

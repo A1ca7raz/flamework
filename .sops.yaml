@@ -1,0 +1,12 @@
+keys:
+  - &admin 01D737F36BEBE286 
+  - &nodes age1dmsxhm6vuuqag8ahf5jer54u9jtkt5lm3mhrsc3fc8sp8khmvgusyampx3
+
+creation_rules:
+  - path_regex: config/secrets/.*
+    key_groups:
+    - age: 
+      - *nodes
+    - pgp:
+      - *admin
+  - pgp: *admin
