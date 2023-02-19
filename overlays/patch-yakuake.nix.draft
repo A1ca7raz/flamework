@@ -1,0 +1,7 @@
+{ lib, ... }:
+final: prev:
+{
+  yakuake = prev.yakuake.overrideAttrs (final: pre: {
+    patches = (pre.patches or []) ++ [ ../patches/yakuake-multihead-window-location.patch ];
+  });
+}

@@ -1,23 +1,27 @@
 { lib, self, ... }:
-{
+let
+  mkExist = path: if (builtins.pathExists path) then [ path ] else [];
+in {
   imports = [
     self.nixosModules.impermanence
   ];
 
-  environment.persistence."/persist" = {
+  environment.persistence."/nix/persist" = {
+    hideMounts = true;
     directories = [
-      "/var/log"
+      "/var/cache"
       "/var/lib"
+      "/var/log"
     ];
 
     files = [
       "/etc/machine-id"
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
-    ] ++ (if (builtins.pathExists /etc/ssh/ssh_host_ed25519_key-cert.pub)
-      then ["/etc/ssh/ssh_host_ed25519_key-cert.pub"] else [])
-      ++ (if (builtins.pathExists /etc/ssh/CA_User_key.pub)
-      then ["/etc/ssh/CA_User_key.pub"] else [])
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+    ] ++ mkExist /etc/ssh/ssh_host_ed25519_key-cert.pub
+      ++ mkExist /etc/ssh/CA_User_key.pub
     ;
   };
 }

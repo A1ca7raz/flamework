@@ -1,0 +1,15 @@
+{ lib, ... }:
+final: prev:
+let
+  PACKAGE_NAME = "thunderbird";
+  PATCH_NAMES = [
+    "dolphin-return-space.patch"
+  ];
+
+  patch_path = ../patches;
+  patches = lib.forEach PATCH_NAMES (x: /${patch_path}/${x});
+in rec {
+  # ${PACKAGE_NAME} = prev.${PACKAGE_NAME}.overrideAttrs (old: {
+  #   patches = (old.patches or []) ++ patches;
+  # });
+}

@@ -1,12 +1,13 @@
 keys:
-  - &admin 01D737F36BEBE286 
-  - &nodes age1dmsxhm6vuuqag8ahf5jer54u9jtkt5lm3mhrsc3fc8sp8khmvgusyampx3
+  - &admin      01D737F36BEBE286 
+  - &nodes_sys  age1dmsxhm6vuuqag8ahf5jer54u9jtkt5lm3mhrsc3fc8sp8khmvgusyampx3
+  - &nodes_home age1ffsxz6t96tl0a5k8sq28c37kyzaywkdex99w9935lydc3dc79s9qtln903
 
 creation_rules:
-  - path_regex: config/secrets/.*
-    key_groups:
-    - age: 
-      - *nodes
-    - pgp:
-      - *admin
+  - path_regex: config/secrets_uncrypted/.*
+    age: *nodes_sys
+
+  - path_regex: config/secrets_home_uncrypted/.*
+    age: *nodes_home
+
   - pgp: *admin

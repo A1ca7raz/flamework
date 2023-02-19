@@ -1,22 +1,22 @@
-{ lib, ... }:
+{ pkgs, lib, path, ... }:
 {
   services.openssh = {
     enable = true;
-    permitRootLogin = "prohibit-password";
+    settings.PermitRootLogin = "prohibit-password";
     ports = [ 22 ];
-    hostKeys = [{
-      path = "/etc/ssh/ssh_host_ed25519_key";
-      type = "ed25519";
-    }];
+    hostKeys = [
+      { path = "/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519"; }
+      { path = "/etc/ssh/ssh_host_rsa_key";
+        type = "rsa"; }  
+    ];
 
-    # certAuth = lib.mkIf (builtins.pathExists /etc/ssh/ssh_host_ed25519_key-cert.pub) {
+    # certAuth = lib.optionalAttrs (builtins.pathExists /etc/ssh/ssh_host_ed25519_key-cert.pub) {
     #   enable = true;
     #   hostCertificate = "/etc/ssh/ssh_host_ed25519_key-cert.pub";
     #   userCAKey = "/etc/ssh/CA_User_key.pub";
     # };
   };
 
-  users.users.root.openssh.authorizedKeys.keys = import ../../config/sshkeys.nix;
-
-  users.mutableUsers = false;
+  programs.ssh.package = pkgs.openssh_hpn;
 }

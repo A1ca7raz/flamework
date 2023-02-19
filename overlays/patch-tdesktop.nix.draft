@@ -1,0 +1,19 @@
+{ lib, ... }:
+final: prev:
+let
+  PACKAGE_NAME = "tdesktop";
+  PATCH_NAMES = [
+    "tdesktop-01-Use-font-from-environment-variables.patch"
+    "tdesktop-02-add-TDESKTOP_DISABLE_REGISTER_CUSTOM_SCHEME-back.patch"
+  ];
+
+  patch_path = ../patches;
+  patches = lib.forEach PATCH_NAMES (x: /${patch_path}/${x});
+in {
+  ${PACKAGE_NAME} = prev.${PACKAGE_NAME}.overrideAttrs (old: {
+    prePatch = ''
+      patch -b -d Telegram/lib_ui/ -Np1 -i 01-Use-font-from-environment-variables.patch
+      patch -b -l -d -Np1 -i 0002-add-TDESKTOP_DISABLE_REGISTER_CUSTOM_SCHEME-back.patch
+    '';
+  });
+}

@@ -36,7 +36,9 @@ in {
               subvolumes = {
                 "/boot" = mountOptions;
                 "/nix" = mountOptions;
-                "/persist" = mountOptions;
+                "/persist" = mountOptions // {
+                  mountpoint = "/nix/persist";
+                };
               };
             };
           }
@@ -51,7 +53,7 @@ in {
     };
   };
 
-  fileSystems."/persist".neededForBoot = true;
+  fileSystems."/nix/persist".neededForBoot = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";
 }

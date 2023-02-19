@@ -21,11 +21,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
       # inputs.utils.follows = "flake-utils";
     };
-    # lanzaboote = {
-    #   url = "github:nix-community/lanzaboote";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-utils.follows = "flake-utils";
-    # };
+    spicetify-nix = {
+      url = github:the-argus/spicetify-nix;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.flake-utils.follows = "flake-utils";
+    };
     # flake-utils.url = "github:numtide/flake-utils";
   };
 
