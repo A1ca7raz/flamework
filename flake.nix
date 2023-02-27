@@ -21,44 +21,44 @@
       inputs.nixpkgs.follows = "nixpkgs";
       # inputs.utils.follows = "flake-utils";
     };
-    # flake-utils.url = "github:numtide/flake-utils";
     # lanzaboote = {
     #   url = "github:nix-community/lanzaboote";
     #   inputs.nixpkgs.follows = "nixpkgs";
     #   inputs.flake-utils.follows = "flake-utils";
     # };
+    # flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
     let
       lib = nixpkgs.lib;
       utils = import ./utils lib self;
-
-      SYSTEM = "x86_64-linux";
+      nur = import ./pkgs;
 
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
         };
-        overlays = utils.loader.overlays ++ [
-          inputs.colmena.overlay
-        ];
+        overlays = [ nur.overlay ] ++ utils.loader.overlays;
       };
     in {
-      test = self;
-      packages = pkgs;
-      devShell = with pkgs; mkShell {
-        nativeBuildInputs = [ colmena ];
+      packages = nur.packages pkgs;
+      legacyPackages = pkgs;
+
+      overlays.default = nur.overlay;
+
+      devShells.x86_64-linux.default = with pkgs; mkShell {
+        nativeBuildInputs = [ colmena nvfetcher ];
       };
 
-      nixosModules = utils.module // utils.loader.nixosModules // {
-        sops = inputs.sops-nix.nixosModules.sops;
-        impermanence = inputs.impermanence.nixosModules.impermanence;
-        disko = inputs.disko.nixosModules.disko;
-        home = inputs.home-manager.nixosModules.home-manager;
-        # lanzaboote = inputs.lanzaboote.nixosModules.lanzaboote;
-      };
+      nixosModules = utils.module // utils.loader.nixosModules // (with inputs; {
+        sops = sops-nix.nixosModules.sops;
+        impermanence = impermanence.nixosModules.impermanence;
+        disko = disko.nixosModules.disko;
+        home = home-manager.nixosModules.home-manager;
+        lanzaboote = lanzaboote.nixosModules.lanzaboote;
+      });
 
       nixosConfigurations = utils.loader.profiles.nixosConfigurations;
 

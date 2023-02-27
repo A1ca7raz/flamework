@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, ... }:
 rec {
   # _getListFromDir "directory/regular" /path/to/dir
   _getListFromDir = type: dir:

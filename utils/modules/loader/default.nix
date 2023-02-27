@@ -1,5 +1,5 @@
-{ util, lib, self, ... }:
-rec {
+{ util, lib, ... }:
+{
   imports = util.foldGetFile ./. []
     (x: y:
       if util.isNix x

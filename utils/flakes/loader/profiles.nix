@@ -1,25 +1,27 @@
-{ util, lib, self, path, ... }:
+{ util, lib, self, path, inputs, ... }@args:
 let
+  # hook: args: profile:
+  hook_stage1_list = util.importsFiles ./profile-hooks/01-stage-modules;
+  hook_stage2_list = util.importsFiles ./profile-hooks/02-stage-rec;
+
+  mergeModuleHooks = profile:
+    let
+      hooks = lib.forEach hook_stage1_list (x: ((import x) args profile));
+    in
+      lib.fold (x: y: x.modules ++ y) [] hooks;
+
+  mergeLoaderHooks = profile:
+    let
+      hooks = lib.forEach hook_stage2_list (x: (import x) args profile);
+    in
+      lib.zipAttrsWith
+        (name: vals: lib.fold (x: y: x // y) {} vals)
+        hooks;
+
   RESERVED_WORDS = [ "default.nix" "default" ];
 
-  component_path = /${path}/components;
   profile_path = /${path}/profiles;
-
-  DEFAULT_MODULES = lib.forEach ((import /${path}/modules)).defaultModules (x: self.nixosModules.${x});
-
   profile_list = util._getListFromDir "directory" profile_path;
-
-  colmenaMeta = {
-    meta = {
-      nixpkgs = import self.inputs.nixpkgs {
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
-        };
-      };
-      specialArgs = { inherit util path self; };
-    };
-  };
 
   mkSystem = name: {
     system ? "x86_64-linux",
@@ -27,60 +29,35 @@ let
     components ? {},
     extraConfiguration ? {},
     ... 
-  }:
+  }@profile:
     let
-      components_common = util.foldGetFile /${component_path}/__common [] (x: y:
-          if util.isNix x
-          then [ (util.removeNix x) ] ++ y else y
-        );
-      components_optional = util.foldGetFile component_path [] (x: y:
-          if util.isNix x
-          then [ (util.removeNix x) ] ++ y else y
-        );
-
-      # Input Validation
-      _blacklist = (x:
-        assert lib.assertMsg ((lib.intersectLists components_common x) == x)
-          "Non-existent component in blacklist.\nCheck the component blacklist of Profile ${name} and try again";
-        lib.subtractLists x components_common)
-        (lib.attrByPath ["blacklist"] [] components);
-
-      _optionalComponents = (x:
-        assert lib.assertMsg ((lib.intersectLists components_optional x) == x)
-          "Non-existent component in optionalComponents.\nCheck the component blacklist of Profile ${name} and try again";
-        x)
-        (lib.attrByPath ["optionalComponents"] [] components);
+      profile_args = profile // { inherit name; };
     in {
       inherit system;
-      specialArgs = { inherit util path self; };
-      modules = DEFAULT_MODULES ++ activeModules ++
-        (lib.forEach _blacklist (x: /${component_path}/__common/${x}.nix ) ) ++
-        (lib.forEach _optionalComponents (x: /${component_path}/${x}.nix ) ) ++
-        [
-          self.nixosModules.utils
-          /${profile_path}/${name}/hardware-configuration.nix
-          extraConfiguration
-          ({ ... }: lib.mkIf (builtins.pathExists /${profile_path}/${name}/secrets.yaml) {
-            sops.secrets."__profile__" = {
-              sopsFile = /${profile_path}/${name}/secrets.yaml;
-              format = "yaml";
-            };
-          })
-        ];
+      specialArgs = { inherit util self path inputs; };
+      modules = [
+        self.nixosModules.utils
+        /${profile_path}/${name}/hardware-configuration.nix
+        extraConfiguration
+      ] ++ (mergeModuleHooks profile_args);
     };
+
+  _profiles = lib.fold (x: y: [ (mergeLoaderHooks (({targetHost ? "", targetPort ? 22, ...}@z: rec {
+      name = x;
+      nixosSystem = mkSystem x z;
+      modules = nixosSystem.modules;
+      deployment = {
+        targetHost = targetHost;
+        targetPort = targetPort;
+        targetUser = "root";
+      };
+    }) ((import /${profile_path}/${x}) {inherit self;}))) ] ++ y) [] profile_list;
 in
-  lib.fold (x: y:
-    rec {
-      nixosConfigurations = { ${x.name} = lib.nixosSystem x.nixosSystem; } // y.nixosConfigurations;
-      colmena = { ${x.name} = { deployment = x.deployment; imports = x.modules; }; } // y.colmena;
-    }) { nixosConfigurations = {}; colmena = colmenaMeta; }
-    (lib.fold (x: y: [ ((z: rec {
-        name = x;
-        nixosSystem = mkSystem x z;
-        modules = nixosSystem.modules;
-        deployment = {
-          targetHost = z.targetHost;
-          targetPort = z.targetPort;
-          targetUser = "root";
-        };
-      }) ((import /${profile_path}/${x}) {inherit self;})) ] ++ y) [] profile_list)
+  lib.foldAttrs (n: a: n // a) {} _profiles
+
+  # lib.fold (x: y:
+  #   rec {
+  #     nixosConfigurations = { ${x.name} = lib.nixosSystem x.nixosSystem; } // y.nixosConfigurations;
+  #     colmena = { ${x.name} = { deployment = x.deployment; imports = x.modules; }; } // y.colmena;
+  #   } // ) { nixosConfigurations = {}; colmena = colmenaMeta; }
+  #   _profiles

@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, ... }:
 let
   util = (import ./fold.nix { inherit lib; }) //
     (import ./nix.nix { inherit lib; });
