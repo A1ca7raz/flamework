@@ -8,7 +8,7 @@
         ShowOpenInNewTab=false
 
         [Desktop Entry]
-        DefaultProfile=Dark.profile
+        DefaultProfile=Default.profile
 
         [General]
         BrowseThroughArchives=true

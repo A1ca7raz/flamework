@@ -20,6 +20,8 @@ in
       ".thunderbird"
       (c "VSCodium") ".vscode-oss"      # VSCodium
       (c "wireshark")                   # WireShark
+      (c "BaiduPCS-Go")                 # 百度网盘
+
 
       # Plasma APPs
       (ls "dolphin")

@@ -1,13 +1,11 @@
 { ... }:
 {
-  imports = [ ./konsole_profile.nix ];
-
   xdg.configFile = {
     konsolerc = {
       target = "konsolerc";
       text = ''
         [Desktop Entry]
-        DefaultProfile=Dark.profile
+        DefaultProfile=Default.profile
 
         [KonsoleWindow]
         RememberWindowSize=false

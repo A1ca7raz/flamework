@@ -1,5 +1,7 @@
-{ ... }:
+{ self, ... }:
 {
+  imports = [ self.nixosModules.nur ];  # Import NUR Repos
+
   nix = {
     nrBuildUsers = 0;
     optimise.automatic = true;

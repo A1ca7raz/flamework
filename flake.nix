@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     impermanence.url = "github:nix-community/impermanence";
+    flake-utils.url = "github:numtide/flake-utils";
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +20,7 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.utils.follows = "flake-utils";
+      inputs.utils.follows = "flake-utils";
     };
     spicetify-nix = {
       url = github:the-argus/spicetify-nix;
@@ -28,29 +29,30 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-utils.follows = "flake-utils";
     };
-    # flake-utils.url = "github:numtide/flake-utils";
+
+    # NUR Repos
+    nur = {
+      url = "github:a1ca7raz/nurpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
     let
       lib = nixpkgs.lib;
       utils = import ./utils lib self;
-      nur = import ./pkgs;
-
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
         };
-        overlays = [ nur.overlay ] ++ utils.loader.overlays;
+        overlays =  utils.loader.overlays;
       };
     in {
-      packages = nur.packages pkgs;
       legacyPackages = pkgs;
-
-      overlays.default = nur.overlay;
 
       devShells.x86_64-linux.default = with pkgs; mkShell {
         nativeBuildInputs = [ colmena nvfetcher ];
@@ -62,6 +64,7 @@
         disko = disko.nixosModules.disko;
         home = home-manager.nixosModules.home-manager;
         lanzaboote = lanzaboote.nixosModules.lanzaboote;
+        nur = inputs.nur.nixosModule;
       });
 
       nixosConfigurations = utils.loader.profiles.nixosConfigurations;

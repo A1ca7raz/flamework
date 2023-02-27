@@ -5,11 +5,11 @@ let
 in
 {
   utils.startup = {
-    keepassxc = delay' 6 "keepassxc";
+    keepassxc = delay' 10 "keepassxc";
     telegram = delay "env telegram-desktop -autostart";
     yakuake = delay "yakuake";
     latte-dock = delay "latte-dock";
-    # steam = "";
+    steam = delay "steam -silent";
     thunderbird = delay "birdtray";
   };
 }

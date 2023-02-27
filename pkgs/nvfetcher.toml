@@ -1,7 +1,0 @@
-[applet-window-appmenu]
-src.github = "psifidotos/applet-window-appmenu"
-fetch.github = "psifidotos/applet-window-appmenu"
-
-[yet-another-spotify-tray]
-src.git = "https://github.com/macdems/yet-another-spotify-tray"
-fetch.git = "https://github.com/macdems/yet-another-spotify-tray"

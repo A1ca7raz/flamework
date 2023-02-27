@@ -9,6 +9,7 @@
 
   components = {
     optionalComponents = [
+      "amdcpu" "amdgpu" "nvme"
       "binary-cache-cn"
       "desktop"
       #"secureboot"

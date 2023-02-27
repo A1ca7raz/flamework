@@ -12,6 +12,7 @@
     fsearch
     gimp
     inkscape
+    libnotify
     libqalculate
     logseq
     peek
@@ -21,6 +22,7 @@
     wpsoffice
     sbctl
     sops
+    baidupcs-go
     # telegram-archpatched
     tdesktop
 
@@ -29,5 +31,7 @@
     yubikey-manager
     yubikey-manager-qt
     yubikey-personalization
+
+    steam-run
   ];
 }

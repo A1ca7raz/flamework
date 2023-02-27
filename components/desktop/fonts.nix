@@ -3,18 +3,7 @@
   fonts.enableDefaultFonts = false;
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "FiraMono"
-        "JetBrainsMono"
-        "Noto"
-        "SourceCodePro"
-        "Ubuntu"
-        "UbuntuMono"
-        "RobotoMono"
-      ];
-    })
+    my-nerd-font-pack
 
     corefonts
     fira-code

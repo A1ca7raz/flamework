@@ -1,25 +1,33 @@
 { util, pkgs, lib,  ... }:
 with util; let
-  IconTheme    = "Tela";
-  ColorScheme  = "MyDark";
-  CursorTheme  = "Bibata-Modern-Ice";
-  kvantumTheme = "Breeze-Noir-Dark-Kvantum";
+  ThemeColor = "Light";  # Dark&Light
 
+  IconTheme      = "Tela";
+  CursorTheme    = "Bibata-Modern-Ice";
+  PlasmaTheme    = "Win11OS-light";
+  ColorScheme    = "My${ThemeColor}";
+  KvantumTheme   = "Breeze-Blur-${ThemeColor}";
+  KonsoleProfile = "${ThemeColor}.profile"; 
+
+  konsole_path = "$HOME/.local/share/konsole";
   _wc = wc_ "$HOME/.config/kscreenlockerrc" ["Greeter" "Wallpaper" "org.kde.potd" "General"];
-  color = x: ".local/share/color-schemes/${x}.colors";
 in
 {
-  home.packages = with pkgs; [ plasma5Packages.qtstyleplugin-kvantum ];
+  home.packages = with pkgs; [
+    plasma5Packages.qtstyleplugin-kvantum
+    dconf
+  ];
 
   home.activation.setupTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # Application Style
     ${wc "kdeglobals" "KDE" "widgetStyle" "kvantum"}
     # Plasma Style
-    ${wc "plasmarc" "Theme" "name" "Win11OS-dark"}
+    ${wc "plasmarc" "Theme" "name" PlasmaTheme}
     ${wc "plasmarc" "Theme-plasmathemeexplorer" "name" "Win11OS-dark"}
     # Window decorations
     ${wc "kwinrc" "org.kde.kdecoration2" "theme" "Sierra Breeze Enhanced"}
     ${wc "kwinrc" "org.kde.kdecoration2" "library" "org.kde.sierrabreezeenhanced"}
+    ${wc "sierrabreezeenhancedrc" "Windeco" "BackgroundOpacity" (if (ThemeColor == "Dark") then "55" else if (ThemeColor == "Light") then "80" else "100")}
     # Colors
     ${wc "kdeglobals" "General" "ColorScheme" ColorScheme}
     # Icons
@@ -27,7 +35,7 @@ in
     # Cursors
     ${wc "kcminputrc" "Mouse" "cursorTheme" CursorTheme}
     # Kvantum Theme
-    ${wc "Kvantum/kvantum.kvconfig" "General" "theme" kvantumTheme}
+    ${wc "Kvantum/kvantum.kvconfig" "General" "theme" KvantumTheme}
     # Splash screen
     ${wc "ksplashrc" "KSplash" "Theme" "Arch-Splash"}
 
@@ -55,132 +63,16 @@ in
     ${wc "kwinrc" "Effect-windowview" "BorderActivateClass" "7"}
     ${wc "kwinrc" "Effect-overview" "BorderActivate" "1"}
     ${wc "kwinrc" "Script-minimizeall" "BorderActivate" "3"}
+
+    ## Konsole Profile
+    ln -sf ${konsole_path}/${KonsoleProfile} ${konsole_path}/Default.profile
   '';
 
-  # gtk = {
-  #   enable = true;
-  #   theme.name = "Breeze";
-  #   font.name = "Source Han Sans SC";
-  #   cursorTheme.name = CursorTheme;
-  #   iconTheme.name = IconTheme;
-  # };
-
-  home.file = {
-    MyDarkColor = {
-      target = color "MyDark";
-      text = ''
-        [ColorEffects:Disabled]
-        Color=112,111,110
-        ColorAmount=0
-        ColorEffect=0
-        ContrastAmount=0.65
-        ContrastEffect=1
-        IntensityAmount=0.1
-        IntensityEffect=0
-
-        [ColorEffects:Inactive]
-        ChangeSelectionColor=true
-        Color=112,111,110
-        ColorAmount=0.025
-        ColorEffect=2
-        ContrastAmount=0.1
-        ContrastEffect=2
-        Enable=false
-        IntensityAmount=0
-        IntensityEffect=0
-
-        [Colors:Button]
-        BackgroundAlternate=45,57,63
-        BackgroundNormal=5,14,25
-        DecorationFocus=170,170,170
-        DecorationHover=150,150,150
-        ForegroundActive=255,128,224
-        ForegroundInactive=160,160,160
-        ForegroundLink=46,184,230
-        ForegroundNegative=240,1,1
-        ForegroundNeutral=255,221,0
-        ForegroundNormal=255,255,255
-        ForegroundPositive=128,255,128
-        ForegroundVisited=255,102,102
-
-        [Colors:Selection]
-        BackgroundAlternate=0,188,212
-        BackgroundNormal=0,188,212
-        DecorationFocus=170,170,170
-        DecorationHover=150,150,150
-        ForegroundActive=255,128,224
-        ForegroundInactive=160,160,160
-        ForegroundLink=46,184,230
-        ForegroundNegative=240,1,1
-        ForegroundNeutral=255,221,0
-        ForegroundNormal=255,255,255
-        ForegroundPositive=128,255,128
-        ForegroundVisited=255,102,102
-
-        [Colors:Tooltip]
-        BackgroundAlternate=0,0,0
-        BackgroundNormal=0,0,0
-        DecorationFocus=170,170,170
-        DecorationHover=150,150,150
-        ForegroundActive=255,128,224
-        ForegroundInactive=225,225,225
-        ForegroundLink=46,184,230
-        ForegroundNegative=240,1,1
-        ForegroundNeutral=255,221,0
-        ForegroundNormal=255,255,255
-        ForegroundPositive=128,255,128
-        ForegroundVisited=255,102,102
-
-        [Colors:View]
-        BackgroundAlternate=5,14,25
-        BackgroundNormal=5,14,25
-        DecorationFocus=170,170,170
-        DecorationHover=150,150,150
-        ForegroundActive=255,128,224
-        ForegroundInactive=160,160,160
-        ForegroundLink=46,184,230
-        ForegroundNegative=240,1,1
-        ForegroundNeutral=255,221,0
-        ForegroundNormal=255,255,255
-        ForegroundPositive=128,255,128
-        ForegroundVisited=255,102,102
-
-        [Colors:Window]
-        BackgroundAlternate=5,14,25
-        BackgroundNormal=5,14,25
-        DecorationFocus=170,170,170
-        DecorationHover=150,150,150
-        ForegroundActive=255,128,224
-        ForegroundInactive=160,160,160
-        ForegroundLink=46,184,230
-        ForegroundNegative=240,1,1
-        ForegroundNeutral=255,221,0
-        ForegroundNormal=255,255,255
-        ForegroundPositive=128,255,128
-        ForegroundVisited=255,102,102
-
-        [General]
-        ColorScheme=KvAdaptaDark
-        Name=MyDark
-        shadeSortColumn=true
-
-        [KDE]
-        contrast=0
-
-        [WM]
-        activeBackground=5,14,25
-        activeBlend=5,14,25
-        activeForeground=255,255,255
-        inactiveBackground=5,14,25
-        inactiveBlend=5,14,25
-        inactiveForeground=200,200,200
-      '';
-    };
-
-    MyLightColor = {
-      target = color "MyLight";
-      text = ''
-      '';
-   };
+  gtk = {
+    enable = true;
+    theme.name = "Breeze";
+    font.name = "Source Han Sans SC";
+    cursorTheme.name = CursorTheme;
+    iconTheme.name = IconTheme;
   };
 }

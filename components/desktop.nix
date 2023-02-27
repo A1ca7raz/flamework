@@ -1,5 +1,4 @@
 { util, ... }:
 {
-  imports = (util.importsFiles ./desktop) ++
-    [ ./baseline-apps.nix ];
+  imports = (util.importsFiles ./desktop);
 }
