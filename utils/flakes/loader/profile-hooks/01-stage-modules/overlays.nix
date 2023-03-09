@@ -13,9 +13,7 @@
       config = {
         allowUnfree = true;
       };
-      overlays = [
-        self.overlays.default
-      ] ++ (import /${path}/utils/flakes/loader/overlays.nix { inherit util path lib; });
+      overlays = import /${path}/utils/flakes/loader/overlays.nix { inherit util path lib; };
     };
   })];
 }
