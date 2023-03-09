@@ -41,7 +41,6 @@ in
       (ls "kscreen")
       (ls "kwalletd")
       (c "libaccounts-glib")
-      (ls "mime")
       (ls "networkmanagement")
       (c "plasma-nm")
       (ls "Trash")
@@ -56,7 +55,6 @@ in
       (ls "user-places.xbel")        # Dolphin 侧栏
       (c "birdtray-config.json")
       # System
-      (c "mimeapps.list")
       (c "plasmanotifyrc")
     ];
   };
