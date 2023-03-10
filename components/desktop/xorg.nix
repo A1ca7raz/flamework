@@ -15,6 +15,15 @@
 
   hardware.opengl = {
     enable = true;
+    driSupport = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      libvdpau-va-gl
+      vaapiVdpau
+    ];
+    extraPackages32 = with pkgs; with driversi686Linux; [
+      libvdpau-va-gl
+      vaapiVdpau
+    ];
   };
 }

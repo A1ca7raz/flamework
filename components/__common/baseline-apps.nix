@@ -63,6 +63,7 @@
     lsof
     vim
     dig
+    file
     whois
     expect
     iperf

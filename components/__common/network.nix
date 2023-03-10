@@ -3,6 +3,7 @@
   networking = {
     firewall.enable = false;
     firewall.checkReversePath = false;
+    nftables.enable = true;
     useDHCP = false;
     usePredictableInterfaceNames = true;
   };

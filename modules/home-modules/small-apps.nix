@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, pkgs, ... }:
 let
   c = x: ".config/" + x;
   ls = x: ".local/share/" + x;
@@ -19,5 +19,12 @@ in
     files = [
       (c "Debauchee/Barrier.conf")  # Barrier
     ];
+  };
+
+  security.wrappers.clash-verge = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_net_bind_service,cap_net_admin=+ep";
+    source = "${lib.getExe pkgs.clash-verge}";
   };
 }

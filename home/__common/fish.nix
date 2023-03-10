@@ -198,6 +198,8 @@ in
       set -U tide_virtual_env_bg_color brblack
       set -U tide_virtual_env_color cyan
       set -U tide_virtual_env_icon \ue73c
+
+      direnv hook fish | source
     '';
   };
 }

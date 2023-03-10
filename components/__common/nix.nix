@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, inputs, pkgs, ... }:
 {
   imports = [ self.nixosModules.nur ];  # Import NUR Repos
 
@@ -7,15 +7,28 @@
     optimise.automatic = true;
     gc = {
       automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
+      dates = "daily";
+      options = "--delete-older-than 2d";
     };
 
+    # nix-direnv
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
+
+    # https://github.com/NixOS/nixpkgs/issues/204292
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    # nixPath = [ "nixpkgs=${pkgs.path}" ];
+
     settings = {
-      experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" "cgroups" ];
+      experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" "cgroups" "repl-flake" ];
+      nix-path = [ "nixpkgs=${pkgs.path}" ];
       auto-allocate-uids = true;
       use-cgroups = true;
       auto-optimise-store = true;
+      builders-use-substitutes = true;
+      keep-derivations = true;
     };
   };
 

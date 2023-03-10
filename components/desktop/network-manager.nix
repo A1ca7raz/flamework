@@ -11,7 +11,7 @@
   networking.networkmanager = {
     enable = true;
     enableFccUnlock = true;
-    dns = "dnsmasq";
+    # dns = "dnsmasq";
     wifi.backend = "iwd";
     firewallBackend = "none";
   };

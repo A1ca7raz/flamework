@@ -2,16 +2,28 @@
   description = "Flamework";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    impermanence.url = "github:nix-community/impermanence";
-    flake-utils.url = "github:numtide/flake-utils";
+    # Use inputs from my NUR flake
+    nur.url = "github:a1ca7raz/nurpkgs";
+    nixpkgs.follows = "nur/nixpkgs";
+    flake-utils.follows = "nur/flake-utils";
+
+    # Other flake utils
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    # NixosModule Flakes
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
     };
     disko = {
       url = "github:nix-community/disko";
@@ -22,20 +34,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
-    spicetify-nix = {
-      url = github:the-argus/spicetify-nix;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    impermanence.url = "github:nix-community/impermanence";
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
-
-    # NUR Repos
-    nur = {
-      url = "github:a1ca7raz/nurpkgs";
-      inputs.flake-utils.follows = "flake-utils";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -49,7 +61,9 @@
         config = {
           allowUnfree = true;
         };
-        overlays =  utils.loader.overlays;
+        overlays =  utils.loader.overlays ++ [
+          inputs.nur.overlay
+        ];
       };
     in {
       legacyPackages = pkgs;

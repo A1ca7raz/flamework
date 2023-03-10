@@ -39,4 +39,29 @@
     # |kpbnombpnpcffllnianjibmpadjolanh
     # |imjoocoajfjgnabmlbgpcnpieibibhmd
   };
+
+  xdg.configFile.chromium-flags = {
+    target = "chromium-flags.conf";
+    text = ''
+      --ignore-gpu-blocklist
+      --disable-gpu-vsync
+      --enable-features=VaapiIgnoreDriverChecks
+      --enable-features=VaapiVideoEncoder
+      --enable-features=VaapiVideoDecoder
+      --enable-features=CanvasOopRasterization
+      --disable-features=UseChromeOSDirectVideoDecoder
+      --enable-accelerated-video-decode
+      --disable-gpu-driver-bug-workarounds
+      --disable-software-rasterizer
+      --disable-features=UseOzonePlatform
+      --enable-gpu-rasterization
+      --enable-gpu-compositing
+      --enable-zero-copy
+      --use-gl=desktop
+      --num-raster-threads=4
+      --enable-features=WebUIDarkMode
+      --force-dark-mode
+      --disable-gpu-driver-workarounds
+    '';
+  };
 }

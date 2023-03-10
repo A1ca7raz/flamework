@@ -5,15 +5,17 @@
   };
 
   home.packages = with pkgs; [
-    audacity
+    # audacity
     barrier
-    drawio
-    element-desktop
+    # drawio
+    # element-desktop
     fsearch
-    gimp
+    # gimp
     inkscape
     libnotify
     libqalculate
+    lm_sensors
+
     logseq
     peek
     protonup-ng
