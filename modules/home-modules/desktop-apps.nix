@@ -21,7 +21,7 @@ in
       (c "VSCodium") ".vscode-oss"      # VSCodium
       (c "wireshark")                   # WireShark
       (c "BaiduPCS-Go")                 # 百度网盘
-
+      (c "clash-verge")                 # Clash Verge
 
       # Plasma APPs
       (ls "dolphin")

@@ -23,8 +23,9 @@
     sbctl
     sops
     baidupcs-go
-    # telegram-archpatched
-    tdesktop
+    telegram-archpatched
+    # tdesktop
+    clash-verge
 
     # Yubikey Toolkits
     yubico-piv-tool
