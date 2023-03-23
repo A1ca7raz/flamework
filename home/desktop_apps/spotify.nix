@@ -26,6 +26,9 @@ in
     ];
   };
 
-  # https://github.com/macdems/yet-another-spotify-tray
-  home.packages = [ pkgs.yet-another-spotify-tray ];
+  home.packages = with pkgs; [
+    yet-another-spotify-tray    # Tray
+    sptlrx                      # Command-line Lyrics
+    playerctl
+  ];
 }

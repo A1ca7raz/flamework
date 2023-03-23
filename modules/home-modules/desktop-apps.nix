@@ -14,6 +14,7 @@ in
       (c "obs-studio")                  # OBS Studio
       (c "sops")                        # SOPS
       (c "spotify")                     # Spotify
+      (c "sptlrx")
       (ls "Steam") ".steam"             # Steam
       (ls "TelegramDesktop")            # Telegram Desktop
       ".mozilla/thunderbird"            # Thunderbird

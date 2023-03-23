@@ -5,10 +5,13 @@ let
   profile_tpl = n: ''
     [Appearance]
     AntiAliasFonts=true
-    Font=SauceCodePro Nerd Font Mono,10.5,-1,5,57,0,0,0,0,0,Medium
-    BoldIntense=false
+    BoldIntense=true
     ColorScheme=Blur ${n}
+    EmojiFont=Blobmoji,10,-1,5,50,0,0,0,0,0
+    Font=SauceCodePro Nerd Font Mono,10.5,-1,5,57,0,0,0,0,0,Medium
     UseFontLineChararacters=true
+    WordModeAttr=false
+    WordModeBrahmic=false
 
     [Cursor Options]
     CursorShape=0
@@ -32,7 +35,7 @@ let
     HistoryMode=2
 
     [Terminal Features]
-    BidiRenderingEnabled=false
+    BidiRenderingEnabled=true
     BlinkingCursorEnabled=true
     FlowControlEnabled=true
   '';

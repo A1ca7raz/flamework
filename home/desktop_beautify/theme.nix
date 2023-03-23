@@ -18,6 +18,8 @@ in
     dconf
   ];
 
+  systemd.user.sessionVariables.QT_QPA_PLATFORMTHEME = "kde";
+
   home.activation.setupTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # Application Style
     ${wc "kdeglobals" "KDE" "widgetStyle" "kvantum"}
