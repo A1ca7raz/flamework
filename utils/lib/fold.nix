@@ -1,13 +1,19 @@
 { lib, ... }:
-rec {
-  # _getListFromDir "directory/regular" /path/to/dir
+let
+  util = import ./nix.nix { inherit lib; };
+in rec {
+  # _getListFromDir "directory/regular/nix" /path/to/dir
   _getListFromDir = type: dir:
   let
     _dir = builtins.readDir dir;
   in
     lib.fold 
-      (x: y: if _dir.${x} == type
-        then [x] ++ y else y)
+      (x: y:
+        if ((type == "regular" || type == "directory") && _dir.${x} == type) ||
+          (type == "nix" && _dir.${x} == "regular" && util.isNix x)
+        then [x] ++ y
+        else y
+      )
       []
       (builtins.attrNames _dir);
 
