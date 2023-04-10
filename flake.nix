@@ -1,5 +1,5 @@
 {
-  description = "Flamework";
+  description = "Flamework 2";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -35,7 +35,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-utils ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
       SYSTEM = [ "x86_64-linux" ];
 
@@ -48,20 +48,21 @@
           config = {
             allowUnfree = true;
           };
-          overlays = [ nur.overlay ] ++ utils.loader.overlays;
         };
       in rec {
         formatter = pkgs.nixpkgs-fmt;
         devShells.default = with pkgs; mkShell { nativeBuildInputs = [ colmena nvfetcher ]; };
       }
     ) // {
-      nixosModules = utils.module // utils.loader.nixosModules // (with inputs; {
+      nixosModules = utils.modules // (with inputs; {
         sops = sops-nix.nixosModules.sops;
         impermanence = impermanence.nixosModules.impermanence;
         home = home-manager.nixosModules.home-manager;
       });
 
-      nixosConfigurations = utils.loader.profiles.nixosConfigurations;
-      colmena = utils.loader.profiles.colmena;
+      overlays.nixpkgs = final: prev: {};
+
+      nixosConfigurations = utils.profiles.nixosConfigurations;
+      colmena = utils.profiles.colmena;
     };
 }

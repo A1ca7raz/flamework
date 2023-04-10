@@ -5,6 +5,7 @@ with lib; let
     then value
     else if builtins.isAttrs value && value != {}
     then _parser value
+    else ({...}: {})
   );
 in
 lib.forEach components.use (elem:

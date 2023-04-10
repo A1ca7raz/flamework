@@ -22,21 +22,56 @@ with lib; let
 
   template_set = import /${_inc}/templates.nix args;
   passthruTpl = profile:
-    let
-      profile_args = with builtins; attrNames (functionArgs profile);
-      tpl_name = util.throwIfNot (x: (count (y: true) x) <= 1)
+    with builtins; let
+      profile_args = attrNames (functionArgs profile);
+      tpl_list = util.test (x: (count (y: true) x) > 1)
         "At most one template is expected."
-        (subtractLists (args ++ ["components" "modules"]) profile_args);
-      tpl = template_set.${tpl_name};
-
-      component_grp_content = fold (x: y: recursiveUpdate y (util.mkModuleTreeFromFiles /${component_path}/${x})) {} tpl.groups.component;
-      module_grp_content = fold (x: y: recursiveUpdate y (util.mkModuleTreeFromDirs /${module_path}/${x})) {} tpl.groups.module;
+        (subtractLists (attrNames args ++ ["components" "modules"]) profile_args);
     in
-      profile (rec {
-        components = recursiveUpdate componentTree component_grp_content;
-        modules = recursiveUpdate moduleTree module_grp_content;
-        ${tpl_name} = tpl.mkProfile { inherit components modules; };
-      } // args);
+      if count (x: true) tpl_list == 0
+      then
+        let
+          wrapNormalProfile = p:
+            let
+              _full = recursiveUpdate {
+                system = "x86_64-linux";
+                targetHost = "127.0.0.1";
+                targetPort = 22;
+                targetUser = "root";
+                components.use = {};
+                modules = {
+                  use = [];
+                  users = {};
+                  extraUsers = [];
+                };
+                extraConfiguration = null;
+              } p;
+            in
+            recursiveUpdate _full {
+              modules = {
+                homeUsers = _full.modules.extraUsers ++ [ _full.targetUser ];
+              } // (
+                if isNull _full.extraConfiguration
+                then {}
+                else {
+                  use = _full.modules.use ++ [ _full.extraConfiguration ];
+                }
+              );
+            };
+        in
+          wrapNormalProfile (profile ({ components = componentTree; modules = moduleTree; } // args))
+      else
+        let
+          tpl_name = elemAt tpl_list 0;
+          tpl = template_set.${tpl_name};
+          component_grp_content = fold (x: y: recursiveUpdate y (util.mkModuleTreeFromFiles /${component_path}/${x})) {} tpl.groups.component;
+          module_grp_content = fold (x: y: recursiveUpdate y (util.mkModuleTreeFromDirs /${module_path}/${x})) {} tpl.groups.module;
+        in
+        profile (rec {
+          components = recursiveUpdate componentTree component_grp_content;
+          modules = recursiveUpdate moduleTree module_grp_content;
+          ${tpl_name} = tpl.mkProfile { inherit components modules; };
+        } // args);
 
   mkSystem = name: {
     system,
@@ -59,7 +94,9 @@ with lib; let
         self.nixosModules.utils
         /${profile_path}/${name}/hardware-configuration.nix
         ({ ... }: {
-          imports = [ self.nixosModules.impermanence ];
+          imports = with self; with nixosModules; [
+            impermanence home
+          ];
 
           home-manager = {
             useGlobalPkgs = true;
@@ -78,6 +115,7 @@ with lib; let
       mergeLoaderHooks (
         (z: rec {
           name = x;
+          inherit (z) system;
           nixosSystem = mkSystem x z;
           modules = nixosSystem.modules;
           deployment = { inherit (z) targetHost targetPort targetUser; };

@@ -3,8 +3,7 @@
   wrapWriteConfig = pkgs:
     let
       kc = pkgs.libsForQt5.kconfig;
-    in
-    {
+    in rec {
       wc_ = file: group: key: value:
         let
           groupstr = lib.fold (x: y: ''--group "${x}" '' + y) "" group;

@@ -4,13 +4,13 @@
   targetUser = "root";
   system = "x86_64-linux";
 
-  components.groups.use = [ "" ];
+  # components.groups.use = [ "" ];
   components.groups.useDefault = true;
-  components.use = [ "" ];
+  # components.use = [ "" ];
 
-  modules.groups.use = [ "" ];
+  # modules.groups.use = [ "" ];
   modules.groups.useDefault = true;
-  modules.use = [ "" ];
+  # modules.use = [ "" ];
 
   extraConfiguration = { ... }: {
     # ...
