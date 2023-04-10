@@ -1,4 +1,4 @@
-{ util, config, lib, self, path, ... }:
+{ util, config, lib, self, path, constant, ... }:
 with lib;
 let
   cfg = config.utils.vhosts;

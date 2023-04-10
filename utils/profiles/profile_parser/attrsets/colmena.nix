@@ -1,21 +1,22 @@
-{ util, lib, self, path, inputs, ... }:
+{ util, lib, self, path, inputs, constant, ... }:
 {
   name,
   deployment,
   modules,
+  system,
   ...
 }:
 rec {
   colmena = {
     meta = {
       nixpkgs = import inputs.nixpkgs {
-        system = "x86_64-linux";
+        inherit system;
         config = {
           allowUnfree = true;
         };
-        overlays = import /${path}/utils/flakes/loader/overlays.nix { inherit util path lib; };
+        overlays = lib.mapAttrsToList (n: v: v) (lib.attrByPath ["overlays"] {} self);
       };
-      specialArgs = { inherit util self path inputs; };
+      specialArgs = { inherit util self path inputs constant; };
     };
     ${name} = {
       deployment = deployment;

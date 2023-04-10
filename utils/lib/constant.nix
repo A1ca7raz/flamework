@@ -1,7 +1,6 @@
 { lib, ... }:
-with lib; let
-  util = (import ./fold.nix { inherit lib; }) //
-    (import ./nix.nix { inherit lib; });
+let
+  util = import ./fold.nix { inherit lib; };
 in
 {
   constant = util.foldGetFile ./constant {} (x: y:
