@@ -5,8 +5,7 @@
   modules,
   system,
   ...
-}:
-rec {
+}: rec {
   colmena = {
     meta = {
       nixpkgs = import inputs.nixpkgs {

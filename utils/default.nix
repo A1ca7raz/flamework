@@ -4,13 +4,12 @@ let
 
   path = builtins.toPath ./..;
   inputs = self.inputs;
-
   util = (import ./lib) { inherit lib; };
-
-  constant = lib.recursiveUpdate (import ./lib/constant.nix { inherit lib; }).constant
-    (if (builtins.pathExists /${path}/constant.nix)
-      then (import /${path}/constant.nix)
-      else {});
+  constant = lib.recursiveUpdate (import ./lib/constant.nix { inherit lib; }).constant (
+    if (builtins.pathExists /${path}/constant.nix)
+    then (import /${path}/constant.nix)
+    else {}
+  );
 
   # Load Flake Utilities
   profiles = import ./profiles { inherit util lib self path inputs constant; };

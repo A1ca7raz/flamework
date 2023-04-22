@@ -1,14 +1,12 @@
 { util, config, lib, self, path, constant, ... }:
-with lib;
-let
+with lib; let
   cfg = config.utils.vhosts;
   vhost_path = /${path}/config/websites;
 
   vhost_list = util.foldGetFile vhost_path [] (x: y:
-      if util.isNix x
-      then [ (util.removeNix x) ] ++ y else y
-    );
-
+    if util.isNix x
+    then [ (util.removeNix x) ] ++ y else y
+  );
 in {
   options.utils.vhosts = {
     load = mkOption {

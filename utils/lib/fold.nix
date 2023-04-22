@@ -6,16 +6,14 @@ in rec {
   _getListFromDir = type: dir:
   let
     _dir = builtins.readDir dir;
-  in
-    lib.fold 
-      (x: y:
-        if ((type == "regular" || type == "directory") && _dir.${x} == type) ||
-          (type == "nix" && _dir.${x} == "regular" && util.isNix x)
-        then [x] ++ y
-        else y
-      )
-      []
-      (builtins.attrNames _dir);
+  in lib.fold 
+    (x: y:
+      if ((type == "regular" || type == "directory") && _dir.${x} == type) ||
+        (type == "nix" && _dir.${x} == "regular" && util.isNix x)
+      then [x] ++ y
+      else y
+    ) []
+    (builtins.attrNames _dir);
 
   # _fold "directory/regular" /path/to/dir {} (x: y: rec { ${x} = import ./${x}; } // y);
   # _fold "directory/regular" /path/to/dir [] (x: y: [ ./${x} ] ++ y);
@@ -24,8 +22,7 @@ in rec {
     RESERVED_WORDS = [ "default" "default.nix" ];
   in
     lib.fold xy y
-      (lib.subtractLists RESERVED_WORDS
-        (_getListFromDir type dir));
+      (lib.subtractLists RESERVED_WORDS (_getListFromDir type dir));
 
   # foldGetFile /path/to/dir {} (x: y: rec { ${x} = import ./${x}; } // y);
   # foldGetFile /path/to/dir [] (x: y: [ ./${x} ] ++ y);

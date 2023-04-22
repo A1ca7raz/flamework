@@ -2,9 +2,7 @@
 let
   secret_path = /${path}/config/secrets;
 in {
-  imports = [
-    self.nixosModules.sops
-  ];
+  imports = [ self.nixosModules.sops ];
 } // lib.optionalAttrs (builtins.pathExists secret_path) {
   sops.secrets = util.foldGetFile secret_path {}
     (x: y:
