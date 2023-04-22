@@ -7,6 +7,17 @@ with lib; let
   module_path = /${path}/modules;
   moduleTree = util.mkModuleTreeFromDirs module_path;
 
+  component_parser = import /${_inc}/components.nix args;
+  module_parser = import /${_inc}/modules.nix args;
+
+  components_common = 
+    if hasAttrByPath ["__common"] componentTree
+    then
+      component_parser {
+        use = componentTree.__common;
+      }
+    else {};
+
   # hook: args: profile:
   attrsHooks = util.importsFiles /${_inc}/attrsets;
   mergeLoaderHooks = profile: let
@@ -37,6 +48,7 @@ with lib; let
       };
       extraConfiguration = null;
     };
+    componentOptions = filterAttrs (n: v: n != "__common") componentTree;
   in
     if count (x: true) tpl_list == 0
     then
@@ -55,7 +67,7 @@ with lib; let
           );
         };
       in
-        wrapNormalProfile (profile ({ components = componentTree; modules = moduleTree; } // args))
+        wrapNormalProfile (profile ({ components = componentOptions; modules = moduleTree; } // args))
     else
       let
         tpl_name = elemAt tpl_list 0;
@@ -64,7 +76,7 @@ with lib; let
         module_grp_content = fold (x: y: recursiveUpdate y (util.mkModuleTreeFromDirs /${module_path}/${x})) {} tpl.groups.module;
       in
         profile (rec {
-          components = recursiveUpdate componentTree component_grp_content;
+          components = recursiveUpdate componentOptions component_grp_content;
           modules = recursiveUpdate moduleTree module_grp_content;
           ${tpl_name} = tpl.mkProfile { inherit components modules; };
         } // args);
@@ -80,8 +92,6 @@ with lib; let
     ...
   }@profile: let
     profile_args = profile // { inherit name; };
-    component_parser = import /${_inc}/components.nix args;
-    module_parser = import /${_inc}/modules.nix args;
   in {
     inherit system;
     specialArgs = { inherit util self path inputs constant; };
@@ -102,7 +112,8 @@ with lib; let
         };
       })
     ] ++ (component_parser components)
-      ++ (module_parser modules);
+      ++ (module_parser modules)
+      ++ components_common;
   };
 
   _profiles = fold
