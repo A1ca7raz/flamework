@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ lib, ... }@args:
 let
-  foldGetFile = ((import ./fold.nix) { inherit lib; }).foldGetFile;
+  foldGetFile = (import ./fold.nix args).foldGetFile;
 in
   (foldGetFile ./. {}
     (x: y:

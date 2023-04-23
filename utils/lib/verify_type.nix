@@ -1,4 +1,4 @@
-{ lib, ...}:
+{ lib, ... }:
 let
   _try = func: msg: try:
     lib.throwIfNot (func try) "value is a ${builtins.typeOf try} while ${msg} is expected." try;

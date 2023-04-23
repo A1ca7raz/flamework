@@ -1,7 +1,6 @@
-{ lib, ... }:
+{ lib, ... }@args:
 with lib; let
-  util = (import ./fold.nix { inherit lib; }) //
-    (import ./nix.nix { inherit lib; });
+  util = (import ./fold.nix args) // (import ./nix.nix args);
 in rec {
   _mkModuleTree = type: _path:
   let

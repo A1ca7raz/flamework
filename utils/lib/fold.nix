@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ lib, ... }@args:
 let
-  util = import ./nix.nix { inherit lib; };
+  util = import ./nix.nix args;
 in rec {
   # _getListFromDir "directory/regular/nix" /path/to/dir
   _getListFromDir = type: dir:
