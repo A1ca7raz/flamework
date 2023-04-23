@@ -1,8 +1,9 @@
 { util, lib, self, path, inputs, constant, ... }@args: modules:
-with lib; let
-  isHomeModule = x: with builtins; ! lib.mutuallyExclusive ["home"] (attrNames (functionArgs x));
-  isNormalNixosModule = x: with builtins; lib.mutuallyExclusive ["user" "home"] (attrNames (functionArgs x));
-  isSpecialNixosModule = x: with builtins; (attrNames (functionArgs x)) == ["user"];
+with lib; with builtins; let
+  isHomeModule = x: ! mutuallyExclusive ["home"] (attrNames (functionArgs x));
+  isNormalNixosModule = x: mutuallyExclusive ["user" "home"] (attrNames (functionArgs x));
+  isSpecialNixosModule = x: (attrNames (functionArgs x)) == ["user"];
+  isHybridModule = x: isAttrs x && (attrNames x) == ["homeModule" "nixosModule"];
 
   _parser = value:
     if builtins.isFunction value
@@ -19,6 +20,8 @@ with lib; let
         (elem:
           if builtins.isFunction elem
           then [ elem ]
+          else if isHybridModule elem
+          then [ elem.nixosModule elem.homeModule ]
           else if builtins.isAttrs elem && elem != {}
           then [(_recur elem)]
           else []
@@ -26,7 +29,7 @@ with lib; let
       );
 
   # modules without 'user' arg (nixosModule)
-  _filter_nixos_module = with builtins; concatMap
+  _filter_nixos_module = concatMap
     (x:
       if isNormalNixosModule x
       then [x] else []

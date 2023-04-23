@@ -13,10 +13,8 @@ with lib; let
   components_common = 
     if hasAttrByPath ["__common"] componentTree
     then
-      component_parser {
-        use = componentTree.__common;
-      }
-    else {};
+      component_parser (attrValues componentTree.__common)
+    else [];
 
   # hook: args: profile:
   attrsHooks = util.importsFiles /${_inc}/attrsets;
@@ -97,12 +95,10 @@ with lib; let
     specialArgs = { inherit util self path inputs constant; };
     modules = [
       self.nixosModules.utils
+      self.nixosModules.impermanence
+      self.nixosModules.home
       /${profile_path}/${name}/hardware-configuration.nix
       ({ ... }: {
-        imports = with self; with nixosModules; [
-          impermanence home
-        ];
-
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
@@ -111,7 +107,7 @@ with lib; let
           extraSpecialArgs = { inherit util self path inputs constant; };
         };
       })
-    ] ++ (component_parser components)
+    ] ++ (component_parser components.use)
       ++ (module_parser modules)
       ++ components_common;
   };

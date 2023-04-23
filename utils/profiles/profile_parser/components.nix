@@ -9,11 +9,13 @@ with lib; let
       else ({...}: {})
     );
 in
-lib.forEach components.use
-  (elem:
-    if builtins.isFunction elem
-    then elem
-    else if builtins.isAttrs elem && elem != {}
-    then _parser elem
-    else ({...}: {})
+flatten
+  (forEach components
+    (elem:
+      if builtins.isFunction elem
+      then elem
+      else if builtins.isAttrs elem && elem != {}
+      then _parser elem
+      else ({...}: {})
+    )
   )
