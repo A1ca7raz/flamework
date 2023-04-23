@@ -1,13 +1,20 @@
 { lib, ... }:
 let
   util = (import ./fold.nix { inherit lib; }) // (import ./nix.nix { inherit lib; });
-in {
-  importsFiles = dir: util.foldFileIfExists dir []
+in with util; {
+  importsFiles = dir: foldFileIfExists dir []
     (x: y:
-      if util.isNix x
+      if isNix x
       then [ /${dir}/${x} ] ++ y
       else y
     );
 
-  importsDirs = dir: util.foldDirIfExists dir [] (x: y: [ /${dir}/${x} ] ++ y);
+  importsFilesNotDefault = dir: foldFileIfExists dir []
+    (x: y:
+      if isNix x && ! isDefault x
+      then [ /${dir}/${x} ] ++ y
+      else y
+    );
+
+  importsDirs = dir: foldDirIfExists dir [] (x: y: [ /${dir}/${x} ] ++ y);
 }
