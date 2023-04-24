@@ -12,8 +12,7 @@ with lib; let
       X-KDE-autostart-after=panel
     '';
   };
-in
-{
+in {
   options.utils.startup = mkOption {
     type = with types; nullOr (attrsOf (str));
     default = null;

@@ -1,5 +1,5 @@
 {
-  description = "Flamework";
+  description = "Flamework 2";
 
   inputs = {
     # Use inputs from my NUR flake
@@ -32,7 +32,6 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
     };
     impermanence.url = "github:nix-community/impermanence";
     lanzaboote = {
@@ -49,40 +48,40 @@
     spicetify-nix = {
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
+      SYSTEM = [ "x86_64-linux" ];
+
       lib = nixpkgs.lib;
       utils = import ./utils lib self;
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
+    in flake-utils.lib.eachSystem SYSTEM (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
         };
-        overlays =  utils.loader.overlays ++ [
-          inputs.nur.overlay
-        ];
-      };
-    in {
-      legacyPackages = pkgs;
-
-      devShells.x86_64-linux.default = with pkgs; mkShell {
-        nativeBuildInputs = [ colmena nvfetcher ];
-      };
-
-      nixosModules = utils.module // utils.loader.nixosModules // (with inputs; {
+      in rec {
+        formatter = pkgs.nixpkgs-fmt;
+        devShells.default = with pkgs; mkShell { nativeBuildInputs = [ colmena nvfetcher ]; };
+      }
+    ) // {
+      nixosModules = utils.modules // (with inputs; {
         sops = sops-nix.nixosModules.sops;
         impermanence = impermanence.nixosModules.impermanence;
-        disko = disko.nixosModules.disko;
         home = home-manager.nixosModules.home-manager;
         lanzaboote = lanzaboote.nixosModules.lanzaboote;
         nur = inputs.nur.nixosModule;
       });
 
-      nixosConfigurations = utils.loader.profiles.nixosConfigurations;
+      overlays.nixpkgs = final: prev: {};
 
-      colmena = utils.loader.profiles.colmena;
+      nixosConfigurations = utils.profiles.nixosConfigurations;
+      colmena = utils.profiles.colmena;
     };
 }

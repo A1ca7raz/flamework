@@ -1,6 +1,7 @@
 { lib, ... }:
-{
-  isNix = x: lib.hasSuffix ".nix" x;
-  removeNix = x: lib.removeSuffix ".nix" x;
+with lib; {
+  isNix = hasSuffix ".nix";
+  isDefault = x: x == "default.nix";
+  removeNix = removeSuffix ".nix";
   addNix = x: x + ".nix";
 }

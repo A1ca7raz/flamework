@@ -4,20 +4,23 @@ let
 
   path = builtins.toPath ./..;
   inputs = self.inputs;
-  pkgs = self.outputs.legacyPackages;
-
-  util = (import ./lib) { inherit lib pkgs; };
+  util = (import ./lib) { inherit lib; };
+  constant = lib.recursiveUpdate (import ./lib/constant.nix { inherit lib; }).constant (
+    if (builtins.pathExists /${path}/constant.nix)
+    then (import /${path}/constant.nix)
+    else {}
+  );
 
   # Load Flake Utilities
-  utils_in_flake = util.foldGetDir ./flakes {}
-    (x: y: rec { ${x} = import ./flakes/${x} { inherit util lib self path inputs; };} // y );
+  profiles = import ./profiles { inherit util lib self path inputs constant; };
 
   # Load Module Utilities
-  utils_in_module = util.foldGetDir ./modules []
+  module_utils = (import ./lib/fold.nix { inherit lib; }).foldGetDir ./modules []
     (x: y: [ ./modules/${x} ] ++ y);
+in {
+  inherit constant profiles;
 
-in utils_in_flake // rec {
-  module.utils = { config, lib, util, self, path, inputs, ... }: {
-    imports = utils_in_module;
+  modules.utils = { ... }: {
+    imports = module_utils;
   };
 }
