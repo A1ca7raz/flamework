@@ -1,6 +1,6 @@
 { ... }:
 let
-  offset = "533760";
+  offset = 5066578;
 in
 {
   swapDevices = [
@@ -8,5 +8,5 @@ in
   ];
 
   boot.resumeDevice = "/dev/mapper/block";
-  boot.kernelParams = [ "resume_offset=${offset}" ];
+  boot.kernelParams = [ "resume_offset=${builtins.toString offset}" ];
 }

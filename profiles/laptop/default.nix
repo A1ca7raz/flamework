@@ -1,25 +1,21 @@
-{ self }:
+{ components, modules, ... }:
 {
   targetHost = "192.168.10.3";
   targetPort = 22;
+  targetUser = "nomad";
+  # system = "x86_64-linux";
 
-  activeModules = with self.nixosModules ; [ 
-    # v2raya
+  components.use = with components; [
+    amdcpu
+    amdgpu
+    nvme
+    binary-cache-cn
+    desktop
   ];
 
-  components = {
-    optionalComponents = [
-      "amdcpu" "amdgpu" "nvme"
-      "binary-cache-cn"
-      "desktop"
-      #"secureboot"
-    ];
-
-    blacklist = [];
-  };
-
-  homeModuleHelper.nomad = [
-    "laptop"
+  modules.use = with modules; [
+    wireshark
+    desktop
   ];
 
   extraConfiguration = { ... }: {

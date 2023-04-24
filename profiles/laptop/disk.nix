@@ -33,7 +33,7 @@ in {
     initrd.luks.devices.block = {
       device = "/dev/disk/by-label/ROOT";
       bypassWorkqueues = true;
-      crypttabExtraOpts = [ "discard" "fido2-device=auto" ];
+      crypttabExtraOpts = [ "fido2-device=auto" "discard" ];
     };
   };
 }
