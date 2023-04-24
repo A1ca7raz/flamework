@@ -5,7 +5,7 @@ let
 in rec {
   isHomeModule = x: isFunction x && ! mutuallyExclusive ["home"] (attrNames (functionArgs x));
   isNormalNixosModule = x: isFunction x && mutuallyExclusive ["user" "home"] (attrNames (functionArgs x));
-  isSpecialNixosModule = x: isFunction x && (attrNames (functionArgs x)) == ["user"];
+  isSpecialNixosModule = x: isFunction x && ! mutuallyExclusive ["user"] (attrNames (functionArgs x));
   isHybridModule = x: isAttrs x && (attrNames x) == ["homeModule" "nixosModule"];
 
   getModuleList = list:
@@ -43,12 +43,15 @@ in rec {
 
   # modules with 'user' arg (nixosModule with current username)
   filterSpecialNixosModules = users: modules:
+  let
+    wrapper = user: module: args: module args//{ inherit user; };
+  in
     concatMap
       (user:
         concatMap
           (x:
             if isSpecialNixosModule x
-            then [(util.try_func (x { inherit user; }))]
+            then [(wrapper user x)]
             else []
           ) modules
       ) users;
@@ -56,10 +59,11 @@ in rec {
   # modules with 'home' args (homeModule)
   filterHomeModules = users: modules:
   let
+    wrapper = module: args: module args//{ home = null; };
     _filtered = concatMap
       (x:
         if isHomeModule x
-        then [x] else []
+        then [(wrapper x)] else []
       ) modules;
   in
     if _filtered == []
