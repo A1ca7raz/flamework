@@ -3,9 +3,9 @@ with lib; with builtins;
 let
   util = import ./verify_type.nix args;
 in rec {
-  isHomeModule = x: ! mutuallyExclusive ["home"] (attrNames (functionArgs x));
-  isNormalNixosModule = x: mutuallyExclusive ["user" "home"] (attrNames (functionArgs x));
-  isSpecialNixosModule = x: (attrNames (functionArgs x)) == ["user"];
+  isHomeModule = x: isFunction x && ! mutuallyExclusive ["home"] (attrNames (functionArgs x));
+  isNormalNixosModule = x: isFunction x && mutuallyExclusive ["user" "home"] (attrNames (functionArgs x));
+  isSpecialNixosModule = x: isFunction x && (attrNames (functionArgs x)) == ["user"];
   isHybridModule = x: isAttrs x && (attrNames x) == ["homeModule" "nixosModule"];
 
   getModuleList = list:
