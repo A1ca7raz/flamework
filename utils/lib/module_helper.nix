@@ -5,6 +5,6 @@
   };
 
   mkPersistFilesModule = user: files: {
-    environment.persistence."/nix/persist".users.${user}.files = dirs;
+    environment.persistence."/nix/persist".users.${user}.files = files;
   };
 }
