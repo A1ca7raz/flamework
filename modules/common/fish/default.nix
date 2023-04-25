@@ -1,8 +1,7 @@
-{ pkgs, ... }:
+{ home, pkgs, ... }:
 let
   tide = pkgs.fishPlugins.tide.src;
-in
-{
+in {
   programs.fish = {
     enable = true;
     plugins = [{

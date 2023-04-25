@@ -1,4 +1,4 @@
-{ config, ... }:
+{ home, config, ... }:
 {
   programs.ssh = {
     enable = true;

@@ -14,6 +14,7 @@
   ];
 
   modules.use = with modules; [
+    common
     desktop
     user
   ];

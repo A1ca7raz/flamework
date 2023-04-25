@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ home, pkgs, ... }:
 {
   home.sessionPath = [ "$HOME/.local/bin" ];
   home.stateVersion = "23.05";
