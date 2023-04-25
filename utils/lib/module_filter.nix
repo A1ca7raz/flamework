@@ -13,6 +13,12 @@ in rec {
     _parser = value:
       if isFunction value
       then value
+      else if isHybridModule value
+      then
+        let
+          wrapHomeModule = module: other@{ home, ... }: module other;
+        in
+          [ value.nixosModule (wrapHomeModule value.homeModule) ]
       else if isAttrs value && value != {}
       then _recur value
       else null;
@@ -25,7 +31,7 @@ in rec {
         else if isHybridModule elem
         then
           let
-            wrapHomeModule = module: { home, ... }@other: module other;
+            wrapHomeModule = module: other@{ home, ... }: module other;
           in
             [ elem.nixosModule (wrapHomeModule elem.homeModule) ]
         else if isAttrs elem && elem != {}
@@ -44,7 +50,7 @@ in rec {
   # modules with 'user' arg (nixosModule with current username)
   filterSpecialNixosModules = users: modules:
   let
-    wrapper = user: module: args: module args//{ inherit user; };
+    wrapper = user: module: other@{ pkgs, ... }: module (other // { inherit user; });
   in
     concatMap
       (user:
@@ -59,7 +65,7 @@ in rec {
   # modules with 'home' args (homeModule)
   filterHomeModules = users: modules:
   let
-    wrapper = module: args: module args//{ home = null; };
+    wrapper = module: other@{ pkgs, ... }: module (other // { home = null; });
     _filtered = concatMap
       (x:
         if isHomeModule x
