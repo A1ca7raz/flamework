@@ -5,7 +5,7 @@
   fonts.fonts = with pkgs; [
     my-nerd-font-pack
 
-    corefonts
+    # corefonts
     fira-code
     fira-code-symbols
     fira-mono
@@ -25,16 +25,16 @@
     source-han-sans
     source-han-serif
     ubuntu_font_family
-    vistafonts
-    vistafonts-chs
+    # vistafonts
+    # vistafonts-chs
     wqy_microhei
   ];
 
   fonts.fontconfig = {
     defaultFonts = {
-      serif = [ "Source Han Serif SC" ];
-      sansSerif = [ "Source Han Sans SC" ];
-      monospace = [ "Source Han Mono SC" ];
+      serif = [ "Source Han Serif SC" "Blobmoji" ];
+      sansSerif = [ "Source Han Sans SC" "Blobmoji" ];
+      monospace = [ "Source Han Mono SC" "Blobmoji" ];
       emoji = [ "Blobmoji" ];
     };
     cache32Bit = true;

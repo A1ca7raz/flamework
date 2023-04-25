@@ -19,7 +19,6 @@
 
     # https://github.com/NixOS/nixpkgs/issues/204292
     registry.nixpkgs.flake = inputs.nixpkgs;
-    # nixPath = [ "nixpkgs=${pkgs.path}" ];
 
     settings = {
       experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" "cgroups" "repl-flake" ];
@@ -29,6 +28,9 @@
       auto-optimise-store = true;
       builders-use-substitutes = true;
       keep-derivations = true;
+      # Garnix
+      # substituters = [ "https://cache.garnix.io" ];
+      # trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
     };
   };
 

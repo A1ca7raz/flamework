@@ -3,7 +3,7 @@
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   boot = {
-    tmpOnTmpfs = true;
+    tmp.useTmpfs = true;
     initrd.systemd.enable = true;
     kernelParams = [
       "panic=1" "boot.panic_on_fail"              # Troubleshooting

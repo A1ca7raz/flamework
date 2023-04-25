@@ -14,8 +14,8 @@
   ];
 
   modules.use = with modules; [
-    wireshark
     desktop
+    user
   ];
 
   extraConfiguration = { ... }: {

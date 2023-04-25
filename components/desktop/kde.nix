@@ -3,13 +3,14 @@
   services.xserver.desktopManager.plasma5 = {
     enable = true;
     useQtScaling = true;
-    excludePackages = with pkgs; [
-      oxygen
-      elisa
-      khelpcenter
-      okular
-    ];
   };
+
+  environment.plasma5.excludePackages = with pkgs; [
+    oxygen
+    elisa
+    khelpcenter
+    okular
+  ];
 
   services.xserver.displayManager = {
     autoLogin.enable = true;

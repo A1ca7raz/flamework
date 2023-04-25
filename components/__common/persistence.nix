@@ -2,10 +2,6 @@
 let
   mkExist = path: if (builtins.pathExists path) then [ path ] else [];
 in {
-  imports = [
-    self.nixosModules.impermanence
-  ];
-
   environment.persistence."/nix/persist" = {
     hideMounts = true;
     directories = [

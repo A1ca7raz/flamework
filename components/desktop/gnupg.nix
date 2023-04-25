@@ -13,8 +13,4 @@
 
   services.pcscd.enable = true;
   hardware.gpgSmartcards.enable = true;
-
-  environment.persistence."/nix/persist".users.nomad.directories = [
-    ".gnupg"
-  ];
 }

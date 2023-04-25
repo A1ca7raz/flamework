@@ -11,19 +11,19 @@
     jack.enable = true;
     pulse.enable = true;
 
-    config = {
-      client = {
-        "stream.properties"."resample.quality" = 10;
-      };
-      client-rt = {
-        "stream.properties"."resample.quality" = 10;
-      };
-      jack = {
-        "stream.properties"."resample.quality" = 10;
-      };
-      pipewire-pulse = {
-        "stream.properties"."resample.quality" = 10;
-      };
-    };
+    # config = {
+    #   client = {
+    #     "stream.properties"."resample.quality" = 10;
+    #   };
+    #   client-rt = {
+    #     "stream.properties"."resample.quality" = 10;
+    #   };
+    #   jack = {
+    #     "stream.properties"."resample.quality" = 10;
+    #   };
+    #   pipewire-pulse = {
+    #     "stream.properties"."resample.quality" = 10;
+    #   };
+    # };
   };
 }

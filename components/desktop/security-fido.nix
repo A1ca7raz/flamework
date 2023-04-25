@@ -2,8 +2,7 @@
 let
   uri = "pam://oxygenlaptop";
   u2fon = { u2fAuth = true; };
-in
-{
+in {
   sops.secrets.u2f_keys.mode = "0444";
 
   security.pam = {
@@ -25,5 +24,8 @@ in
     };
   };
 
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+  services.udev.packages = with pkgs; [
+    yubikey-personalization
+    libfido2
+  ];
 }
