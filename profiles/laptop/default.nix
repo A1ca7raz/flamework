@@ -6,12 +6,14 @@
   # system = "x86_64-linux";
 
   components.use = with components; [
-    amdcpu
-    amdgpu
-    nvme
     binary-cache-cn
     desktop
-  ];
+  ] ++ (with hardware; [
+    amdcpu
+    amdgpu
+    bluetooth
+    nvme
+  ]);
 
   modules.use = with modules; [
     common

@@ -9,7 +9,7 @@ in {
   systemd.user.services.rclone_fm_secure = {
     Unit = {
       Description = "Rclone Daemon Auto mount fm_secure";
-      After = [ "sops-nix.service" ];
+      After = [ "sops-nix.service" "network-online.target" ];
     };
     Service = {
       ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${mount_path}";

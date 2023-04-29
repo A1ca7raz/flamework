@@ -11,6 +11,6 @@ in {
     steam = delay "steam -silent";
     thunderbird = delay "birdtray";
     easyeffects = delay "easyeffects --gapplication-service";
-    clash = delay' 10 "clash-verge";
+    # clash = delay' 10 "clash-verge";
   };
 }

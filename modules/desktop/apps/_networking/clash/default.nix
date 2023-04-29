@@ -1,9 +1,19 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  services.clash = {
-    enable = false;
-    package = pkgs.clash-meta;
+  modules.clash = {
+    enable = true;
+    # package = pkgs.clash-meta;
+    listen = "127.0.0.1:9090";
     configFile = "/home/nomad/.config/clash/clash.yaml";
-    enableWebUi = true;
+    extraArgs = "-m";
+    
+    webUI = {
+      enable = true;
+      package = pkgs.clash-webui-yacd;
+    };
   };
+
+  environment.persistence."/nix/persist".users.nomad.directories = [
+    ".config/clash"
+  ];
 }
