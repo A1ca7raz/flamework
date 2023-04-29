@@ -1,4 +1,4 @@
-{ self, ... }:
+{ ... }:
 let
   mountOptions = ["discard" "noatime" "nodiratime" "ssd_spread" "compress-force=zstd" "space_cache=v2"];
 
