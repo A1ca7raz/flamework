@@ -1,0 +1,20 @@
+[General]
+Geometry=\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x05\x0c\x00\x00\x01\xe4\x00\x00\x074\x00\x00\x040\x00\x00\x05\x0c\x00\x00\x02\n\x00\x00\x074\x00\x00\x040\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\x05\x0c\x00\x00\x02\n\x00\x00\x074\x00\x00\x040
+PopupAutoHide=false
+PopupAutoHideTime=30
+ReminderTime=60
+SettingsDialogXPos=1292
+SettingsDialogYPos=484
+UsePopup=true
+UseReminder=false
+UseVisualize=true
+
+[Tealist]
+Tea0 Name=大番茄
+Tea0 Time=2400
+Tea1 Name=小番茄
+Tea1 Time=1500
+Tea2 Name=小休
+Tea2 Time=300
+Tea3 Name=午休
+Tea3 Time=1800

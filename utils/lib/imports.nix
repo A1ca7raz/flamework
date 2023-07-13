@@ -10,4 +10,11 @@ in with util; {
     );
 
   importsDirs = dir: foldDirIfExists dir [] (x: y: [ /${dir}/${x} ] ++ y);
+
+  importsFilesUser = user: dir: foldFileIfExists dir []
+    (x: y:
+      if isNix x
+      then [ (other@{ pkgs, ... }: (import dir) (other // { inherit user; })) ] ++ y
+      else y
+    );
 }

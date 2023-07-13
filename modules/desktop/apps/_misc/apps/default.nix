@@ -10,6 +10,7 @@
       libnotify
       libqalculate
       lm_sensors
+      unzip-nls
 
       logseq
       qalculate-qt
@@ -19,14 +20,10 @@
     ];
   };
 
-  nixosModule = { user, lib, pkgs, ... }:
-  let
-    c = x: ".config/" + x;
-    ls = x: ".local/share/" + x;
-  in rec {
+  nixosModule = { user, util, lib, pkgs, ... }:
+  with util; {
     environment.persistence."/nix/persist".users.${user} = {
       directories = [
-        (ls "fish")                       # Fish
         (c "sops")                        # SOPS
         (c "BaiduPCS-Go")                 # 百度网盘
 
@@ -60,12 +57,12 @@
 
       files = [
         (c "bluedevilglobalrc")
-        (ls "user-places.xbel")        # Dolphin 侧栏
         # System
         (c "plasmanotifyrc")
 
         (c "Debauchee/Barrier.conf")  # Barrier
       ];
     };
+    environment.systemPackages = [ pkgs.cloudflare-warp ];
   };
 }

@@ -1,4 +1,4 @@
-{ config, options, util, lib, path, ... }:
+{ config, util, lib, path, ... }:
 with lib; let
   cfg = config.utils.startup;
 

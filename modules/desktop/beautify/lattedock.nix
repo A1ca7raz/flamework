@@ -1,9 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    (latte-dock.overrideAttrs (final: prev: {
-      postInstall = "";
-    }))
+    latte-dock-nostartup
     libsForQt5.applet-window-buttons
     libsForQt5.plasma-applet-virtual-desktop-bar
     applet-window-appmenu

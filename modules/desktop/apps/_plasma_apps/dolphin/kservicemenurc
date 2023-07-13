@@ -1,0 +1,16 @@
+[Show]
+compressfileitemaction=true
+extractfileitemaction=true
+forgetfileitemaction=true
+gdrivecontextmenuaction=true
+installFont=false
+kactivitymanagerd_fileitem_linking_plugin=false
+kdeconnectfileitemaction=true
+kompare=true
+mountisoaction=true
+plasmavaultfileitemaction=true
+runInKonsole=false
+setAsWallpaper=true
+sharefileitemaction=false
+slideshowfileitemaction=false
+tagsfileitemaction=false

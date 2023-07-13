@@ -4,9 +4,8 @@
   };
 
   nixosModule = { user, util, ... }:
-    with util; mkPersistDirsModule user [
-      ".ssh"
-      (c "autostart")
-    ];
+  with util; mkPersistDirsModule user [
+    ".ssh"
+    (c "autostart")
+  ];
 }
-

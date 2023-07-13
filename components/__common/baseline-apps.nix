@@ -54,19 +54,19 @@
 
   environment.systemPackages = with pkgs; [
     curlFull
-    wget
-    neofetch
-    screen
-    tcpdump
-    wireguard-tools
-    openssl
-    lsof
-    vim
     dig
-    file
-    whois
     expect
+    file
     iperf
+    lsof
+    neofetch
     nmap
+    openssl
+    tcpdump
+    usbutils
+    vim
+    wget
+    whois
+    wireguard-tools
   ];
 }

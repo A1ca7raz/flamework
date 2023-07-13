@@ -1,6 +1,3 @@
-#!/usr/bin/env bash
-
-#
 # This file contains a number of utilities for use by the home-manager tool and
 # the generated Home Manager activation scripts. No guarantee is made about
 # backwards or forward compatibility.

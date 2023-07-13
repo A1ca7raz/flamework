@@ -18,10 +18,12 @@
   modules.use = with modules; [
     common
     desktop
-    user
+    user.nomad
+    overlayfile
   ];
 
   extraConfiguration = { ... }: {
     networking.hostName = "oxygenlaptop";
+    environment.overlay.debug = false;
   };
 }

@@ -5,7 +5,8 @@
   users.users.root = {
     shell = pkgs.fish;
 
-    passwordFile = config.sops.secrets.rootpwd.path;
+    # passwordFile = config.sops.secrets.rootpwd.path;
+    password = "asd";
     openssh.authorizedKeys.keys = import /${path}/config/sshkeys.nix;
   };
 }

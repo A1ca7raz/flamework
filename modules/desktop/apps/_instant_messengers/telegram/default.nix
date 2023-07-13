@@ -1,6 +1,6 @@
 {
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.telegram-archpatched ];
+    home.packages = [ pkgs.telegram-desktop ];
   };
 
   nixosModule = { user, util, ... }:

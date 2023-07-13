@@ -3,7 +3,7 @@
   imports = [ ./cloudflare-warp.nix ];
 
   services.cloudflare-warp = {
-    enable = true;
+    enable = false;
     certificate = ./Cloudflare_CA.cer;
   };
 }

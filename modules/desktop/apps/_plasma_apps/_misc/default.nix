@@ -1,27 +1,31 @@
-{ home, pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    kcolorchooser
-    kdeconnect
-    krita
-  ];
+  nixosModule = { user, util, ... }:
+  with util; {
+    environment.overlay.users.${user} = {
+      klaunchrc = {
+        target = c "klaunchrc";
+        text = ''
+          [BusyCursorSettings]
+          Bouncing=false
+        '';
+      };
 
-  xdg.configFile = {
-    klaunchrc = {
-      target = "klaunchrc";
-      text = ''
-        [BusyCursorSettings]
-        Bouncing=false
-      '';
+      klipperrc = {
+        target = c "klipperrc";
+        text = ''
+          [General]
+          IgnoreImages=false
+          MaxClipItems=50
+        '';
+      };
     };
+  };
 
-    klipperrc = {
-      target = "klipperrc";
-      text = ''
-        [General]
-        IgnoreImages=false
-        MaxClipItems=50
-      '';
-    };
+  homeModule = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      kcolorchooser
+      kdeconnect
+      krita
+    ];
   };
 }

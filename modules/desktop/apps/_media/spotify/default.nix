@@ -8,8 +8,8 @@
 
     programs.spicetify = {
       enable = true;
-      theme = spicePkgs.themes.Dribbblish;
-      colorScheme = "nord-dark";
+      theme = spicePkgs.themes.Matte;
+      colorScheme = "periwinkle";
 
       enabledExtensions = with spicePkgs.extensions; [
         volumePercentage

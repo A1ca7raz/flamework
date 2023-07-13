@@ -72,34 +72,29 @@ in {
     users.groups.${cfg.group} = {};
 
     systemd = {
-      packages = with pkgs; [
-        cfg.package
-        lsof
-      ];
+      packages = [ cfg.package ];
       services.warp-svc = {
-        path = [ pkgs.lsof ];
+        path = with pkgs; [ lsof nftables ];
         after = [ "network-online.target" "systemd-resolved.service" ];
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
           StateDirectory = "cloudflare-warp";
-          User = cfg.user;
-          Umask = "0077";
-          CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_SYS_PTRACE";
-          AmbientCapabilities = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_SYS_PTRACE";
+          # User = cfg.user;
+          # Umask = "0077";
           # Hardening
-          LockPersonality = true;
-          PrivateMounts = true;
-          PrivateTmp = true;
-          ProtectControlGroups = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectProc = "invisible";
+          # LockPersonality = true;
+          # PrivateMounts = true;
+          # PrivateTmp = true;
+          # ProtectControlGroups = true;
+          # ProtectHostname = true;
+          # ProtectKernelLogs = true;
+          # ProtectKernelModules = true;
+          # ProtectKernelTunables = true;
+          # ProtectProc = "invisible";
           # Leaving on strict activates warp on plus
-          ProtectSystem = "full";
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
+          # ProtectSystem = "full";
+          # RestrictNamespaces = true;
+          # RestrictRealtime = true;
         };
       };
     };
