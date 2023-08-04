@@ -1,30 +1,30 @@
 { pkgs, ... }:
 {
-  fonts.enableDefaultFonts = false;
+  fonts.enableDefaultPackages = false;
   fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     my-nerd-font-pack
 
     # corefonts
-    fira-code
+    # fira-code
     fira-code-symbols
-    fira-mono
+    # fira-mono
     font-awesome
     hanazono
-    jetbrains-mono
+    # jetbrains-mono
     liberation_ttf
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
     noto-fonts-emoji-blob-bin
     noto-fonts-extra
-    roboto-mono
+    # roboto-mono
     sarasa-gothic
     source-code-pro
     source-han-mono
     source-han-sans
     source-han-serif
-    ubuntu_font_family
+    # ubuntu_font_family
     # vistafonts
     # vistafonts-chs
     wqy_microhei

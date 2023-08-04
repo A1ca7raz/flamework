@@ -51,7 +51,7 @@ in {
 
     # Wallpaper Plugin
     ${wcwp "FillMode" "2"}
-    ${wcwp "Provider" "bing"}
+    ${wcwp "Provider" "wcpotd"}
 
     # Latte Hold Meta Launch
     ${_wc "kwinrc" "ModifierOnlyShortcuts" "Meta" "org.kde.lattedock,/Latte,org.kde.LatteDock,activateLauncherMenu"}

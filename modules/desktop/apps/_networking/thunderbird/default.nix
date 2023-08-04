@@ -13,7 +13,18 @@
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
       birdtray
-      thunderbird
+      (thunderbird.override {
+        cfg = {
+          smartcardSupport = true;
+        };
+      })
     ];
+
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "x-scheme-handler/mailto" = "thunderbird.desktop";
+      };
+    };
   };
 }

@@ -5,6 +5,6 @@
 
   nixosModule = { user, util, ... }:
     with util; mkPersistDirsModule user [
-      (c "kingsoft") (ls "Kingsoft")
+      (c "Kingsoft") (ls "Kingsoft")
     ];
 }

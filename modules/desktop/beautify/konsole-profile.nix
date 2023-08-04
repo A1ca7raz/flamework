@@ -1,4 +1,4 @@
-{ ... }:
+{ constant, ... }:
 let
   pre = x: ".local/share/konsole/" + x;
 
@@ -145,7 +145,7 @@ in {
         ColorRandomization=false
         Description=Blur Dark
         FillStyle=Tile
-        Opacity=0.55
+        Opacity=${constant.themeColor.dark.konsoleOpacity}
         Wallpaper=
         WallpaperOpacity=1
       '';
@@ -163,7 +163,7 @@ in {
         Color=255,255,255
 
         [BackgroundFaint]
-        Color=239,240,241
+        Color=240,240,240
 
         [BackgroundIntense]
         Color=255,255,255
@@ -195,7 +195,7 @@ in {
         [Color2Intense]
         Color=28,220,154
 
-        [Color3]Breeze
+        [Color3]
         Color=246,116,0
 
         [Color3Faint]
@@ -211,7 +211,7 @@ in {
         Color=27,102,143
 
         [Color4Intense]
-        Color=61,174,233
+        Color=67,192,255
 
         [Color5]
         Color=155,89,182
@@ -223,13 +223,13 @@ in {
         Color=142,68,173
 
         [Color6]
-        Color=26,188,156
+        Color=22,160,133
 
         [Color6Faint]
         Color=24,108,96
 
         [Color6Intense]
-        Color=22,160,133
+        Color=26,188,156
 
         [Color7]
         Color=252,252,252
@@ -241,7 +241,7 @@ in {
         Color=255,255,255
 
         [Foreground]
-        Color=35,38,39
+        Color=21,21,21
 
         [ForegroundFaint]
         Color=49,54,59
@@ -255,8 +255,9 @@ in {
         ColorRandomization=false
         Description=Blur Light
         FillStyle=Tile
-        Opacity=0.8
+        Opacity=${constant.themeColor.light.konsoleOpacity}
         Wallpaper=
+        WallpaperFlipType=NoFlip
         WallpaperOpacity=1
       '';
     };

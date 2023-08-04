@@ -9,11 +9,12 @@ let
   vsc = mkApp "codium";                          # VSCode (VSCodium)
   ghostwriter = mkApp "org.kde.ghostwriter";     # Default Markdown Editor
   chromium = mkApp "chromium-browser";
+  firefox = mkApp "firefox";
   mpv = mkApp "mpv";
   vlc = mkApp "vlc";
 in {
-  xdg.mimeApps.enable = true;
   xdg.mimeApps = {
+    enable = true;
     associations.added = {
       "text/markdown" = [ ghostwriter kate vsc ];
       "application/x-zerosize" = [ kate ];
@@ -23,8 +24,11 @@ in {
       "text/markdown" = ghostwriter;
       "text/plain"    = kate;
       "video/mp4" = mpv;
-      "application/pdf" = chromium;
+      "application/pdf" = firefox;
       "application/x-zerosize" = kate;
+      "x-scheme-handler/http" = firefox;
+      "x-scheme-handler/https" = firefox;
+      "text/html" = firefox;
     };
   };
 }

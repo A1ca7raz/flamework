@@ -55,14 +55,14 @@
         (ls "qalculate")                # Qalc
       ];
 
-      files = [
-        (c "bluedevilglobalrc")
+      # files = [
+        # (c "bluedevilglobalrc")
         # System
-        (c "plasmanotifyrc")
+        # (c "plasmanotifyrc")
 
-        (c "Debauchee/Barrier.conf")  # Barrier
-      ];
+        # (c "Debauchee/Barrier.conf")  # Barrier
+      # ];
     };
-    environment.systemPackages = [ pkgs.cloudflare-warp ];
+    # environment.systemPackages = [ pkgs.cloudflare-warp ];
   };
 }

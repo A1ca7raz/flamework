@@ -9,8 +9,8 @@
       (ls "plasmashell")
       (ls "plasma")
       (ls "kwin")
-      (ls "icons")
-      ".icons"
+      # (ls "icons")
+      # ".icons"
     ];
 
     # environment.overlay = mkOverlayTree user {

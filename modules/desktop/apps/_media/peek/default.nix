@@ -1,4 +1,4 @@
 { home, pkgs, ... }:
 {
-  home.packages = [ pkgs.peek ];
+  # home.packages = [ pkgs.peek ];
 }

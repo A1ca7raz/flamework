@@ -12,11 +12,6 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-    # rust-overlay = {
-    #   url = "github:oxalica/rust-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-utils.follows = "flake-utils";
-    # };
 
     # NixosModule Flakes
     colmena = {
@@ -39,13 +34,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
-      # inputs.rust-overlay.follows = "rust-overlay";
     };
     sops-nix.follows = "nur/sops-nix";
-    # sops-nix = {
-    #   url = "github:Mic92/sops-nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     spicetify-nix = {
       url = "github:a1ca7raz/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,6 +56,7 @@
           config = {
             allowUnfree = true;
           };
+          overlays = [ inputs.nur.overlay ];
         };
       in rec {
         formatter = pkgs.nixpkgs-fmt;
@@ -79,8 +70,6 @@
         lanzaboote = lanzaboote.nixosModules.lanzaboote;
         nur = inputs.nur.nixosModule;
       });
-
-      overlays.nixpkgs = final: prev: {};
 
       nixosConfigurations = utils.profiles.nixosConfigurations;
       colmena = utils.profiles.colmena;

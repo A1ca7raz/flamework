@@ -10,7 +10,7 @@
       lmrTapButtonMap=false
       lrmTapButtonMap=true
       middleEmulation=false
-      pointerAcceleration=0
+      pointerAcceleration=-0.1
       pointerAccelerationProfileAdaptive=true
       pointerAccelerationProfileFlat=false
       tapToClick=true

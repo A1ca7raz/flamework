@@ -3,7 +3,7 @@
   programs.gnupg = {
     agent = {
       enable = true;
-      pinentryFlavor = "qt";
+      # pinentryFlavor = "qt";
       enableBrowserSocket = true;
       enableExtraSocket = true;
       enableSSHSupport = true;

@@ -31,7 +31,7 @@ in {
     ${wc "kactivitymanagerdrc" "main" "currentActivity" activityId}
 
     ## Other
-    ${wc "kdeglobals" "General" "BrowserApplication" "chromium.desktop"}
+    ${wc "kdeglobals" "General" "BrowserApplication" "firefox.desktop"}
     ${wc "kaccessrc" "ScreenReader" "Enabled" "false"}
     ${wc "kwalletrc" "Wallet" "First Use" "false"}
     # ?

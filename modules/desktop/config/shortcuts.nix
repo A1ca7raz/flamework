@@ -103,5 +103,6 @@ in {
     ${wc "systemsettings.desktop" "_launch" "Meta+S\tTools,Tools,System Settings"}
     ${wc "yakuake" "toggle-window-state" "F1,F12,打开/缩回 Yakuake"}
     ${wc "chromium-browser.desktop" "_launch" "Meta+C,none,Chromium"}
+    ${wc "firefox.desktop" "_launch" "Meta+F,none,Firefox"}
   '';
 }

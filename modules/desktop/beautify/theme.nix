@@ -1,13 +1,19 @@
-{ util, pkgs, lib, ... }:
+{ util, pkgs, lib, constant, ... }:
 let
   ThemeColor = "Light";  # Dark&Light
 
-  IconTheme      = "Tela";
-  CursorTheme    = "Bibata-Modern-Ice";
-  PlasmaTheme    = "Win11OS-light";
-  ColorScheme    = "My${ThemeColor}";
-  KvantumTheme   = "Breeze-Blur-${ThemeColor}";
-  KonsoleProfile = "${ThemeColor}.profile"; 
+  IconTheme = {
+    package = pkgs.tela-icon-theme;
+    name = "Tela-dracula-light";
+  };
+  CursorTheme = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice"; 
+  };
+  PlasmaTheme     = "Win11OS-light";
+  ColorScheme     = "My${ThemeColor}";
+  KvantumTheme    = "Breeze-Blur-${ThemeColor}";
+  KonsoleProfile  = "${ThemeColor}.profile"; 
 
   konsole_path = "$HOME/.local/share/konsole";
   wc = util.wrapWC pkgs;
@@ -17,9 +23,15 @@ in {
   home.packages = with pkgs; [
     plasma5Packages.qtstyleplugin-kvantum
     dconf
+    IconTheme.package
+    CursorTheme.package
   ];
 
-  systemd.user.sessionVariables.QT_QPA_PLATFORMTHEME = "kde";
+  qt = {
+    enable = true;
+    platformTheme = "kde";
+    style.name = "kvantum";
+  };
 
   home.activation.setupTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # Application Style
@@ -30,13 +42,19 @@ in {
     # Window decorations
     ${wc "kwinrc" "org.kde.kdecoration2" "theme" "Sierra Breeze Enhanced"}
     ${wc "kwinrc" "org.kde.kdecoration2" "library" "org.kde.sierrabreezeenhanced"}
-    ${wc "sierrabreezeenhancedrc" "Windeco" "BackgroundOpacity" (if (ThemeColor == "Dark") then "55" else if (ThemeColor == "Light") then "80" else "100")}
+    ${wc "sierrabreezeenhancedrc" "Windeco" "BackgroundOpacity" (
+      if (ThemeColor == "Dark")
+      then constant.themeColor.dark.windecoOpacity
+      else if (ThemeColor == "Light")
+      then constant.themeColor.light.windecoOpacity
+      else "100"
+    )}
     # Colors
     ${wc "kdeglobals" "General" "ColorScheme" ColorScheme}
     # Icons
-    ${wc "kdeglobals" "Icons" "Theme" IconTheme}
+    ${wc "kdeglobals" "Icons" "Theme" IconTheme.name}
     # Cursors
-    ${wc "kcminputrc" "Mouse" "cursorTheme" CursorTheme}
+    ${wc "kcminputrc" "Mouse" "cursorTheme" CursorTheme.name}
     # Kvantum Theme
     ${wc "Kvantum/kvantum.kvconfig" "General" "theme" KvantumTheme}
     # Splash screen
@@ -71,11 +89,11 @@ in {
     ln -sf ${konsole_path}/${KonsoleProfile} ${konsole_path}/Default.profile
   '';
 
-  gtk = {
-    enable = true;
-    theme.name = "Breeze";
-    font.name = "Source Han Sans SC";
-    cursorTheme.name = CursorTheme;
-    iconTheme.name = IconTheme;
-  };
+  # gtk = {
+  #   enable = true;
+  #   theme.name = "Breeze";
+  #   font.name = "Source Han Sans SC";
+  #   cursorTheme.name = CursorTheme.name;
+  #   iconTheme.name = IconTheme.name;
+  # };
 }
