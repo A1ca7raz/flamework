@@ -92,6 +92,7 @@ in {
 
     systemd.services = (folder (sum: user: files:
       let
+        next = "overlayfile-${user}-pre-mount.service";
         overlayPkg = pkgs.runCommandLocal "overlay-packfile-${user}"
           { nativeBuildInputs = with pkgs; [ coreutils ]; }
           (
@@ -137,7 +138,7 @@ in {
           unitConfig = {
             Description = "Check availablity of overlay files for ${user} and copy them";
             DefaultDependencies = "no";
-            Before = "overlayfile-${user}-pre-mount.service";
+            Before = next;
             # BindsTo = "overlayfile-${user}-pre-mount.service";
             ConditionPathExists = "!${storeLock}";
           };
@@ -149,11 +150,13 @@ in {
             ExecStop = "${getExe rmFlagScript}";
           };
 
-          wantedBy = [ "local-fs.target" ];
+          wantedBy = [ next "local-fs.target" ];
         };
 
         "overlayfile-${user}-pre-mount" =
         let
+          prev = "overlayfile-${user}-copy-check.service";
+          next = "run-overlay_files-${lib.strings.escapeC ["-"] user}.mount";
           preMountScript = pkgs.writeShellScriptBin "overlay-${user}-pre-mount" ''
             mkdir -p ${upper_dir}/${user}
             mkdir -p ${work_dir}/${user}
@@ -171,10 +174,11 @@ in {
           unitConfig = {
             Description = "Create Upperdir and Workdir for overlay files of ${user}";
             DefaultDependencies = "no";
-            Before = "run-overlay_files-${lib.strings.escapeC ["-"] user}.mount";
-            PartOf = [
-              "overlayfile-${user}-copy-check.service"
-            ];
+            Before = next;
+            ConsistsOf= next;
+            Requires = prev;
+            After = prev;
+            PartOf = prev;
           };
           
           serviceConfig = {
@@ -184,11 +188,13 @@ in {
             ExecStop = "${getExe reMountScript}";
           };
 
-          wantedBy = [ "local-fs.target" ];
+          requiredBy = [ next ];
+          wantedBy = [ next "local-fs.target" ];
         };
 
         "overlayfile-${user}-link-file" =
         let
+          prev = "run-overlay_files-${lib.strings.escapeC ["-"] user}.mount";
           linkScript = pkgs.writeShellScriptBin "overlay-${user}-link" ''
             cp -vsrfp "/run/overlay_files/${user}"/. "${config.users.users.${user}.home}"
           '';
@@ -197,14 +203,9 @@ in {
           unitConfig = {
             Description = "Link overlay files for ${user}";
             DefaultDependencies = "no";
-            After = [
-              # "overlayfile-${user}-pre-mount.service"
-              "run-overlay_files-${lib.strings.escapeC ["-"] user}.mount"
-            ];
-            # PartOf = [
-            #   "overlayfile-${user}-pre-mount.service"
-            #   "run-overlay_files-${lib.strings.escapeC ["-"] user}.mount"
-            # ];
+            After = prev;
+            PartOf = prev;
+            Requires = prev;
           };
 
           serviceConfig = {

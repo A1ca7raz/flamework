@@ -1,4 +1,4 @@
-{ pkgs, lib, util, ... }:
+{ home, pkgs, lib, util, ... }:
 let
   _wc = util.wrapWC pkgs;
   wc = _wc "sierrabreezeenhancedrc";
@@ -30,8 +30,6 @@ in {
     ${wcdeo "DrawTitleBarSeparator" "false"}
     ${wcdeo "OpaqueTitleBar" "false"}
     ${wcdeo "UnisonHovering" "false"}
-    ${mkShadow 0 "Steam"}
-    # Light 80 Dark 55
-    # ${wcdeo "BackgroundOpacity" ""}
+    ${mkShadow 0 "steam"}
   '';
 }

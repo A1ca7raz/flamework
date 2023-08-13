@@ -1,4 +1,4 @@
-{ util, lib, pkgs, constant, ... }:
+{ home, util, lib, pkgs, ... }:
 let
   wc = util.wrapWC pkgs;
 in {

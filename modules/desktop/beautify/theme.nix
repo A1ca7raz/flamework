@@ -1,4 +1,4 @@
-{ util, pkgs, lib, constant, ... }:
+{ home, util, pkgs, lib, constant, ... }:
 let
   ThemeColor = "Light";  # Dark&Light
 
