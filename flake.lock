@@ -244,13 +244,13 @@
       "locked": {
         "lastModified": 1691954698,
         "narHash": "sha256-xZxtSY8q0sMKQ/rgt7YZ5PAhke1MNyrOWi9DzevJzvM=",
-        "owner": "a1ca7raz",
+        "owner": "A1ca7raz",
         "repo": "nurpkgs",
         "rev": "87c7ae394a0c6e02c1e9224f9c480dffbdcb9c6e",
         "type": "github"
       },
       "original": {
-        "owner": "a1ca7raz",
+        "owner": "A1ca7raz",
         "repo": "nurpkgs",
         "type": "github"
       }
@@ -344,13 +344,13 @@
       "locked": {
         "lastModified": 1692087513,
         "narHash": "sha256-w5fRC+2crET0WrZXX47e+ltY6m4+95AfNG9x0mvRENM=",
-        "owner": "a1ca7raz",
+        "owner": "A1ca7raz",
         "repo": "spicetify-nix",
         "rev": "962d75d232c4c23b881d1637ceb99b7c4c3914de",
         "type": "github"
       },
       "original": {
-        "owner": "a1ca7raz",
+        "owner": "A1ca7raz",
         "repo": "spicetify-nix",
         "type": "github"
       }

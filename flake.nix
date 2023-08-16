@@ -3,7 +3,7 @@
 
   inputs = {
     # Use inputs from my NUR flake
-    nur.url = "github:a1ca7raz/nurpkgs";
+    nur.url = "github:A1ca7raz/nurpkgs";
     nixpkgs.follows = "nur/nixpkgs";
     flake-utils.follows = "nur/flake-utils";
 
@@ -37,7 +37,7 @@
     };
     sops-nix.follows = "nur/sops-nix";
     spicetify-nix = {
-      url = "github:a1ca7raz/spicetify-nix";
+      url = "github:A1ca7raz/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
