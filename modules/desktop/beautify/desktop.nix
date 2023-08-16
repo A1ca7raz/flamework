@@ -8,6 +8,8 @@ let
 
   wcd = wcl ["Containments" "25"];
   wcwp = wcl ["Containments" "25" "Wallpaper" "org.kde.potd" "General"];
+  wcwh = wcl ["Containments" "25" "Wallpaper" "net.sub-pop.kdewallhavenwallpaper" "General"];
+
 
   activityId = import /${path}/config/activity-id.nix;
 in {
@@ -47,11 +49,13 @@ in {
     ${wcd "immutability" "1"}
     ${wcd "formfactor" "0"}
     ${wcd "plugin" "org.kde.desktopcontainment"}
-    ${wcd "wallpaperplugin" "org.kde.potd"}
+    ${wcd "wallpaperplugin" "net.sub-pop.kdewallhavenwallpaper"}
 
     # Wallpaper Plugin
     ${wcwp "FillMode" "2"}
     ${wcwp "Provider" "wcpotd"}
+    ${wcwh "FillMode" "2"}
+    ${wcwh "Sorting" "random"}
 
     # Latte Hold Meta Launch
     ${_wc "kwinrc" "ModifierOnlyShortcuts" "Meta" "org.kde.lattedock,/Latte,org.kde.LatteDock,activateLauncherMenu"}

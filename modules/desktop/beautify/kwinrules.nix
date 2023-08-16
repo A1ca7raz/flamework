@@ -12,7 +12,7 @@ with util; mkOverlayModule user {
 
       [e8c3371f-314f-45f5-93d1-24fbe2d32a69]
       Description=Steam 窗口阴影
-      snoborderrule=2
+      noborderrule=2
       types=1
       wmclass=steamwebhelper steam
       wmclasscomplete=true
