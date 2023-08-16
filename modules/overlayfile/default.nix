@@ -24,7 +24,7 @@ in {
     };
 
     tempStorePath = mkOption {
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
       default = null;
       description = "A path to store overlay files which is out of Nix store";
     };
@@ -156,7 +156,7 @@ in {
         "overlayfile-${user}-pre-mount" =
         let
           prev = "overlayfile-${user}-copy-check.service";
-          next = "run-overlay_files-${lib.strings.escapeC ["-"] user}.mount";
+          next = "run-overlay_files-${strings.escapeC ["-"] user}.mount";
           preMountScript = pkgs.writeShellScriptBin "overlay-${user}-pre-mount" ''
             mkdir -p ${upper_dir}/${user}
             mkdir -p ${work_dir}/${user}
@@ -194,7 +194,7 @@ in {
 
         "overlayfile-${user}-link-file" =
         let
-          prev = "run-overlay_files-${lib.strings.escapeC ["-"] user}.mount";
+          prev = "run-overlay_files-${strings.escapeC ["-"] user}.mount";
           linkScript = pkgs.writeShellScriptBin "overlay-${user}-link" ''
             cp -vsrfp "/run/overlay_files/${user}"/. "${config.users.users.${user}.home}"
           '';
