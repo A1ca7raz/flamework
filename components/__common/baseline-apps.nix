@@ -15,7 +15,6 @@
       column_meter_modes_0 = "1 1 1 2 2";
       column_meters_1 = "RightCPUs2 CPU Tasks LoadAverage";
       column_meter_modes_1 = "1 2 2 2";
-      tree_view = 1;
     };
   };
 
