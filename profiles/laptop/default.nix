@@ -1,5 +1,8 @@
-{ components, modules, ... }:
 {
+  components,
+  modules,
+  ...
+}: {
   targetHost = "192.168.10.3";
   targetPort = 22;
   targetUser = "nomad";
@@ -18,7 +21,9 @@
 
   modules.use = with modules; [
     common
-    desktop
+    desktop_apps
+    desktop_beautify
+    desktop_config
     user.nomad
     overlayfile
   ];
