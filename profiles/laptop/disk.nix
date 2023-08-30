@@ -1,6 +1,6 @@
 { ... }:
 let
-  mountOptions = ["discard" "noatime" "nodiratime" "ssd_spread" "compress-force=zstd" "space_cache=v2"];
+  mountOptions = ["discard=async" "noatime" "nodiratime" "ssd" "compress-force=zstd" "space_cache=v2"];
 
   mkRootMount = subvol: {
     device = "/dev/mapper/block";
@@ -22,7 +22,7 @@ in {
   fileSystems."/swap" = {
     device = "/dev/mapper/block";
     fsType = "btrfs";
-    options = [ "subvol=/SWAP" "noatime" "nodiratime" "ssd_spread" "space_cache=v2" ];
+    options = [ "subvol=/SWAP" "noatime" "nodiratime" "ssd" "space_cache=v2" ];
   };
 
   fileSystems."/nix" = mkRootMount "NIX";
