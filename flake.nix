@@ -6,12 +6,7 @@
     nur.url = "github:A1ca7raz/nurpkgs";
     nixpkgs.follows = "nur/nixpkgs";
     flake-utils.follows = "nur/flake-utils";
-
-    # Other flake utils
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
+    flake-compat.follows = "nur/flake-compat";
 
     # NixosModule Flakes
     colmena = {
@@ -60,7 +55,7 @@
         };
       in rec {
         formatter = pkgs.nixpkgs-fmt;
-        devShells.default = with pkgs; mkShell { nativeBuildInputs = [ colmena nvfetcher ]; };
+        devShells.default = with pkgs; mkShell { nativeBuildInputs = [ colmena ]; };
       }
     ) // {
       nixosModules = utils.modules // (with inputs; {
