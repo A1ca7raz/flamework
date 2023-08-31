@@ -5,14 +5,17 @@
       ".mozilla/thunderbird"
       ".thunderbird"
     ])
-    (mkPersistFilesModule user [
-      (c "birdtray-config.json")
-    ])
+    (mkOverlayModule user {
+      birdtray-config = {
+        target = c "birdtray-config.json";
+        source = ./birdtray-config.json;
+      };
+    })
   ];
 
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
-      birdtray
+      birdtray-ya
       (thunderbird.override {
         cfg = {
           smartcardSupport = true;
