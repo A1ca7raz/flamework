@@ -6,5 +6,5 @@
     timeout = 0;
   };
 
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 }
