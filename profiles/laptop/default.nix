@@ -11,7 +11,7 @@
   components.use = with components; [
     binary-cache-cn
     desktop
-    # wayland
+    wayland
   ] ++ (with hardware; [
     amdcpu
     amdgpu
