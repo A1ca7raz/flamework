@@ -21,7 +21,7 @@ let
   _wc = wc_ "$HOME/.config/kscreenlockerrc" ["Greeter" "Wallpaper" "org.kde.potd" "General"];
 in {
   home.packages = with pkgs; [
-    plasma5Packages.qtstyleplugin-kvantum
+    libsForQt5.qtstyleplugin-kvantum
     dconf
     IconTheme.package
     CursorTheme.package
@@ -30,7 +30,7 @@ in {
   qt = {
     enable = true;
     platformTheme = "kde";
-    style.name = "kvantum";
+    # style.name = "kvantum";
   };
 
   home.activation.setupTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
