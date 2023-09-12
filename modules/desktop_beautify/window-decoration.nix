@@ -8,6 +8,6 @@
   };
 
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.sierra-breeze-enhanced ];
+    home.packages = [ pkgs.sierra-breeze-enhanced-wayland ];
   };
 }

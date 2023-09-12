@@ -35,7 +35,7 @@
     home.packages = with pkgs; [
       latte-dock-nostartup
       libsForQt5.applet-window-buttons
-      libsForQt5.plasma-applet-virtual-desktop-bar
+      applet-virtual-desktop-bar-wayland
       applet-window-appmenu
     ];
   };
