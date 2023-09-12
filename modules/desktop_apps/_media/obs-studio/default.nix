@@ -5,7 +5,6 @@
 
       plugins = with pkgs; with obs-studio-plugins; [
         input-overlay
-        obs-gstreamer
         obs-move-transition
         obs-multi-rtmp
         obs-pipewire-audio-capture
@@ -16,8 +15,14 @@
     };
   };
 
-  nixosModule = { user, util, ... }:
-    with util; mkPersistDirsModule user [
+  nixosModule = { user, util, config, ... }:
+  with util; {
+    environment.persistence = mkPersistDirsTree user [
       (c "obs-studio")
     ];
+
+    boot.extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
+    ];
+  };
 }
