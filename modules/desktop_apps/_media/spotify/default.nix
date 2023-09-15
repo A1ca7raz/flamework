@@ -6,18 +6,17 @@
   in {
     imports = [ spicetify-nix.homeManagerModule ];
 
-    programs.spicetify = {
+    programs.spicetify = with spicePkgs; {
       enable = true;
-      theme = spicePkgs.themes.Dribbblish;
-      colorScheme = "white";
+      theme = themes.Dribbblish;
+      colorScheme = "rosepine";
 
-      enabledExtensions = with spicePkgs.extensions; [
+      enabledExtensions = with extensions; [
         volumePercentage
         shuffle
-        powerBar
         skipOrPlayLikedSongs
       ];
-      enabledCustomApps = with spicePkgs.apps; [
+      enabledCustomApps = with apps; [
         lyrics-plus
       ];
     };
@@ -30,8 +29,8 @@
   };
 
   nixosModule = { user, util, ... }:
-    with util; mkPersistDirsModule user [
-      (c "spotify")
-      (c "sptlrx")
-    ];
+  with util; mkPersistDirsModule user [
+    (c "spotify")
+    (c "sptlrx")
+  ];
 }
