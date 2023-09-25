@@ -11,8 +11,8 @@
       libqalculate
       lm_sensors
       unzip-nls
+      p7zip
 
-      logseq
       qalculate-qt
       sbctl
       sops
@@ -51,7 +51,6 @@
         (ls "barrier")                  # Barrier
         (c "draw.io")                   # Draw.io
         (c "GIMP")                      # GIMP
-        (c "Logseq") ".logseq"          # Logseq
         (ls "qalculate")                # Qalc
       ];
 
