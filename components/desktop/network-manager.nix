@@ -15,12 +15,12 @@
 
   networking.networkmanager = {
     enable = true;
-    enableFccUnlock = true;
+    # enableFccUnlock = true; # Deprecated
     # dns = "dnsmasq";
 
     # NOTE: Use wpa_supplicant for WiFi-Direct support
     # wifi.backend = "iwd";
-    firewallBackend = "none";
+    # firewallBackend = "none"; # Deprecated
     plugins = with pkgs; [ networkmanager-openvpn ];
   };
 }
