@@ -7,6 +7,10 @@ with lib; let
     package = pkgs.clash-webui-yacd;
   };
 in {
+  environment.persistence."/nix/persist".users.nomad.directories = [
+    ".config/sing-box"
+  ];
+
   systemd.services.sing-box = optionalAttrs enable (
     with pkgs; let
     startScript = pkgs.writeShellScriptBin "sing-box-start" ''
@@ -15,7 +19,7 @@ in {
       echo "Config Path: $CONF"
       mkdir -p $CONF_DIR
 
-      ${getExe sing-box} -D $CONF_DIR -c $CONF
+      ${getExe sing-box} run -D $CONF_DIR -c $CONF
     '';
 
     caps = [
