@@ -8,7 +8,7 @@
     extraArgs = "-m";
     
     webUI = {
-      enable = true;
+      enable = false;
       package = pkgs.clash-webui-yacd;
     };
   };
