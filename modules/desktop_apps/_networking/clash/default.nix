@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   modules.clash = {
-    enable = true;
+    enable = false;
     # package = pkgs.clash-meta;
     listen = "127.0.0.1:9090";
     configFile = "/home/nomad/.config/clash/clash.yaml";
