@@ -259,11 +259,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1695753171,
-        "narHash": "sha256-LXGCu2lJkyWO2BvWdndxdEhVtNQ5ZNFHWeWTkW6C6pk=",
+        "lastModified": 1696229888,
+        "narHash": "sha256-eFKF7Gr7vJFEGQedziIC3c/B2ny922KUzkHOu5LBpMw=",
         "owner": "A1ca7raz",
         "repo": "nurpkgs",
-        "rev": "e9262ead567add1aeec0547e7e7781d6308955c5",
+        "rev": "77bfb5744df81b9b38734d05aa56063f4fd55112",
         "type": "github"
       },
       "original": {
