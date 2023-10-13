@@ -49,7 +49,7 @@ in {
     ${wcd "immutability" "1"}
     ${wcd "formfactor" "0"}
     ${wcd "plugin" "org.kde.desktopcontainment"}
-    ${wcd "wallpaperplugin" "net.sub-pop.kdewallhavenwallpaper"}
+    ${wcd "wallpaperplugin" "org.kde.image"}
 
     # Wallpaper Plugin
     ${wcwp "FillMode" "2"}
