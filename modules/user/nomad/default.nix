@@ -1,11 +1,11 @@
-{ config, path, ... }: 
-let 
+{ config, path, ... }:
+let
   user = "nomad";
 in {
   sops.secrets."${user}_pwd".neededForUsers = true;
 
   users.users.${user} = {
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "realtime" ];
     hashedPasswordFile = config.sops.secrets."${user}_pwd".path;
     openssh.authorizedKeys.keys = import /${path}/config/sshkeys.nix;
   };
