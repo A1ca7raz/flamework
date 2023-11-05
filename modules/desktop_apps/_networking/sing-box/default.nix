@@ -19,11 +19,10 @@ in {
       echo "Config Path: $CONF"
       mkdir -p $CONF_DIR
 
-      ${getExe sing-box} run -D $CONF_DIR -c $CONF
+      ${sing-box}/bin/sing-box run -D $CONF_DIR -c $CONF
     '';
 
     caps = [
-      "CAP_NET_RAW"
       "CAP_NET_ADMIN"
       "CAP_NET_BIND_SERVICE"
     ];
