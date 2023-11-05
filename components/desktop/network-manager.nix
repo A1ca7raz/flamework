@@ -19,8 +19,8 @@
     # dns = "dnsmasq";
 
     # NOTE: Use wpa_supplicant for WiFi-Direct support
-    # wifi.backend = "iwd";
+    wifi.backend = "iwd";
     # firewallBackend = "none"; # Deprecated
-    plugins = with pkgs; [ networkmanager-openvpn ];
+    # plugins = with pkgs; [ networkmanager-openvpn ];
   };
 }
