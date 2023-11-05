@@ -14,5 +14,7 @@ in {
     ${wctouchpad "ClickMethod" "2"}
     ${wctouchpad "NaturalScroll" "true"}
     ${wctouchpad "TapToClick" "true"}
+    echo '[Wayland]' >> $HOME/.config/kwinrc
+    echo 'InputMethod[$e]=/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop' >> $HOME/.config/kwinrc
   '';
 }
