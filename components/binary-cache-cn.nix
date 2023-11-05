@@ -7,8 +7,8 @@ in {
 #     (mkEduMirror "tuna.tsinghua")
     (mkEduMirror "ustc")
     (mkEduMirror "bfsu")
-    (mkEduMirror "sjtug.sjtu")
-    (mkEduMirror "nju")
+#     (mkEduMirror "sjtug.sjtu")
+#     (mkEduMirror "nju")
 
     "https://cache.nixos.org/"
   ];
