@@ -3,15 +3,18 @@
   with util; mkPersistDirsModule user [
     ".mozilla/firefox"
     ".mozilla/native-messaging-hosts"
+    (ls "tor-browser")
   ];
 
   homeModule = { pkgs, ... }: {
-    programs.firefox.enable = true;
-    programs.firefox.package = pkgs.firefox.override {
-      cfg = {
-        enablePlasmaBrowserIntegration = true;
-        smartcardSupport = true;
-      };
-    };
+    home.packages = with pkgs; [
+      (firefox.override {
+        cfg = {
+          enablePlasmaBrowserIntegration = true;
+          smartcardSupport = true;
+        };
+      })
+      tor-browser
+    ];
   };
 }
