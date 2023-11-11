@@ -9,7 +9,7 @@ in {
     keepassxc = delay10 "keepassxc";
     # telegram = delay2 "env telegram-desktop -autostart";
     yakuake = delay2 "yakuake";
-    steam = delay10 "steam -silent";
+    steam = delay' 20 "steam -silent";
     thunderbird = delay2 "birdtray";
     easyeffects = delay2 "easyeffects --gapplication-service";
   };
