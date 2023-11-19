@@ -1,10 +1,11 @@
 {
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.element-desktop ];
+    home.packages = [ pkgs.schildichat-desktop ];
   };
 
   nixosModule = { user, util, ... }:
     with util; mkPersistDirsModule user [
-      (c "Element")
+#       (c "Element")
+      (c "SchildiChat")
     ];
 }
