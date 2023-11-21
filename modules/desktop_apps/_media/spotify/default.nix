@@ -22,7 +22,6 @@
     };
 
     home.packages = with pkgs; [
-      yet-another-spotify-tray    # Tray
       sptlrx                      # Command-line Lyrics
       playerctl
     ];
