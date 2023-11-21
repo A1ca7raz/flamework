@@ -7,3 +7,7 @@ disko:
 update:
 	nix flake update
 	sudo nixos-rebuild switch --flake .#${PRF}
+
+bump:
+	git add flake.lock
+	git commit -m "Bump flake.lock"
