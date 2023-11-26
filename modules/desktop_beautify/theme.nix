@@ -8,12 +8,12 @@ let
   };
   CursorTheme = {
     package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice"; 
+    name = "Bibata-Modern-Ice";
   };
   PlasmaTheme     = "Win11OS-light";
   ColorScheme     = "My${ThemeColor}";
   KvantumTheme    = "Breeze-Blur-${ThemeColor}";
-  KonsoleProfile  = "${ThemeColor}.profile"; 
+  KonsoleProfile  = "${ThemeColor}.profile";
 
   konsole_path = "$HOME/.local/share/konsole";
   wc = util.wrapWC pkgs;
@@ -88,6 +88,8 @@ in {
     ## Konsole Profile
     ln -sf ${konsole_path}/${KonsoleProfile} ${konsole_path}/Default.profile
   '';
+
+  home.sessionVariables.GTK_USE_PORTAL = "1";
 
   # gtk = {
   #   enable = true;
