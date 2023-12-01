@@ -140,7 +140,7 @@ DialogHeight=600
 DialogWidth=800
 
 [Containments][28][Applets][56][Configuration][General]
-clockMaxHeight=17
+clockMaxHeight=16
 clockTimeFormat1=yyyy.M.'<font color="#55ff55">'d'</font>' ddd A hh:mm:'<b><font color="#dd55dd">'ss'</font></b>'
 v71Migration=true
 v72Migration=true
