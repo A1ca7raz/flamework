@@ -25,7 +25,7 @@
         parabolicThicknessMarginInfluence=1
         screenTrackerInterval=1000
         showInfoWindow=true
-        singleModeLayoutName=MyPanel
+        singleModeLayoutName=MyDock
         version=2
       '';
     };
