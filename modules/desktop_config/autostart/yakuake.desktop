@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Yakuake
+Exec=sh -c "sleep 2; exec yakuake"
+Icon=yakuake
+Type=Application
+Terminal=false
+X-DBUS-StartupType=Unique
+X-KDE-StartupNotify=false
+X-DBUS-ServiceName=org.kde.yakuake
+DBusActivatable=true

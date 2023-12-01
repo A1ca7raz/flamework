@@ -1,17 +1,16 @@
 { pkgs, ... }:
 let
-  delay' = s: x: ''sh -c "sleep ${toString s}; exec ${x}"'';
-  delay2 = delay' 2;
-  delay5 = delay' 5;
-  delay10 = delay' 10;
+  mkLink = x: {
+    target = "autostart/${x}.desktop";
+    source = ./autostart/${x}.desktop;
+  };
 in {
-  utils.startup = {
-    keepassxc = delay10 "keepassxc";
-    # telegram = delay2 "env telegram-desktop -autostart";
-    yakuake = delay2 "yakuake";
-    steam = delay' 20 "steam -silent";
-    thunderbird = delay2 "birdtray";
-    easyeffects = delay2 "easyeffects --gapplication-service";
+  xdg.configFile = {
+    autostart_birdtray = mkLink "birdtray";
+    autostart_easyeffects = mkLink "easyeffects";
+    autostart_keepassxc = mkLink "keepassxc";
+    autostart_steam = mkLink "steam";
+    autostart_yakuake = mkLink "yakuake";
   };
 
   systemd.user.services.latte-dock-autostart = with pkgs; let
