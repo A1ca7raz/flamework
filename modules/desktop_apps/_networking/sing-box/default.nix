@@ -3,13 +3,10 @@ with lib; let
   enable = true;
   configFile = "/home/nomad/.config/sing-box/config.json";
   webUi = {
-    port = 6789;
-    package = pkgs.clash-webui-yacd;
+    package = pkgs.clash-webui-yacd-meta;
   };
 in {
-  environment.persistence."/nix/persist".users.nomad.directories = [
-    ".config/sing-box"
-  ];
+  environment.persistence."/nix/persist".users.nomad.directories = [ ".config/sing-box" ];
 
   systemd.services.sing-box = optionalAttrs enable (
     with pkgs; let
@@ -54,7 +51,13 @@ in {
 
   services.lighttpd = {
     inherit enable;
-    port = webUi.port;
+    port = 80;
     document-root = "${webUi.package}/share/clash/ui";
+    extraConfig = ''server.bind = "127.0.0.88"'';
+  };
+
+  networking.hosts = {
+    "127.0.0.88" = [ "yacd.local" ];    # Yacd Dashboard
+    "127.0.0.64" = [ "singbox.local" ]; # Sing-box
   };
 }
