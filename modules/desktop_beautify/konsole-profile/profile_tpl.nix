@@ -6,7 +6,7 @@ BoldIntense=true
 ColorScheme=Blur ${n}
 EmojiFont=Blobmoji,10,-1,5,50,0,0,0,0,0
 Font=SauceCodePro Nerd Font Mono,11,-1,5,57,0,0,0,0,0,Medium
-UseFontLineChararacters=true
+UseFontLineChararacters=false
 WordModeAttr=false
 WordModeBrahmic=false
 
