@@ -4,7 +4,7 @@ Name=默认
 # Layout
 Default Layout=us
 # Default Input Method
-DefaultIM=pinyin
+DefaultIM=shuangpin
 
 [Groups/0/Items/0]
 # Name
@@ -14,13 +14,13 @@ Layout=
 
 [Groups/0/Items/1]
 # Name
-Name=pinyin
+Name=shuangpin
 # Layout
 Layout=
 
 [Groups/0/Items/2]
 # Name
-Name=shuangpin
+Name=pinyin
 # Layout
 Layout=
 
