@@ -9,6 +9,7 @@ in {
     # ${wc "kwinrc" "Effect-blur" "BlurStrength" "4"}
     # ${wc "kwinrc" "Effect-blur" "NoiseStrength" "0"}
     ${wc "kwinrc" "Plugins" "contrastEnabled" "true"}
+    ${wc "kwinrc" "Plugins" "dynamic_workspacesEnabled" "true"}
     ${wc "kwinrc" "Plugins" "kwin4_effect_eyeonscreenEnabled" "true"}
     ${wc "kwinrc" "Plugins" "kwin4_effect_windowapertureEnabled" "false"}
     ${wc "kwinrc" "Plugins" "kwin4_effect_dimscreenEnabled" "true"}

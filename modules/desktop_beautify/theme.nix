@@ -25,6 +25,7 @@ in {
     dconf
     IconTheme.package
     CursorTheme.package
+    kwin-dynamic-workspaces
   ];
 
   qt = {
