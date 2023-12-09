@@ -6,5 +6,5 @@
     timeout = 0;
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_xanmod;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_stable;
 }
