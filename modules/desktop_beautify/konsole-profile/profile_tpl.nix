@@ -32,6 +32,7 @@ TripleClickMode=0
 HistoryMode=2
 
 [Terminal Features]
+BellMode=0
 BidiRenderingEnabled=true
 BlinkingCursorEnabled=true
 FlowControlEnabled=true
