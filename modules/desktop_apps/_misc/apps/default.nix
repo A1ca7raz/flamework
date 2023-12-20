@@ -12,7 +12,7 @@
       lm_sensors
       unzip-nls
       p7zip
-
+      anki
       qalculate-qt
       sbctl
       sops
