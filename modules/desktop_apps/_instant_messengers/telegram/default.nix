@@ -1,8 +1,8 @@
 {
   homeModule = { pkgs, ... }: {
     home.packages = [
-#       pkgs.telegram-desktop
-      pkgs."64gram"
+      pkgs.telegram-desktop
+#       pkgs."64gram"
     ];
   };
 
