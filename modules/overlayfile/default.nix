@@ -93,7 +93,7 @@ in {
     systemd.services = (folder (sum: user: files:
       let
         next = "overlayfile-${user}-pre-mount.service";
-        overlayPkg = pkgs.runCommandLocal "overlay-packfile-${user}"
+        overlayPkg = pkgs.runCommand "overlay-packfile-${user}"
           { nativeBuildInputs = with pkgs; [ coreutils ]; }
           (
             (builtins.readFile ./scripts/insert_file.sh) +
@@ -106,7 +106,7 @@ in {
               '') files
             )))
           );
-      in rec {
+      in {
         "overlayfile-${user}-copy-check" =
         let
           _store = "${storePath}/${user}";
