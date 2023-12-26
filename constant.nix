@@ -1,4 +1,4 @@
-with builtins; let
+let
   mktc = { color, opacity, blur, noise ? "0" }: rec {
     inherit color;
     blur = toString blur;
