@@ -16,7 +16,7 @@ in {
 
   # users."username".modules = with self.nixosModules; [];
 
-  extraConfig = { ... }: {
-    # ...
-  };
+  # extraConfig = { ... }: {
+  #   # ...
+  # };
 }
