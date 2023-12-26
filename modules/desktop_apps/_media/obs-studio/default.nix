@@ -15,14 +15,14 @@
     };
   };
 
-  nixosModule = { user, util, config, ... }:
-  with util; {
-    environment.persistence = mkPersistDirsTree user [
-      (c "obs-studio")
-    ];
+  nixosModule = { user, tools, config, ... }:
+    with tools; {
+      environment.persistence = mkPersistDirsTree user [
+        (c "obs-studio")
+      ];
 
-    boot.extraModulePackages = with config.boot.kernelPackages; [
-      v4l2loopback
-    ];
-  };
+      boot.extraModulePackages = with config.boot.kernelPackages; [
+        v4l2loopback
+      ];
+    };
 }

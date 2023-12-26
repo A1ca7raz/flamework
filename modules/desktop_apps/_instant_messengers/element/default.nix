@@ -3,8 +3,8 @@
     home.packages = [ pkgs.element-desktop ];
   };
 
-  nixosModule = { user, util, ... }:
-    with util; mkPersistDirsModule user [
+  nixosModule = { user, tools, ... }:
+    with tools; mkPersistDirsModule user [
       (c "Element")
     ];
 }

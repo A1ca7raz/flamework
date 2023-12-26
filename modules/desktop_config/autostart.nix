@@ -13,23 +13,24 @@ in {
     autostart_yakuake = mkLink "yakuake";
   };
 
-  systemd.user.services.latte-dock-autostart = with pkgs; let
-    lattePackage = latte-dock-nostartup;
-  in {
-    Unit = {
-      Description = "Keep latte alive";
-      After = "graphical-session.target";
-      PartOf = "graphical-session.target";
+  systemd.user.services.latte-dock-autostart =
+    with pkgs; let
+      lattePackage = latte-dock-nostartup;
+    in {
+      Unit = {
+        Description = "Keep latte alive";
+        After = "graphical-session.target";
+        PartOf = "graphical-session.target";
+      };
+      Service = {
+        ExecStop = "${procps}/bin/pkill latte";
+        ExecStart = "${lattePackage}/bin/latte-dock";
+        Type = "idle";
+        Restart = "on-failure";
+        Slice = "app.slice";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
     };
-    Service = {
-      ExecStop = "${procps}/bin/pkill latte";
-      ExecStart = "${lattePackage}/bin/latte-dock";
-      Type = "idle";
-      Restart = "on-failure";
-      Slice = "app.slice";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
 }

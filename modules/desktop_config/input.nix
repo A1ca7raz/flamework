@@ -1,7 +1,7 @@
-{ util, lib, pkgs, ... }:
-let
-  wc = util.wrapWC pkgs "kcminputrc";
-  wc_ = util.wrapWC_ pkgs "$HOME/.config/kcminputrc";
+{ lib, tools, pkgs, ... }:
+with tools; let
+  wc = wrapWC pkgs "kcminputrc";
+  wc_ = wrapWC_ pkgs "$HOME/.config/kcminputrc";
   wctouchpad = wc_ ["Libinput" "1739" "52781" "MSFT0004:00 06CB:CE2D Touchpad"];
   wcmouse = x: wc_ (["Libinput"] ++ x) "PointerAccelerationProfile" "1";
 in {

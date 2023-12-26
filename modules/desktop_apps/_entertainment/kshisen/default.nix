@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, util, ... }:
-    with util; mkPersistFilesModule user [
+  nixosModule = { user, tools, ... }:
+    with tools; mkPersistFilesModule user [
       (c "kshisenrc")
     ];
 

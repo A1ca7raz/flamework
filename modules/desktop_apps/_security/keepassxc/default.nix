@@ -1,31 +1,31 @@
 {
-  nixosModule = { user, util, ... }:
-  with util; mkOverlayModule user {
-    keepassxc_ini = {
-      target = c "keepassxc/keepassxc.ini";
-      text = ''
-        [General]
-        MinimizeAfterUnlock=true
-        UseAtomicSaves=false
+  nixosModule = { user, tools, ... }:
+    with tools; mkOverlayModule user {
+      keepassxc_ini = {
+        target = c "keepassxc/keepassxc.ini";
+        text = ''
+          [General]
+          MinimizeAfterUnlock=true
+          UseAtomicSaves=false
 
-        [Browser]
-        CustomProxyLocation=
-        Enabled=true
+          [Browser]
+          CustomProxyLocation=
+          Enabled=true
 
-        [GUI]
-        Language=zh_CN
-        MinimizeOnClose=true
-        MinimizeToTray=true
-        ApplicationTheme=classic
-        MonospaceNotes=true
-        ShowTrayIcon=true
-        TrayIconAppearance=monochrome-light
+          [GUI]
+          Language=zh_CN
+          MinimizeOnClose=true
+          MinimizeToTray=true
+          ApplicationTheme=classic
+          MonospaceNotes=true
+          ShowTrayIcon=true
+          TrayIconAppearance=monochrome-light
 
-        [Security]
-        EnableCopyOnDoubleClick=true
-      '';
+          [Security]
+          EnableCopyOnDoubleClick=true
+        '';
+      };
     };
-  };
 
   homeModule = { pkgs, ... }: {
     home.packages = [ pkgs.keepassxc ];

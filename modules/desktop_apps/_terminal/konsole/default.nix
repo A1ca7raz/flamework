@@ -1,5 +1,5 @@
-{ user, util, ... }:
-with util; mkOverlayModule user {
+{ user, tools, ... }:
+with tools; mkOverlayModule user {
   konsolerc = {
     source = ./konsolerc;
     target = c "konsolerc";

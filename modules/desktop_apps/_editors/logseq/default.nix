@@ -3,8 +3,8 @@
     home.packages = [ pkgs.logseq ];
   };
 
-  nixosModule = { user, util, ... }: {
-    environment.persistence = with util; mkPersistDirsTree user [
+  nixosModule = { user, tools, ... }: {
+    environment.persistence = with tools; mkPersistDirsTree user [
       (c "Logseq") ".logseq"
     ];
     nixpkgs.config.permittedInsecurePackages = [

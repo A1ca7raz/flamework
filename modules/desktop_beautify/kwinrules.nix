@@ -1,5 +1,5 @@
-{ util, user, ... }:
-with util; mkOverlayModule user {
+{ tools, user, ... }:
+with tools; mkOverlayModule user {
   kwinrules = {
     target = c "kwinrulesrc";
     source = ./kwinrulesrc;

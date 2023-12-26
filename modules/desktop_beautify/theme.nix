@@ -1,5 +1,5 @@
-{ home, util, pkgs, lib, constant, ... }:
-let
+{ home, pkgs, tools, ... }:
+with tools; let
   ThemeColor = "Light";  # Dark&Light
 
   IconTheme = {
@@ -16,8 +16,8 @@ let
   KonsoleProfile  = "${ThemeColor}.profile";
 
   konsole_path = "$HOME/.local/share/konsole";
-  wc = util.wrapWC pkgs;
-  wc_ = util.wrapWC_ pkgs;
+  wc = wrapWC pkgs;
+  wc_ = wrapWC_ pkgs;
   _wc = wc_ "$HOME/.config/kscreenlockerrc" ["Greeter" "Wallpaper" "org.kde.potd" "General"];
 in {
   home.packages = with pkgs; [

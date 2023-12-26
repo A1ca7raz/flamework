@@ -1,4 +1,4 @@
-{ config, pkgs, path, ... }:
+{ pkgs, path, ... }:
 {
   sops.secrets.rootpwd.neededForUsers = true;
 

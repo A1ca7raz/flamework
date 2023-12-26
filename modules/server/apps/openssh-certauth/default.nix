@@ -1,6 +1,5 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
+{ config, lib, ... }:
+with lib; let
   cfg = config.services.openssh.certAuth;
 in {
   options.services.openssh.certAuth = {

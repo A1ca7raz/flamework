@@ -1,5 +1,5 @@
-{ util, user, ... }:
-with util; let
+{ tools, user, ... }:
+with tools; let
   mk = x: {
     source = ./color-scheme/${x}.colors;
     target = ".local/share/color-schemes/${x}.colors";

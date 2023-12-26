@@ -1,5 +1,5 @@
 { user, pkgs, ... }:
-rec {
+{
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark-qt;

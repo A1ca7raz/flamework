@@ -1,17 +1,17 @@
 {
-  nixosModule = { user, util, lib, ... }:
-  with util; lib.mkMerge [
-    (mkPersistDirsModule user [
-      ".mozilla/thunderbird"
-      ".thunderbird"
-    ])
-    (mkOverlayModule user {
-      birdtray-config = {
-        target = c "birdtray-config.json";
-        source = ./birdtray-config.json;
-      };
-    })
-  ];
+  nixosModule = { user, tools, lib, ... }:
+    with tools; lib.mkMerge [
+      (mkPersistDirsModule user [
+        ".mozilla/thunderbird"
+        ".thunderbird"
+      ])
+      (mkOverlayModule user {
+        birdtray-config = {
+          target = c "birdtray-config.json";
+          source = ./birdtray-config.json;
+        };
+      })
+    ];
 
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [

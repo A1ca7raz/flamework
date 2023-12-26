@@ -4,7 +4,6 @@
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
     my-nerd-font-pack
-#     nerdfonts
 
     fira-code-symbols
     font-awesome

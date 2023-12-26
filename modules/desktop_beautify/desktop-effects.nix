@@ -1,6 +1,6 @@
-{ home, util, lib, pkgs, ... }:
+{ home, tools, lib, pkgs, ... }:
 let
-  wc = util.wrapWC pkgs;
+  wc = tools.wrapWC pkgs;
 in {
   home.activation.setupDesktopEffects = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${wc "kwinrc" "Plugins" "blurEnabled" "true"}

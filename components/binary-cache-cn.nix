@@ -4,7 +4,6 @@ let
   mkEduMirror = x: mkMirror "mirrors.${x}.edu.cn";
 in {
   nix.settings.substituters = [
-#     (mkEduMirror "tuna.tsinghua")
     (mkEduMirror "ustc")
     (mkEduMirror "bfsu")
 #     (mkEduMirror "sjtug.sjtu")

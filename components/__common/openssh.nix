@@ -1,4 +1,4 @@
-{ pkgs, lib, path, ... }:
+{ ... }:
 {
   services.openssh = {
     enable = true;
@@ -14,11 +14,5 @@
         type = "rsa";
       }
     ];
-
-    # certAuth = lib.optionalAttrs (builtins.pathExists /etc/ssh/ssh_host_ed25519_key-cert.pub) {
-    #   enable = true;
-    #   hostCertificate = "/etc/ssh/ssh_host_ed25519_key-cert.pub";
-    #   userCAKey = "/etc/ssh/CA_User_key.pub";
-    # };
   };
 }

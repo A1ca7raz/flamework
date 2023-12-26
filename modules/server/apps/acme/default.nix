@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 with lib;
 let
   cfg = config.certificate;
@@ -23,16 +23,16 @@ in {
 
     security.acme.acceptTerms = true;
     
-    security.acme.certs = fold (x: y: rec {
-        "${x}" = {
-          domain = "*.${x}";
-          email = "abuse@pwd.moe";
-          keyType = "ec384";
-          dnsPropagationCheck = true;
-          dnsProvider = "cloudflare";
-          credentialsFile = "${config.sops.secrets.acme.path}";
-          group = "nginx";
-        };
-      } // y) {} cfg.domains;
+    security.acme.certs = fold (x: y: {
+      "${x}" = {
+        domain = "*.${x}";
+        email = "abuse@pwd.moe";
+        keyType = "ec384";
+        dnsPropagationCheck = true;
+        dnsProvider = "cloudflare";
+        credentialsFile = "${config.sops.secrets.acme.path}";
+        group = "nginx";
+      };
+    } // y) {} cfg.domains;
   };
 }

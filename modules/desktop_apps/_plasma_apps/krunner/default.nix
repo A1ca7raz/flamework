@@ -1,5 +1,5 @@
-{ user, util, ... }:
-with util; mkOverlayModule user {
+{ user, tools, ... }:
+with tools; mkOverlayModule user {
   krunnerrc = {
     source = ./krunnerrc;
     target = c "krunnerrc";

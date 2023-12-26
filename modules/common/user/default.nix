@@ -1,5 +1,5 @@
 { pkgs, user, ... }:
-rec {
+{
   users.users.${user} = {
     isNormalUser = true;
     shell = pkgs.fish;

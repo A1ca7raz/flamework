@@ -7,8 +7,8 @@
   };
 
 
-  nixosModule = { user, util, ... }:
-    with util; mkPersistDirsModule user [
+  nixosModule = { user, tools, ... }:
+    with tools; mkPersistDirsModule user [
       (c "VSCodium")
       ".vscode-oss"
     ];

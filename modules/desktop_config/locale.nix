@@ -1,6 +1,6 @@
-{ util, lib, pkgs, ... }:
+{ tools, lib, pkgs, ... }:
 let
-  wc = util.wrapWC pkgs;
+  wc = tools.wrapWC pkgs;
 in {
   home.activation.setupLocale = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${wc "plasma-localerc" "Formats" "LANG" "zh_CN.UTF-8"}

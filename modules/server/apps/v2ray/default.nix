@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 {
   sops.secrets.v2ray.restartUnits = ["v2ray.service"];
 

@@ -1,6 +1,6 @@
-{ util, lib, path, pkgs, ... }:
+{ lib, tools, path, pkgs, ... }:
 let
-  wc = util.wrapWC pkgs;
+  wc = tools.wrapWC pkgs;
   activityId = import /${path}/config/activity-id.nix;
 in {
   home.activation.setupSystem = lib.hm.dag.entryAfter ["writeBoundary"] ''

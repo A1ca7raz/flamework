@@ -1,9 +1,9 @@
 {
-  nixosModule = { pkgs, util, user, ... }: {
+  nixosModule = { pkgs, tools, user, ... }: {
     virtualisation.waydroid.enable = true;
 
     environment.systemPackages = [ pkgs.wl-clipboard ];
-    environment.persistence = with util; mkPersistDirsTree user [
+    environment.persistence = with tools; mkPersistDirsTree user [
       (ls "waydroid")
     ];
   };

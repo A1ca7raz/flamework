@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, util, ... }:
-    with util; {
+  nixosModule = { user, tools, ... }:
+    with tools; {
       environment = {
         persistence = mkPersistDirsTree user [
           (ls "ghostwriter")

@@ -12,7 +12,7 @@
     };
   };
 
-  nixosModule = { user, util, ... }: {
+  nixosModule = { user, ... }: {
     programs.steam.enable = true;
     environment.persistence."/nix/persist".users.${user}.directories = [
       ".local/share/Steam"

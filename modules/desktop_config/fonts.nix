@@ -1,6 +1,6 @@
-{ util, lib, pkgs, ... }:
-let 
-  wc = util.wrapWC pkgs;
+{ lib, tools, pkgs, ... }:
+let
+  wc = tools.wrapWC pkgs;
 in {
   home.activation.setupFonts = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${wc "kdeglobals" "General" "font" "Source Han Sans SC,10,-1,5,50,0,0,0,0,0"}

@@ -1,5 +1,5 @@
-{ user, util, ... }:
-with util; mkPersistDirsModule user [
+{ user, tools, ... }:
+with tools; mkPersistDirsModule user [
   (c "Kvantum")
   (c "latte")
   (ls "latte")

@@ -1,6 +1,6 @@
-{ util, lib, pkgs, ... }:
+{ tools, lib, pkgs, ... }:
 let
-  wc = util.wrapWC pkgs;
+  wc = tools.wrapWC pkgs;
 in {
   home.activation.setupKwinWindow = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ## Screen Edge Actions

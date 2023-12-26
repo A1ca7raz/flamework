@@ -1,6 +1,6 @@
-{ util, lib, pkgs, ... }:
+{ lib, tools, pkgs, ... }:
 let
-  wc = util.wrapWC pkgs;
+  wc = tools.wrapWC pkgs;
 in {
   home.activation.setupScreen = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${wc "kdeglobals" "KScreen" "ScaleFactor" "1.0625"}

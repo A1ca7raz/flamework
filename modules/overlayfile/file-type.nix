@@ -2,7 +2,7 @@
 # https://github.com/nix-community/home-manager/blob/master/modules/lib/file-type.nix
 let
   inherit (lib) hasPrefix literalExpression mkDefault mkIf mkOption removePrefix types;
-  storeFileName = (import ./lib.nix { inherit lib; }).storeFileName;
+  inherit (import ./lib.nix { inherit lib; }) storeFileName;
 in
 types.attrsOf (types.submodule (
   { name, config, ... }: {

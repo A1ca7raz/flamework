@@ -1,11 +1,11 @@
 {
-  homeModule = { util, ... }: {
-    imports = util.importsFiles ./.;
+  homeModule = { tools, ... }: {
+    imports = tools.importsFiles ./.;
   };
 
-  nixosModule = { user, util, ... }:
-  with util; mkPersistDirsModule user [
-    ".ssh"
-    (c "autostart")
-  ];
+  nixosModule = { user, tools, ... }:
+    with tools; mkPersistDirsModule user [
+      ".ssh"
+      (c "autostart")
+    ];
 }

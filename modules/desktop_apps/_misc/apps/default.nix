@@ -20,48 +20,39 @@
     ];
   };
 
-  nixosModule = { user, util, lib, pkgs, ... }:
-  with util; {
-    environment.persistence."/nix/persist".users.${user} = {
-      directories = [
-        (c "sops")                        # SOPS
-        (c "BaiduPCS-Go")                 # 百度网盘
+  nixosModule = { user, tools, pkgs, ... }:
+    with tools; {
+      environment.persistence."/nix/persist".users.${user} = {
+        directories = [
+          (c "sops")                        # SOPS
+          (c "BaiduPCS-Go")                 # 百度网盘
 
-        # Plasma APPs
-        (c "kdeconnect")
-        (ls "krita")
+          # Plasma APPs
+          (c "kdeconnect")
+          (ls "krita")
 
-        # System
-        (ls "applications")
-        (ls "gvfs-metadata")
-        (ls "kactivitymanagerd")
-        (ls "kcookiejar")
-        (ls "kded5")
-        (ls "keyrings")
-        (ls "klipper")
-        (ls "kscreen")
-        (ls "kwalletd")
-        (c "libaccounts-glib")
-        (ls "networkmanagement")
-        (c "plasma-nm")
-        (ls "Trash")
-        (ls "vulkan")
-        ".local/state/wireplumber"
+          # System
+          (ls "applications")
+          (ls "gvfs-metadata")
+          (ls "kactivitymanagerd")
+          (ls "kcookiejar")
+          (ls "kded5")
+          (ls "keyrings")
+          (ls "klipper")
+          (ls "kscreen")
+          (ls "kwalletd")
+          (c "libaccounts-glib")
+          (ls "networkmanagement")
+          (c "plasma-nm")
+          (ls "Trash")
+          (ls "vulkan")
+          ".local/state/wireplumber"
 
-        (ls "barrier")                  # Barrier
-        (c "draw.io")                   # Draw.io
-        (c "GIMP")                      # GIMP
-        (ls "qalculate")                # Qalc
-      ];
-
-      # files = [
-        # (c "bluedevilglobalrc")
-        # System
-        # (c "plasmanotifyrc")
-
-        # (c "Debauchee/Barrier.conf")  # Barrier
-      # ];
+          (ls "barrier")                  # Barrier
+          (c "draw.io")                   # Draw.io
+          (c "GIMP")                      # GIMP
+          (ls "qalculate")                # Qalc
+        ];
+      };
     };
-    # environment.systemPackages = [ pkgs.cloudflare-warp ];
-  };
 }

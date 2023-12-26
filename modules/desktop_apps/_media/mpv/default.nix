@@ -5,28 +5,28 @@
   # https://github.com/LunNova/nixos-configs/blob/dev/packages/svpflow/default.nix
 
   homeModule = { pkgs, ... }:
-  with pkgs; let
-    scripts =  with mpvScripts; [
-      mpris                 # Mpris
-      thumbfast             # On-the-fly Thumbnail
-      uosc                  # Feature-rich UI
-      autoload
-      # mpv-playlistmanager   # Playlist
+    with pkgs; let
+      scripts =  with mpvScripts; [
+        mpris                 # Mpris
+        thumbfast             # On-the-fly Thumbnail
+        uosc                  # Feature-rich UI
+        autoload
+        # mpv-playlistmanager   # Playlist
+      ];
+
+      # mpvUnwrapped = mpv-unwrapped;
+      mpvUnwrapped = mpv-unwrapped.override { vapoursynthSupport = true; };
+      mpvPackage = wrapMpv mpvUnwrapped { inherit scripts; };
+    in {
+      home.packages = [ mpvPackage ];
+      # programs.mpv = {
+      #   enable = true;
+      #   package = pkgs.mpv.override { vapoursynthSupport = true; };  
+      # };
+    };
+
+  nixosModule = { user, tools, ... }:
+    with tools; mkPersistDirsModule user [
+      (c "mpv")
     ];
-
-    # mpvUnwrapped = mpv-unwrapped;
-    mpvUnwrapped = mpv-unwrapped.override { vapoursynthSupport = true; };
-    mpvPackage = wrapMpv mpvUnwrapped { inherit scripts; };
-  in {
-    home.packages = [ mpvPackage ];
-    # programs.mpv = {
-    #   enable = true;
-    #   package = pkgs.mpv.override { vapoursynthSupport = true; };  
-    # };
-  };
-
-  nixosModule = { user, util, ... }:
-  with util; mkPersistDirsModule user [
-    (c "mpv")
-  ];
 }

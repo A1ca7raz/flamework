@@ -1,6 +1,6 @@
-{ util, lib, pkgs, ... }:
+{ lib, tools, pkgs, ... }:
 let
-  wc = util.wrapWC pkgs "kglobalshortcutsrc";
+  wc = tools.wrapWC pkgs "kglobalshortcutsrc";
 in {
   home.activation.setupShortcuts = lib.hm.dag.entryAfter ["writeBoundary"] ''
     ${wc "kaccess" "Toggle Screen Reader On and Off" "none,Meta+Alt+S,切换屏幕阅读器开关"}

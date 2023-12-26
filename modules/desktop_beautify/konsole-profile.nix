@@ -1,11 +1,10 @@
-{ user, util, constant, ... }:
-with util; let
+{ user, tools, ... }:
+with tools; let
   t = x: ".local/share/konsole/${x}";
 
   path = ./konsole-profile;
   profile_tpl = import /${path}/profile_tpl.nix;
-in
-mkOverlayModule user {
+in mkOverlayModule user {
   konsole_profile_dark = {
     text = profile_tpl "Dark";
     target = t "Dark.profile";

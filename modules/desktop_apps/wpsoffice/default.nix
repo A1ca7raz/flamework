@@ -3,8 +3,8 @@
     home.packages = [ pkgs.wpsoffice ];
   };
 
-  nixosModule = { user, util, ... }:
-    with util; mkPersistDirsModule user [
+  nixosModule = { user, tools, ... }:
+    with tools; mkPersistDirsModule user [
       (c "Kingsoft") (ls "Kingsoft")
     ];
 }

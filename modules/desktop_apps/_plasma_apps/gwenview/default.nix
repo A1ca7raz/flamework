@@ -1,22 +1,22 @@
 {
-  nixosModule = { util, user, ... }:
-  with util; {
-    environment.overlay.users.${user}.gwenviewrc = {
-      target = c "gwenviewrc";
-      text = ''
-        [ImageView]
-        AnimationMethod=DocumentView::GLAnimation
-        EnlargeSmallerImages=true
-        MouseWheelBehavior=MouseWheelBehavior::Zoom
+  nixosModule = { tools, user, ... }:
+    with tools; {
+      environment.overlay.users.${user}.gwenviewrc = {
+        target = c "gwenviewrc";
+        text = ''
+          [ImageView]
+          AnimationMethod=DocumentView::GLAnimation
+          EnlargeSmallerImages=true
+          MouseWheelBehavior=MouseWheelBehavior::Zoom
 
-        [MainWindow]
-        State=AAAA/wAAAAD9AAAAAAAAAk4AAAHgAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAAAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgMAAAAA/////wAAAAAAAAAA
+          [MainWindow]
+          State=AAAA/wAAAAD9AAAAAAAAAk4AAAHgAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAAAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgMAAAAA/////wAAAAAAAAAA
 
-        [MainWindow][Toolbar mainToolBar]
-        ToolButtonStyle=IconOnly
-      '';
+          [MainWindow][Toolbar mainToolBar]
+          ToolButtonStyle=IconOnly
+        '';
+      };
     };
-  };
 
   homeModule = { pkgs, ... }: {
     home.packages = [ pkgs.gwenview ];

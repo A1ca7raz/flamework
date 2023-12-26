@@ -1,9 +1,9 @@
 {
-  nixosModule = { util, user, ... }:
-  with util; mkPersistDirsModule user [
-    ".mozilla/firefox"
-    (ls "tor-browser")
-  ];
+  nixosModule = { tools, user, ... }:
+    with tools; mkPersistDirsModule user [
+      ".mozilla/firefox"
+      (ls "tor-browser")
+    ];
 
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
