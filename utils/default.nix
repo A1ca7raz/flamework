@@ -3,7 +3,7 @@ let
   path = builtins.toPath ./..;
   inputs = self.inputs;
   tools = import ./lib lib;
-  
+
   moduleRegistry = import ./registry.nix;
   moduleScanner = new: sum:
     if new.type == "dir"
@@ -12,11 +12,6 @@ let
     then { ${new.name} = tools.mkModuleTreeFromFiles /${path}/${new.path}; } // sum
     else sum;
 in {
-  constant = lib.recursiveUpdate (import ./lib/constant.nix lib).constant (
-    if (builtins.pathExists /${path}/constant.nix)
-    then (import /${path}/constant.nix)
-    else {}
-  );
 
   # Load Flake Utilities
   profiles = import ./profiles { inherit self path inputs lib tools; };

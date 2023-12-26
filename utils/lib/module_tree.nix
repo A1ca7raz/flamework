@@ -22,7 +22,7 @@ in rec {
           then { name = removeNix n; value = import /${path}/${n}; }
           # 目录型模块，声明读取文件型模块
           else if (v == "directory" && hasDefault /${path}/${n} && (import /${path}/${n}/default.nix) == {})
-          then { name = n; value = foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n}); }
+          then { name = n; value = (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})) // { "__isModuleSet__" = true; }; }
           # 目录型模块
           else if v == "directory" && type == "dir" && hasDefault /${path}/${n}
           then { name = n; value = import /${path}/${n}; }
