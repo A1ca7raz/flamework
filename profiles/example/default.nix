@@ -1,21 +1,17 @@
-{ components, modules, ... }:
+{ self, ... }:
 {
   # targetHost = "192.168.2.1";
   # targetPort = 22;
   targetUser = "root";
   # system = "x86_64-linux";
 
-  components.use = with components; [
-    # xxx
+  modules = with self.nixosModules; [
+    # ...
   ];
 
-  # modules.extraUsers = [ "" ];
-  modules.use = with modules; [
-    # xxx
-  ];
-  modules.users."username" = with modules; [];
+  users."username".modules = with self.nixosModules; [];
 
-  extraConfiguration = { ... }: {
+  extraConfig = { ... }: {
     # ...
   };
 }

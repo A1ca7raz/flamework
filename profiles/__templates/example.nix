@@ -1,18 +1,14 @@
-{ ... }:
+{ self, ... }:
 {
   targetPort = 22;
   targetUser = "root";
   system = "x86_64-linux";
 
-  # components.groups.use = [ "" ];
-  components.groups.useDefault = true;
-  # components.use = [ "" ];
+  modules = with self.nixosModules; [];
 
-  # modules.groups.use = [ "" ];
-  modules.groups.useDefault = true;
-  # modules.use = [ "" ];
+  users."username".modules = with self.nixosModules; [];
 
-  extraConfiguration = { ... }: {
+  extraConfig = { ... }: {
     # ...
   };
 }
