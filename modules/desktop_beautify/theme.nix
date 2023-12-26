@@ -1,5 +1,7 @@
-{ home, pkgs, tools, ... }:
+{ home, pkgs, tools, lib, ... }:
 with tools; let
+  inherit (tools) constant;
+
   ThemeColor = "Light";  # Dark&Light
 
   IconTheme = {
@@ -31,7 +33,6 @@ in {
   qt = {
     enable = true;
     platformTheme = "kde";
-    # style.name = "kvantum";
   };
 
   home.activation.setupTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
