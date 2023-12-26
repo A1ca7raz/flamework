@@ -1,4 +1,4 @@
-{ lib, ... }:
+args:
 rec {
   mkPersistDirsTree = user: dirs: {
     "/nix/persist".users.${user}.directories = dirs;
@@ -11,7 +11,6 @@ rec {
   mkPersistFilesModule = user: files: {
     environment.persistence."/nix/persist".users.${user}.files = files;
   };
-
 
   mkOverlayTree = user: sets: {
     users.${user} = sets;

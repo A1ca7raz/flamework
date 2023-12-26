@@ -1,7 +1,7 @@
-{ lib, ... }@args:
+lib:
 let
-  util = import ./fold.nix args;
+  inherit (import ./fold.nix lib) foldGetFile;
 in {
-  constant = util.foldGetFile ./constant {}
+  constant = foldGetFile ./constant {}
     (x: y: lib.recursiveUpdate (import ./constant/${x}) y);
 }

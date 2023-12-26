@@ -1,98 +1,41 @@
-{ util, lib, self, path, inputs, constant, ... }@args:
-with lib; let
-  _inc = ./profile_parser;
+{ lib, self, path, inputs, tools, ... }@args:
+with lib; with tools; let
+  # module处理器
+  module_parser = import ./modules.nix args;
 
-  component_path = /${path}/components;
-  componentTree = util.mkModuleTreeFromFiles component_path;
-  module_path = /${path}/modules;
-  moduleTree = util.mkModuleTreeFromDirs module_path;
-
-  component_parser = import /${_inc}/components.nix args;
-  module_parser = import /${_inc}/modules.nix args;
-
-  components_common = 
-    if hasAttrByPath ["__common"] componentTree
-    then
-      component_parser (attrValues componentTree.__common)
-    else [];
-
-  # hook: args: profile:
-  attrsHooks = util.importsFiles /${_inc}/attrsets;
-  mergeLoaderHooks = profile: let
-    hooks = forEach attrsHooks (x: (import x) args profile);
-  in
-    zipAttrsWith (name: vals: fold (x: y: recursiveUpdate x y) {} vals) hooks;
-
+  # 获取profile列表
   profile_path = /${path}/profiles;
-  profile_list = remove "__templates" (util._getListFromDir "directory" profile_path);
+  profile_list = remove "__templates" (_getListFromDir "directory" profile_path);
 
-  template_set = import /${_inc}/templates.nix args;
+  # 处理模板
+  inherit (import ./templates.nix args) templates blankTemplate; # 后处理模板集
   passthruTpl = profile:
-  with builtins; let
-    profile_args = attrNames (functionArgs profile);
-    tpl_list = util.test (x: (count (y: true) x) > 1)
-      "At most one template is expected."
-      (subtractLists (attrNames args ++ ["components" "modules"]) profile_args);
-    blank_tpl = {
-      system = "x86_64-linux";
-      targetHost = "127.0.0.1";
-      targetPort = 22;
-      targetUser = "root";
-      components.use = {};
-      modules = {
-        use = [];
-        users = {};
-        extraUsers = [];
-      };
-      extraConfiguration = null;
-    };
-    componentOptions = filterAttrs (n: v: n != "__common") componentTree;
-  in
-    if count (x: true) tpl_list == 0
-    then
-      let
-        wrapNormalProfile = p: let
-          _full = recursiveUpdate blank_tpl p;
-        in recursiveUpdate _full {
-          modules = {
-            homeUsers = _full.modules.extraUsers ++ [ _full.targetUser ];
-          } // (
-            if isNull _full.extraConfiguration
-            then {}
-            else {
-              use = _full.modules.use ++ [ _full.extraConfiguration ];
-            }
-          );
-        };
-      in
-        wrapNormalProfile (profile ({ components = componentOptions; modules = moduleTree; } // args))
-    else
-      let
-        tpl_name = elemAt tpl_list 0;
-        tpl = template_set.${tpl_name};
-        component_grp_content = fold (x: y: recursiveUpdate y (util.mkModuleTreeFromFiles /${component_path}/${x})) {} tpl.groups.component;
-        module_grp_content = fold (x: y: recursiveUpdate y (util.mkModuleTreeFromDirs /${module_path}/${x})) {} tpl.groups.module;
-      in
-        profile (rec {
-          components = recursiveUpdate componentOptions component_grp_content;
-          modules = recursiveUpdate moduleTree module_grp_content;
-          ${tpl_name} = tpl.mkProfile { inherit components modules; };
-        } // args);
+    let
+      wrapped = profile (templates // args);
+    in
+      if (hasAttrByPath [ "__isWrappedTpl__" ] wrapped)
+      then wrapped
+      else blankTemplate wrapped;
 
+  # 处理profile钩子: 生成colmena和nixos config两种配置
+  # hook: args: profile:
+  attrsHooks = importsFiles ./attrhooks;
+  mergeLoaderHooks = profile:
+    let
+      hooks = forEach attrsHooks (x: (import x) args profile);
+    in
+      zipAttrsWith (name: vals: fold (x: y: recursiveUpdate x y) {} vals) hooks;
+
+  # 生成nixossystem
   mkSystem = name: {
     system,
-    components ? {},
-    # components.use
     modules ? {},
-    # modules.homeUsers
-    # modules.use
-    # modules.users
+    users ? {},
+    targetUser ? "root",
     ...
-  }@profile: let
-    profile_args = profile // { inherit name; };
-  in {
+  }: {
     inherit system;
-    specialArgs = { inherit util self path inputs constant; };
+    specialArgs = { inherit self path inputs tools; };
     modules = [
       self.nixosModules.utils
       self.nixosModules.impermanence
@@ -102,14 +45,13 @@ with lib; let
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
-          sharedModules = [ self.inputs.sops-nix.homeManagerModule ] ++
-            (util.importsFiles /${path}/utils/home);
-          extraSpecialArgs = { inherit util self path inputs constant; };
+          sharedModules = [
+            self.inputs.sops-nix.homeManagerModule
+          ] ++ (importsFiles /${path}/utils/home);
+          extraSpecialArgs = { inherit self path inputs tools; };
         };
       })
-    ] ++ (component_parser components.use)
-      ++ (module_parser modules)
-      ++ components_common;
+    ] ++ (module_parser { inherit modules users targetUser; });
   };
 
   _profiles = fold

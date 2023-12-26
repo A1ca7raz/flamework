@@ -1,11 +1,10 @@
-{ lib, ... }@args:
+lib:
 let
-  foldGetFile = (import ./fold.nix args).foldGetFile;
+  inherit (import ./fold.nix lib) foldGetFile;
 in
-  (foldGetFile ./. {}
-    (x: y:
-      if lib.hasSuffix ".nix" x
-      then ( import ./${x} ) { inherit lib; } // y
-      else y
-    )
-  ) // lib
+foldGetFile ./. {}
+  (x: y:
+    if lib.hasSuffix ".nix" x
+    then (import ./${x} lib) // y
+    else y
+  )

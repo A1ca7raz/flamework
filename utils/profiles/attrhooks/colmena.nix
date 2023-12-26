@@ -1,11 +1,11 @@
-{ util, lib, self, path, inputs, constant, ... }:
+{ lib, self, path, inputs, tools, ... }:
 {
   name,
   deployment,
   modules,
   system,
   ...
-}: rec {
+}: {
   colmena = {
     meta = {
       nixpkgs = import inputs.nixpkgs {
@@ -15,7 +15,7 @@
         };
         overlays = lib.mapAttrsToList (n: v: v) (lib.attrByPath ["overlays"] {} self);
       };
-      specialArgs = { inherit util self path inputs constant; };
+      specialArgs = { inherit self path inputs tools; };
     };
     ${name} = {
       deployment = deployment;

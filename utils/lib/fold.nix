@@ -1,19 +1,19 @@
-{ lib, ... }@args:
-let
-  util = import ./nix.nix args;
+lib:
+with builtins; let
+  inherit (import ./nix.nix lib) isNix;
 in rec {
   # _getListFromDir "directory/regular/nix" /path/to/dir
   _getListFromDir = type: dir:
   let
-    _dir = builtins.readDir dir;
-  in lib.fold 
+    _dir = readDir dir;
+  in lib.fold
     (x: y:
       if ((type == "regular" || type == "directory") && _dir.${x} == type) ||
-        (type == "nix" && _dir.${x} == "regular" && util.isNix x)
+        (type == "nix" && _dir.${x} == "regular" && isNix x)
       then [x] ++ y
       else y
     ) []
-    (builtins.attrNames _dir);
+    (attrNames _dir);
 
   # _fold "directory/regular" /path/to/dir {} (x: y: rec { ${x} = import ./${x}; } // y);
   # _fold "directory/regular" /path/to/dir [] (x: y: [ ./${x} ] ++ y);
@@ -33,12 +33,12 @@ in rec {
   foldGetDir = dir: y: xy: _fold "directory" dir y xy;
 
   foldFileIfExists = x: y: z:
-    if (builtins.pathExists x)
+    if (pathExists x)
     then foldGetFile x y z
     else y;
 
   foldDirIfExists = x: y: z:
-    if (builtins.pathExists x)
+    if (pathExists x)
     then foldGetDir x y z
     else y;
 }

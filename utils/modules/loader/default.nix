@@ -1,8 +1,8 @@
-{ util, lib, ... }:
-{
-  imports = util.foldGetFile ./. []
+{ tools, ... }:
+with tools; {
+  imports = foldGetFile ./. []
     (x: y:
-      if util.isNix x
+      if isNix x
       then [ ./${x} ] ++ y
       else y
     );

@@ -1,5 +1,6 @@
-{ util, lib, self, path, ... }:
+{ lib, tools, self, path, ... }:
 with lib; let
+  inherit (tools) foldGetFile;
   secret_path = /${path}/config/secrets;
 in {
   imports = [ self.nixosModules.sops ];
@@ -12,11 +13,11 @@ in {
     };
     gnupg.sshKeyPaths = mkDefault [];
     secrets = optionalAttrs (builtins.pathExists secret_path)
-      (util.foldGetFile secret_path {}
+      (foldGetFile secret_path {}
         (x: y:
-          if util.hasSuffix ".json" x
-          then rec {
-            "${util.removeSuffix ".json" x}" = {
+          if hasSuffix ".json" x
+          then {
+            "${removeSuffix ".json" x}" = {
               sopsFile = /${secret_path}/${x};
               format = "binary";
             };

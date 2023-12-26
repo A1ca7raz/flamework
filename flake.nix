@@ -1,5 +1,5 @@
 {
-  description = "Flamework 2";
+  description = "Flamework 3";
 
   inputs = {
     # Use inputs from my NUR flake
@@ -41,7 +41,6 @@
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
       SYSTEM = [ "x86_64-linux" ];
-
       lib = nixpkgs.lib;
       utils = import ./utils lib self;
     in flake-utils.lib.eachSystem SYSTEM (system:
@@ -53,7 +52,7 @@
           };
           overlays = [ inputs.nur.overlay ];
         };
-      in rec {
+      in {
         formatter = pkgs.nixpkgs-fmt;
         devShells.default = with pkgs; mkShell { nativeBuildInputs = [ colmena ]; };
       }

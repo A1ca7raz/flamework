@@ -1,7 +1,11 @@
-{ lib, ... }@args:
+lib:
 let
-  util = (import ./fold.nix args) // (import ./nix.nix args);
-in with util; {
+  inherit (import ./fold.nix lib)
+    foldFileIfExists
+    foldDirIfExists;
+  inherit (import ./nix.nix lib)
+    isNix;
+in {
   importsFiles = dir: foldFileIfExists dir []
     (x: y:
       if isNix x

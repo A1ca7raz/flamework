@@ -1,4 +1,4 @@
-{ lib, ... }:
+lib:
 {
   test  = func: msg: try:
     lib.throwIf (func try) (builtins.toString msg) try;
