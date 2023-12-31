@@ -16,9 +16,7 @@ with lib; with builtins; {
     ! mutuallyExclusive ["user"] (attrNames (functionArgs x));
 
   # Hybrid module with NixosModule and Home-manager module
-  isHybridModule = x:
-    isAttrs x &&
-    (attrNames x) == ["homeModule" "nixosModule"];
+  isHybridModule = x: isAttrs x && x ? nixosModule || x ? homeModule;
 
   # Set of modules
   isModuleSet = x:

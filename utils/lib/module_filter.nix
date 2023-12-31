@@ -19,7 +19,7 @@ in {
           let
             wrapHomeModule = module: args@{ home, ... }: module args;
           in
-            [ item.nixosModule (wrapHomeModule item.homeModule) ]
+            [ (optionalAttrs (item ? nixosModule) item.nixosModule) (optionalAttrs (item ? homeModule) (wrapHomeModule item.homeModule)) ]
         else if isModuleSet item
         then _recur item
         else null;
@@ -34,7 +34,7 @@ in {
             let
               wrapHomeModule = module: args@{ home, ... }: module args;
             in
-              [ item.nixosModule (wrapHomeModule item.homeModule) ]
+              [ (optionalAttrs (item ? nixosModule) item.nixosModule) (optionalAttrs (item ? homeModule) (wrapHomeModule item.homeModule)) ]
           else if isModuleSet item
           then [(_recur item)]
           else []
