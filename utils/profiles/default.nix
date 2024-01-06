@@ -11,7 +11,7 @@ with lib; with tools; let
   inherit (import ./templates.nix args) templates blankTemplate; # 后处理模板集
   passthruTpl = profile:
     let
-      wrapped = profile (templates // args);
+      wrapped = profile ({ inherit templates; } // args);
     in
       if (hasAttrByPath [ "__isWrappedTpl__" ] wrapped)
       then wrapped

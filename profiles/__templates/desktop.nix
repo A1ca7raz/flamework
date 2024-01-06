@@ -5,7 +5,11 @@
   system = "x86_64-linux";
 
   modules = with self.nixosModules.modules; [
-    # desktop
+    desktop.fonts
+    desktop.graphics
+    desktop.misc
+    desktop.pipewire
+    desktop.wayland
 
     hardware.fido
     hardware.bluetooth
