@@ -1,27 +1,23 @@
 { self, desktop, ... }:
-with self; let
-  components = self.nixosModules.components;
-  modules = self.nixosModules.modules;
-in desktop {
+desktop {
   targetHost = "192.168.10.3";
   targetPort = 22;
   targetUser = "nomad";
   # system = "x86_64-linux";
 
-  modules = with modules; [
-    desktop_apps
-    desktop_beautify
-    desktop_config
-    user.nomad
-  ] ++ (with components; [
-    binary-cache-cn
-    wayland
-  ] ++ (with hardware; [
-    amdcpu
-    amdgpu
-    bluetooth
-    nvme
-  ]));
+  modules = with self.nixosModules.modules; [
+    desktop
+
+    hardware.amdcpu
+    hardware.amdgpu
+    hardware.logitech
+    hardware.nvme
+    hardware.tpm
+
+    programs.desktop
+    services.client
+    system.kernel.xanmod
+  ];
 
   extraConfig = { ... }: {
     networking.hostName = "oxygenlaptop";

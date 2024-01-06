@@ -18,7 +18,7 @@ let
   specificHomeModules = mapAttrsToList
     (name: value:
       let
-        _modules = getModuleList (attrByPath [ "modules" ] {} value);
+        _modules = getModuleList (attrByPath [ "modules" ] [] value);
         _nixosModules_user = filterNixosModulesUser [name] _modules;
         _homeModules_user = filterHomeModules [name] _modules;
       in

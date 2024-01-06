@@ -1,22 +1,31 @@
 { self, ... }:
-let
-  components = self.nixosModules.components;
-  modules = self.nixosModules.modules;
-in {
+{
   # targetPort = 22;
   targetUser = "nomad";
   system = "x86_64-linux";
 
-  modules = with modules; [
-    common
-  ] ++ (with components; [
-    __common
-    desktop
-  ]);
+  modules = with self.nixosModules.modules; [
+    # desktop
 
-  # users."username".modules = with self.nixosModules; [];
+    hardware.fido
+    hardware.bluetooth
 
-  # extraConfig = { ... }: {
-  #   # ...
-  # };
+    nix
+
+    programs.editorconfig
+    programs.fish
+    programs.misc
+
+    system.boot.boot
+    system.bootloader.systemd-boot
+    system.home-manager
+    system.misc
+    system.network
+    system.security.fido
+    system.security.oomd
+    system.security.sops
+    system.security.sudo
+
+    users
+  ];  
 }

@@ -29,7 +29,7 @@ with lib; with tools; let
   # 生成nixossystem
   mkSystem = name: {
     system,
-    modules ? {},
+    modules ? [],
     users ? {},
     targetUser ? "root",
     ...
@@ -47,7 +47,7 @@ with lib; with tools; let
           useGlobalPkgs = true;
           useUserPackages = true;
           sharedModules = [
-            self.inputs.sops-nix.homeManagerModule
+            inputs.sops-nix.homeManagerModule
           ] ++ (importsFiles /${path}/utils/home);
           extraSpecialArgs = { inherit self path inputs tools; };
         };
