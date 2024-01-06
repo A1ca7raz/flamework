@@ -13,7 +13,6 @@ in desktop {
     desktop_beautify
     desktop_config
     user.nomad
-    overlayfile
   ] ++ (with components; [
     binary-cache-cn
     wayland

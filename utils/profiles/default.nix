@@ -40,6 +40,7 @@ with lib; with tools; let
       self.nixosModules.utils
       self.nixosModules.impermanence
       self.nixosModules.home
+      self.nixosModules.nur
       /${profile_path}/${name}/hardware-configuration.nix
       ({ ... }: {
         home-manager = {
