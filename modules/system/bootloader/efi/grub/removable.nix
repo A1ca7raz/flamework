@@ -1,6 +1,7 @@
 { ... }:
 {
   boot.loader = {
+    timeout = 2;
     efi = {
       efiSysMountPoint = "/boot"; # ← use the same mount point here.
     };

@@ -1,6 +1,7 @@
 { ... }:
 {
   boot.loader = {
+    timeout = 2;
     efi = {
       canTouchEfiVariables = true;
       efiSysMountPoint = "/boot"; # ← use the same mount point here.
