@@ -1,19 +1,13 @@
 {
-  nixosModule = { user, tools, ... }: {
-    environment.persistence = with tools; mkPersistDirsTree user [
+  nixosModule = { user, tools, ... }:
+    with tools; mkPersistDirsModule user [
       (ls "fish")
     ];
-
-    programs.fish = {
-      enable = true;
-      useBabelfish = true;
-    };
-  };
   
   homeModule = { pkgs, ... }:
     let
       tide = pkgs.fishPlugins.tide.src;
-      source = f: builtins.readFile ./${f}.fish;
+      source = f: builtins.readFile ./fish_config/${f}.fish;
     in {
       programs.fish = {
         enable = true;
