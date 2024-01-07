@@ -1,0 +1,4 @@
+{ ... }:
+{
+  swapDevices = [ { label = "SWAP"; } ];
+}
