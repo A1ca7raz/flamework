@@ -1,13 +1,20 @@
-keys:
-  - &admin      01D737F36BEBE286 
-  - &nodes_sys  age1dmsxhm6vuuqag8ahf5jer54u9jtkt5lm3mhrsc3fc8sp8khmvgusyampx3
-  - &nodes_home age1ffsxz6t96tl0a5k8sq28c37kyzaywkdex99w9935lydc3dc79s9qtln903
+keys_trivial:
+  - &admin  01D737F36BEBE286 
+
+keys_home: &keys_home
+  - age1ffsxz6t96tl0a5k8sq28c37kyzaywkdex99w9935lydc3dc79s9qtln903  # laptop
+
+keys: &keys
+  - age1dmsxhm6vuuqag8ahf5jer54u9jtkt5lm3mhrsc3fc8sp8khmvgusyampx3  # laptop
+  - age1g7cw65v67qqftkau33adyap3ffrcpgqswe95qrjxqp9uc93hnd4sn32yrl  # snailbox
 
 creation_rules:
   - path_regex: config/secrets_uncrypted/.*
-    age: *nodes_sys
+    key_groups:
+      - age: *keys
 
   - path_regex: config/secrets_home_uncrypted/.*
-    age: *nodes_home
+    key_groups:
+      - age: *keys_home
 
   - pgp: *admin
