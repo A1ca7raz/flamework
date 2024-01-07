@@ -18,14 +18,6 @@ in {
     '';
   };
 
-  environment.persistence."/nix/persist".files = [
-    "/etc/machine-id"
-    "/etc/ssh/ssh_host_ed25519_key"
-    "/etc/ssh/ssh_host_ed25519_key.pub"
-    "/etc/ssh/ssh_host_rsa_key"
-    "/etc/ssh/ssh_host_rsa_key.pub"
-  ];
-
   environment.etc.sshUserCA = {
     target = "ssh/ssh_user_ca.pub";
     text = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImEnstzrNsASzPhILySuXHjeyA84Hv0U1ini3w/4JBn";
