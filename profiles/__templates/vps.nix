@@ -16,7 +16,8 @@
 
     system.boot.boot
     system.misc
-    system.network.network
+    system.network.base
+    system.network.headless
     system.security.oomd
     system.security.sops
     system.security.sudo
