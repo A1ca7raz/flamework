@@ -14,7 +14,9 @@ templates.desktop {
     hardware.nvme
     hardware.tpm
 
-    programs.desktop
+    (programs.desktop.exclude [
+      "networking.cloudflare-warp"
+    ])
     services.client
     system.kernel.xanmod
   ];
