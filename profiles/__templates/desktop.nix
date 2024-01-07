@@ -12,7 +12,7 @@
 
     nix
 
-    (programs.exclude ["desktop"])
+    (programs.exclude ["desktop" "server"])
 
     (system.boot.exclude ["console"])
     system.bootloader.efi.systemd
