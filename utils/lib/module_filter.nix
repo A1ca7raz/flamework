@@ -21,7 +21,7 @@ in {
           in
             [ (optionalAttrs (item ? nixosModule) item.nixosModule) (optionalAttrs (item ? homeModule) (wrapHomeModule item.homeModule)) ]
         else if isModuleSet item
-        then _recur item
+        then _recur (filterAttrs (n: v: n != "exclude") item)
         else null;
       _recur = mapAttrsToList (name: _parser);
     in
@@ -36,7 +36,7 @@ in {
             in
               [ (optionalAttrs (item ? nixosModule) item.nixosModule) (optionalAttrs (item ? homeModule) (wrapHomeModule item.homeModule)) ]
           else if isModuleSet item
-          then [(_recur item)]
+          then [(_recur (filterAttrs (n: v: n != "exclude") item))]
           else []
         ) list
       );

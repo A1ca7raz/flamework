@@ -3,6 +3,13 @@ let
   inherit (import ./nix.nix lib) isNix removeNix hasDefault;
   inherit (import ./fold.nix lib) foldFileIfExists;
 in rec {
+  _buildModuleSet = set: set // {
+    "__isModuleSet__" = true;
+    exclude = list: with lib; (updateManyAttrsByPath
+      (forEach list (x: { path = splitString "." x; update = old: {}; }))
+      set) // { "__isModuleSet__" = true; };
+  };
+
   _mkModuleTree = type: _path:
     with lib; with builtins; let
       _dir = readDir _path;
@@ -22,17 +29,17 @@ in rec {
           then { name = removeNix n; value = import /${path}/${n}; }
           # 目录型模块，声明读取文件型模块
           else if (v == "directory" && hasDefault /${path}/${n} && (import /${path}/${n}/default.nix) == {})
-          then { name = n; value = (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})) // { "__isModuleSet__" = true; }; }
+          then { name = n; value = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
           # 目录型模块
           else if v == "directory" && type == "dir" && hasDefault /${path}/${n}
           then { name = n; value = import /${path}/${n}; }
           # 非模块目录，递归扫描子目录
           else if v == "directory"
-          then { name = n; value = (_scanner /${path}/${n}) // { "__isModuleSet__" = true; }; }
+          then { name = n; value = _buildModuleSet (_scanner /${path}/${n}); }
           # 无效文件,生成空模块
           else { name = removeNix n; value = {}; };
     in
-      _scanner_once;
+      _scanner_once // { "__isModuleSet__" = true; };
 
   mkModuleTreeFromFiles = _mkModuleTree "file";
   mkModuleTreeFromDirs = _mkModuleTree "dir";
