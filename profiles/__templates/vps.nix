@@ -5,7 +5,7 @@
   system = "x86_64-linux";
 
   modules = with self.nixosModules.modules; [
-    (nix.exclude ["nixpkgs.china_cache"])
+    nix.settings
 
     (programs.exclude ["desktop"])
 
