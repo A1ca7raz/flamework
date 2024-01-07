@@ -1,0 +1,4 @@
+{ ... }:
+{
+  networking.usePredictableInterfaceNames = false;  # ethX
+}
