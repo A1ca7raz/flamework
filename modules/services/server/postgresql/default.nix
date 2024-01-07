@@ -2,7 +2,7 @@
 {
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_14;
+    package = pkgs.postgresql_15;
 
     initdbArgs = [
       "--locale=zh_CN.UTF-8"
