@@ -21,7 +21,7 @@
     programs.misc
 
     system.boot.boot
-    system.bootloader.systemd-boot
+    system.bootloader.efi.systemd
     system.home-manager
     system.misc
     system.network
