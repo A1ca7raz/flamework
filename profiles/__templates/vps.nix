@@ -1,22 +1,26 @@
 { self, ... }:
-let
-  components = self.nixosModules.components;
-  modules = self.nixosModules.modules;
-in {
-  # targetPort = 22;
+{
+  targetPort = 48422;
   # targetUser = "nomad";
   system = "x86_64-linux";
 
-  modules = with modules; [
-    common
-  ] ++ (with components; [
-    __common
-    desktop
-  ]);
+  modules = with self.nixosModules.modules; [
+    nix.nixpkgs.config
+    nix.settings
 
-  # users."username".modules = with self.nixosModules; [];
+    programs.editorconfig
+    programs.fish
+    programs.misc
 
-  # extraConfig = { ... }: {
-  #   # ...
-  # };
+    services.server.openssh
+
+    system.boot.boot
+    system.misc
+    system.network.network
+    system.security.oomd
+    system.security.sops
+    system.security.sudo
+
+    users.root
+  ];
 }
