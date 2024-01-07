@@ -24,7 +24,8 @@
     system.bootloader.efi.systemd
     system.home-manager
     system.misc
-    system.network
+    system.network.base
+    system.network.network-manager
     system.security.fido
     system.security.oomd
     system.security.sops
