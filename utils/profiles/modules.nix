@@ -14,17 +14,34 @@ let
   nixosModulesUser = filterNixosModulesUser localUser module_list;
   homeModules = filterHomeModules localUser module_list;
 
+  _enableHomeManager = homeModules != [];
+
   # 用户指定的module
-  specificHomeModules = mapAttrsToList
-    (name: value:
+  # specificUserModules = mapAttrsToList
+  #   (name: value:
+  #     let
+  #       _modules = getModuleList (attrByPath [ "modules" ] [] value);
+  #       _nixosModules_user = filterNixosModulesUser [name] _modules;
+  #       _homeModules_user = filterHomeModules [name] _modules;
+  #     in
+  #       { ... }: {
+  #         imports = _nixosModules_user ++ _homeModules_user;
+  #       }
+  #   ) users;
+
+  specificUserModules = foldlAttrs
+    (acc: name: value:
       let
         _modules = getModuleList (attrByPath [ "modules" ] [] value);
         _nixosModules_user = filterNixosModulesUser [name] _modules;
         _homeModules_user = filterHomeModules [name] _modules;
-      in
-        { ... }: {
-          imports = _nixosModules_user ++ _homeModules_user;
-        }
-    ) users;
-in
-  nixosModules ++ nixosModulesUser ++ homeModules ++ specificHomeModules
+      in {
+        _enableHomeManager = acc._enableHomeManager || (_homeModules_user != []);
+        modules = acc.modules ++ [({ ... }: { imports = _nixosModules_user ++ _homeModules_user; })];
+      }
+    ) { _enableHomeManager = false; modules = []; } users;
+in {
+  modules = nixosModules ++ nixosModulesUser ++ homeModules ++ specificUserModules.modules;
+  enableHomeManager = _enableHomeManager || specificUserModules._enableHomeManager;
+}
+  

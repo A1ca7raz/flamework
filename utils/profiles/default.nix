@@ -33,27 +33,31 @@ with lib; with tools; let
     users ? {},
     targetUser ? "root",
     ...
-  }: {
-    inherit system;
-    specialArgs = { inherit self path inputs tools; };
-    modules = [
-      self.nixosModules.utils
-      self.nixosModules.impermanence
-      self.nixosModules.home
-      self.nixosModules.nur
-      /${profile_path}/${name}/hardware-configuration.nix
-      ({ ... }: {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          sharedModules = [
-            inputs.sops-nix.homeManagerModule
-          ] ++ (importsFiles /${path}/utils/home);
-          extraSpecialArgs = { inherit self path inputs tools; };
-        };
-      })
-    ] ++ (module_parser { inherit modules users targetUser; });
-  };
+  }:
+    let
+      module_parsed = module_parser { inherit modules users targetUser; };
+    in {
+      inherit system;
+      specialArgs = { inherit self path inputs tools; };
+      modules = [
+        self.nixosModules.utils
+        self.nixosModules.impermanence
+        self.nixosModules.home
+        self.nixosModules.nur
+        /${profile_path}/${name}/hardware-configuration.nix
+        # automatically disable home-manager
+        (optionalAttrs module_parsed.enableHomeManager (
+          { ... }: {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = [ inputs.sops-nix.homeManagerModule ] ++ (importsFiles /${path}/utils/home);
+              extraSpecialArgs = { inherit self path inputs tools; };
+            };
+          }
+        ))
+      ] ++ module_parsed.modules;
+    };
 
   _profiles = fold
     (x: y:
