@@ -18,7 +18,8 @@
     system.bootloader.efi.systemd
     system.home-manager
     system.misc
-    (system.network.exclude ["headless"])
+    system.network.base
+    system.network.network-manager
     (system.security.exclude ["fail2ban"])
 
     users

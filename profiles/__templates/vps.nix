@@ -13,7 +13,9 @@
 
     (system.boot.exclude ["console"])
     system.misc
-    (system.network.exclude ["network-manager"])
+    system.network.base
+    system.network.headless
+    system.network.systemd
     (system.security.exclude ["fail2ban" "fido"])
 
     users.root
