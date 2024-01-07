@@ -10,7 +10,7 @@ templates.vps {
     hardware.fido
 
     # services
-    system.bootloader.efi.grub.local
+    system.bootloader.efi.grub.removable
     system.kernel.xanmod
   ];
 
