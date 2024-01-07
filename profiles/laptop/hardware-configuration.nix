@@ -2,7 +2,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ./disk.nix
+    ./disks.nix
     ./swap.nix
   ];
 
