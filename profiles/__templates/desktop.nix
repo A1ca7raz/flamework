@@ -22,5 +22,5 @@
     (system.security.exclude ["fail2ban"])
 
     users
-  ];  
+  ];
 }
