@@ -17,5 +17,11 @@ templates.vps {
   extraConfig = { ... }: {
     networking.hostName = "oxygenbox";
     environment.overlay.debug = false;
+
+    systemd.network.networks.eth0 = {
+      address = [ "192.168.10.11/24" ];
+      gateway = [ "192.168.10.1" ];
+      matchConfig.Name = "eth0";
+    };
   };
 }
