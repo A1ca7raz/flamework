@@ -14,19 +14,12 @@
 
     (programs.exclude ["desktop"])
 
-    system.boot.initrd
-    system.boot.performance
-    system.boot.sysrq
-    system.boot.troubleshooting
+    (system.boot.exclude ["console"])
     system.bootloader.efi.systemd
     system.home-manager
     system.misc
-    system.network.base
-    system.network.network-manager
-    system.security.fido
-    system.security.oomd
-    system.security.sops
-    system.security.sudo
+    (system.network.exclude ["headless"])
+    (system.security.exclude ["fail2ban"])
 
     users
   ];  

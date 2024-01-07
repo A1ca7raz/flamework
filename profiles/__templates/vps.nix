@@ -5,22 +5,16 @@
   system = "x86_64-linux";
 
   modules = with self.nixosModules.modules; [
-    nix.nixpkgs.config
-    nix.settings
+    (nix.exclude ["nixpkgs.china_cache"])
 
-    programs.editorconfig
-    programs.fish
-    programs.misc
+    (programs.exclude ["desktop"])
 
     services.server.openssh
 
-    system.boot.boot
+    (system.boot.exclude ["console"])
     system.misc
-    system.network.base
-    system.network.headless
-    system.security.oomd
-    system.security.sops
-    system.security.sudo
+    (system.network.exclude ["network-manager"])
+    (system.security.exclude ["fail2ban" "fido"])
 
     users.root
   ];
