@@ -5,22 +5,19 @@
   system = "x86_64-linux";
 
   modules = with self.nixosModules.modules; [
-    desktop.fonts
-    desktop.graphics
-    desktop.misc
-    desktop.pipewire
-    desktop.wayland
+    (desktop.exclude ["plasma"])
 
     hardware.fido
     hardware.bluetooth
 
     nix
 
-    programs.editorconfig
-    programs.fish
-    programs.misc
+    (programs.exclude ["desktop"])
 
-    system.boot.boot
+    system.boot.initrd
+    system.boot.performance
+    system.boot.sysrq
+    system.boot.troubleshooting
     system.bootloader.efi.systemd
     system.home-manager
     system.misc
