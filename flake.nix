@@ -36,6 +36,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    authentik-nix.follows = "nur/authentik-nix";
   };
 
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
