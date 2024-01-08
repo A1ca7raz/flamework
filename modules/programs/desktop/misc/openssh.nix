@@ -7,7 +7,8 @@
 
     programs.ssh = {
       enable = true;
-      includes = [ config.sops.secrets.sshconfig.path ];
+      # fix %r
+      includes = [ "/run/user/1000/secrets/sshconfig" ];
     };
   };
 }
