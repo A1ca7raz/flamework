@@ -7,29 +7,17 @@ with lib; let
   uiPackage = pkgs.clash-webui-yacd-meta;
 in {
   utils.secrets.sing-box.enable = true;
-  sops.secrets.sing-box = {
-    mode = "0700";
-    owner = "sing-box";
-    group = "sing-box";
-  };
-
-  users.users."sing-box" = {
-    isSystemUser = true;
-    group = "sing-box";
-    description = "Sing-box daemon user";
-    home = "/var/lib/sing-box";
-  };
-
-  users.groups."sing-box" = {};
+  sops.secrets.sing-box.mode = "0600";
 
   systemd.services.sing-box = optionalAttrs enable (
     with pkgs; let
       startScript = pkgs.writeShellScriptBin "sing-box-start" ''
+        SUB_URI=$1
         CONF_DIR=${"\$\{STATE_DIRECTORY:-/var/lib/sing-box}"}
         CONF=${configFile}
         mkdir -p $CONF_DIR
 
-        curl -L `cat ${subscriptionURI}` -o $CONF
+        curl -L `cat $SUB_URI` -o $CONF
         chmod 0700 $CONF
         ${sing-box}/bin/sing-box run -D $CONF_DIR -c $CONF
       '';
@@ -44,13 +32,15 @@ in {
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${getExe startScript}";
+        LoadCredential = "subscription_uri:${subscriptionURI}";
+        ExecStart = "${getExe startScript} %d/subscription_uri";
         StateDirectory = "sing-box";
         CapabilityBoundingSet = caps;
         AmbientCapabilities = caps;
         NoNewPrivileges = "yes";
         User = "sing-box";
         Group = "sing-box";
+        DynamicUser = "yes";
 
         # Sing-box auto update
         Restart = "always";
