@@ -4,5 +4,6 @@
     efibootmgr
     sops
     age
+    e2fsprogs
   ];
 }
