@@ -9,6 +9,7 @@ in templates.vps {
     hardware.intelcpu
     hardware.fido
 
+    services.server.postgresql
     services.server.router
 
     system.bootloader.efi.grub.removable
