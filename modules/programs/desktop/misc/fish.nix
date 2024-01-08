@@ -23,6 +23,7 @@
           ${source "completion/sptlrx"}
 
           # FIXME: Try to disable tide on TTY
+          # TODO: 桌面美化
           if test "$TERM" != "linux"
             string replace -r '^' 'set -U ' < ${tide}/functions/tide/configure/configs/lean.fish         | source
             string replace -r '^' 'set -U ' < ${tide}/functions/tide/configure/configs/lean_16color.fish | source
