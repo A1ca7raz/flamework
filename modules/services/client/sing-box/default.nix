@@ -6,6 +6,7 @@ with lib; let
 
   uiPackage = pkgs.clash-webui-yacd-meta;
 in {
+  utils.secrets.sing-box.enable = true;
   sops.secrets.sing-box = {
     mode = "0700";
     owner = "sing-box";

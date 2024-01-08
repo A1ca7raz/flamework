@@ -2,10 +2,12 @@
   nixosModule = { user, tools, ... }:
     with tools; mkPersistDirsModule user [ ".ssh" ];
 
-  homeModule = { ... }: {
+  homeModule = { config, ... }: {
+    utils.secrets.sshconfig.enable = true;
+
     programs.ssh = {
       enable = true;
-      includes = [ "/run/user/1000/secrets/sshconfig" ];
+      includes = [ config.sops.secrets.sshconfig.path ];
     };
   };
 }

@@ -1,5 +1,6 @@
 { pkgs, path, ... }:
 {
+  utils.secrets.rootpwd.enable = true;
   sops.secrets.rootpwd.neededForUsers = true;
 
   users.users.root = {

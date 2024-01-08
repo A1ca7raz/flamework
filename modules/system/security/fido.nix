@@ -3,6 +3,7 @@ let
   uri = "pam://oxygenlaptop";
   u2fon = { u2fAuth = true; };
 in {
+  utils.secrets.u2f_keys.enable = true;
   sops.secrets.u2f_keys.mode = "0444";
 
   security.pam = {
