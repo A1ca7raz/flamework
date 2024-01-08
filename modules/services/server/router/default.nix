@@ -6,50 +6,35 @@ in {
     enable = true;
     resolveLocalQueries = true;
 
-    # for Snailbox only
     settings = {
       # DNS Server
-      listen-server = mix [
-        "127.0.0.1" "::1"
-        "127.0.0.53"
-        config.lib.this.ipv4Addr
-        config.lib.this.ipv6Addr
+      listen-address = mix [
+        "127.0.0.1" "::1" "127.0.0.53"
+        config.lib.this.ip4
+        config.lib.this.ip6
       ];
 
       # Local Domain
-      local = "/lab/";
-      domain = "lab";
+      local = "/${config.lib.subnet.domain}/";
+      domain = config.lib.subnet.domain;
       expand-hosts = true;
+
+      no-resolv = true;
 
       # DHCP
       interface = "eth0";
       bind-interfaces = true;
       dhcp-range = [
-        (mix config.lib.subnet.ipv4Range)
-        (mix config.lib.subnet.ipv6Range)
+        (mix config.lib.subnet.ipv4DHCP)
+        (mix config.lib.subnet.ipv6DHCP)
       ];
       dhcp-option = [
         "3,0.0.0.0" # Set default gateway
-        "6,0.0.0.0" # Set DNS servers to announce
+        # "6,0.0.0.0" # Set DNS servers to announce
       ];
+
+      # Ipv6
+      enable-ra = true;
     };
-  };
-
-  services.radvd = {
-    enable = true;
-    config = ''
-      interface LAN {
-        AdvSendAdvert on;
-        MinRtrAdvInterval 3;
-        MaxRtrAdvInterval 10;
-        prefix ::/64 {
-          AdvOnLink on;
-          AdvAutonomous on;
-          AdvRouterAddr on;
-        };
-      };
-
-      RDNSS ${config.lib.this.ip6} {};
-    '';
   };
 }

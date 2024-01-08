@@ -1,12 +1,15 @@
 { self, templates, ... }:
-templates.vps {
-  targetHost = "192.168.10.11";
+let
+  ip4 = "198.18.0.1";
+  ip6 = "fcb7:25f7:5bf3:100::1";
+in templates.vps {
+  targetHost = ip4;
 
   modules = with self.nixosModules.modules; [
     hardware.intelcpu
     hardware.fido
 
-    # services
+    services.server.router
 
     system.bootloader.efi.grub.removable
     system.kernel.xanmod
@@ -16,9 +19,19 @@ templates.vps {
     networking.hostName = "oxygenbox";
 
     systemd.network.networks.eth0 = {
-      address = [ "192.168.10.11/24" ];
-      gateway = [ "192.168.10.1" ];
+      address = [ "${ip4}/24" "${ip6}/64" ];
       matchConfig.Name = "eth0";
+    };
+
+    lib.this = { inherit ip4 ip6; };
+    lib.subnet = {
+      v4 = "198.18.0.0/24";
+      v4Full = "198.18.0.0/15";
+      v6 = "fcb7:25f7:5bf3:100::/56";
+      v6Full = "fcb7:25f7:5bf3::/48";
+      ipv4DHCP = [ "198.18.0.2" "198.18.0.50" "255.255.255.0" "12h" ];
+      ipv6DHCP = [ "::100" "::1ff" "constructor:eth0" "ra-names" "slaac" ];
+      domain = "lab";
     };
   };
 }
