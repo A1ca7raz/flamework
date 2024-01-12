@@ -12,6 +12,7 @@
         autostart_keepassxc = mkLink "keepassxc";
         autostart_steam = mkLink "steam";
         autostart_yakuake = mkLink "yakuake";
+        autostart_tg = mkLink "telegram";
       };
 
       systemd.user.services.latte-dock-autostart =
