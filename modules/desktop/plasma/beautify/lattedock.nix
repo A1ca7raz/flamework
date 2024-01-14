@@ -31,12 +31,16 @@
       };
     };
 
-  homeModule = { pkgs, ... }: {
+  homeModule = { pkgs, lib, tools, ... }: {
     home.packages = with pkgs; [
       latte-dock-nostartup
       libsForQt5.applet-window-buttons
       applet-virtual-desktop-bar-wayland
       applet-window-appmenu
     ];
+
+    home.activation.setupLatteMeta = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${tools.wrapWC pkgs "kwinrc" "ModifierOnlyShortcuts" "Meta" "org.kde.lattedock,/Latte,org.kde.LatteDock,activateLauncherMenu"}
+    '';
   };
 }
