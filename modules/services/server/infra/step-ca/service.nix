@@ -4,24 +4,32 @@ let
 
   passwordFile = config.sops.secrets.step-ca_pwd.path;
   configFile = config.sops.secrets.step-ca_cfg.path;
+
+  inherit (config.lib.services.step-ca) ipAddrs;
+
+  netnsService = "netns-veth-step.service";
 in {
   utils.secrets.step-ca_pwd.enable = true;
   utils.secrets.step-ca_cfg.enable = true;
 
-  users.users.step = {
-    isSystemUser = true;
-    description = "Step-CA deamon user";
-    home = workDir;
-    group = "step";
+  utils.netns.enable = true;
+  utils.netns.bridge."0".ipAddrs = config.lib.services.vnet.ipAddrs;
+
+  utils.netns.veth.step = {
+    bridge = "0";
+    netns = "step";
+    ipAddrs = ipAddrs;
   };
-  users.groups.step = {};
 
   # https://github.com/smallstep/certificates/blob/master/systemd/step-ca.service
   systemd.services.step-ca = {
     description = "step-ca service";
-    documentation = "https://smallstep.com/docs/step-ca";
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
+    documentation = [
+      "https://smallstep.com/docs/step-ca"
+      "https://smallstep.com/docs/step-ca/certificate-authority-server-production"
+    ];
+    after = [ netnsService ];
+    bindsTo = [ netnsService ];
     wantedBy = [ "multi-user.target" ];
     startLimitIntervalSec = 30;
     startLimitBurst = 3;
@@ -39,12 +47,15 @@ in {
       WorkingDirectory = workDir;
       StateDirectory = "step-ca";
 
+      # Conflict with PrivateNetwork
+      NetworkNamespacePath = "/run/netns/step";
+
       LoadCredential = [
         "password:${passwordFile}"
         "config.json:${configFile}"
       ];
 
-      ExecStart = "${lib.getExe pkgs.step-ca} %d/config.json --password-file %d/pasword";
+      ExecStart = "${lib.getExe pkgs.step-ca} %d/config.json --password-file %d/password";
 
       # Process capabilities & privileges
       AmbientCapabilities = "CAP_NET_BIND_SERVICE";
@@ -71,7 +82,6 @@ in {
       SystemCallFilter = "@system-service";
       SystemCallArchitectures = "native";
       MemoryDenyWriteExecute = "true";
-      ReadWriteDirectories = "${workDir}/db";
     };
   };
 }
