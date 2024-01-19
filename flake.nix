@@ -31,11 +31,7 @@
 #       inputs.flake-utils.follows = "flake-utils";
 #     };
     sops-nix.follows = "nur/sops-nix";
-    spicetify-nix = {
-      url = "github:A1ca7raz/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+    spicetify-nix.follows = "nur/spicetify-nix";
     authentik-nix.follows = "nur/authentik-nix";
   };
 
@@ -62,7 +58,7 @@
         sops = sops-nix.nixosModules.sops;
         impermanence = impermanence.nixosModules.impermanence;
         home = home-manager.nixosModules.home-manager;
-#         lanzaboote = lanzaboote.nixosModules.lanzaboote;
+        # lanzaboote = lanzaboote.nixosModules.lanzaboote;
         nur = inputs.nur.nixosModule;
       });
 
