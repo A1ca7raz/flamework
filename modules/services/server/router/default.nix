@@ -9,7 +9,7 @@ in {
     settings = {
       # DNS Server
       listen-address = mix [
-        "127.0.0.1" "::1" "127.0.0.53"
+        "127.0.0.1" "::1"
         config.lib.this.ip4
         config.lib.this.ip6
       ];
@@ -23,7 +23,7 @@ in {
 
       # DHCP
       interface = "eth0";
-      bind-interfaces = true;
+      bind-dynamic = true;
       dhcp-range = [
         (mix config.lib.subnet.ipv4DHCP)
         (mix config.lib.subnet.ipv6DHCP)
