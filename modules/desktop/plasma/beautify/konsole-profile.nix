@@ -1,5 +1,6 @@
-{ user, tools, ... }:
+{ user, tools, config, ... }:
 with tools; let
+  inherit (config.lib) themeColor;
   t = x: ".local/share/konsole/${x}";
 
   path = ./konsole-profile;
@@ -16,12 +17,12 @@ in mkOverlayModule user {
   };
 
   konsole_color_dark = {
-    text = import /${path}/dark_color.nix { inherit constant; };
+    text = import /${path}/dark_color.nix themeColor;
     target = t "Blur Dark.colorscheme";
   };
 
   konsole_color_light = {
-    text = import /${path}/light_color.nix { inherit constant; };
+    text = import /${path}/light_color.nix themeColor;
     target = t "Blur Light.colorscheme";
   };
 }

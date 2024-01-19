@@ -1,4 +1,4 @@
-{ constant }:
+themeColor:
 ''
 [Background]
 Color=255,255,255
@@ -96,7 +96,7 @@ Blur=true
 ColorRandomization=false
 Description=Blur Light
 FillStyle=Tile
-Opacity=${constant.themeColor.light.konsoleOpacity}
+Opacity=${themeColor.light.konsoleOpacity}
 Wallpaper=
 WallpaperOpacity=1
 ''

@@ -1,6 +1,6 @@
-{ home, pkgs, tools, lib, ... }:
+{ home, pkgs, tools, config, lib, ... }:
 with tools; let
-  inherit (tools) constant;
+  inherit (config.lib) themeColor;
 
   ThemeColor = "Light";  # Dark&Light
 
@@ -46,9 +46,9 @@ in {
     ${wc "kwinrc" "org.kde.kdecoration2" "library" "org.kde.sierrabreezeenhanced"}
     ${wc "sierrabreezeenhancedrc" "Windeco" "BackgroundOpacity" (
       if (ThemeColor == "Dark")
-      then constant.themeColor.dark.windecoOpacity
+      then themeColor.dark.windecoOpacity
       else if (ThemeColor == "Light")
-      then constant.themeColor.light.windecoOpacity
+      then themeColor.light.windecoOpacity
       else "100"
     )}
     # Colors
