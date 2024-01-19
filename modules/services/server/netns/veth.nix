@@ -1,6 +1,8 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, tools, ... }:
 with lib; let
   cfg = config.utils.netns;
+
+  inherit (tools) removeCIDRSuffix;
 
   inherit (import ./types.nix) vethModule;
   vethType = types.submodule vethModule;
@@ -33,7 +35,6 @@ in {
           '' + acc
         ) "" addrs;
 
-        removeCIDRSuffix = ip: with builtins; elemAt (split "/([0-9]+)$" ip) 0;
       in optionalAttrs _cfg.enable {
         description = "Named network namespace veth ${name}";
         bindsTo = deps;
