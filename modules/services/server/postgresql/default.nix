@@ -1,16 +1,18 @@
 { pkgs, lib, config, ... }:
-{
+let
+  constant = config.lib.services.postgresql;
+in {
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_16_jit;
     initdbArgs = [ "--locale=zh_CN.UTF-8" "-E UTF8" "--data-checksums" ];
 
     settings = {
-      listen_addresses = with lib; mkForce (concatStringsSep ", " [
+      listen_addresses = with lib; mkForce (concatStringsSep ", " ([
         "127.0.0.1" "::1"
-        config.lib.this.ip4
-        config.lib.this.ip6
-      ]);
+        # config.lib.this.ip4
+        # config.lib.this.ip6
+      ]) ++ constant.ipAddrs);
     };
 
     authentication = ''
