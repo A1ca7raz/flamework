@@ -10,10 +10,11 @@ in templates.vps {
     hardware.fido
 
     # Infra
-    services.server.router
+    services.server.infra.router
     services.server.netns
     services.server.infra.step-ca
     services.server.infra.caddy
+    services.server.infra.redis
     services.server.infra.postgresql
 
     # Services
