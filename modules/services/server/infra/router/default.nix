@@ -26,7 +26,7 @@ in {
       bind-dynamic = true;
       dhcp-range = [
         (mix config.lib.subnet.ipv4DHCP)
-        (mix config.lib.subnet.ipv6DHCP)
+        (mix [ "::100" "::1ff" "constructor:eth0" "ra-names" "slaac" ])
       ];
       dhcp-option = [
         "3,0.0.0.0" # Set default gateway
@@ -37,4 +37,6 @@ in {
       enable-ra = true;
     };
   };
+
+  systemd.network.networks.eth0.networkConfig.IPForward = "yes";
 }
