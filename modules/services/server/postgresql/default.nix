@@ -12,7 +12,7 @@ in {
         "127.0.0.1" "::1"
         # config.lib.this.ip4
         # config.lib.this.ip6
-      ]) ++ (tools.removeCIDRSuffixes ipAddrs));
+      ] ++ (tools.removeCIDRSuffixes ipAddrs)));
     };
 
     authentication = ''
@@ -22,10 +22,10 @@ in {
   };
 
   # add support for netns
-  utils.netns.veth.step = {
+  utils.netns.veth.psql = {
     bridge = "0";
     netns = "psql";
-    ipAddrs = tools.removeCIDRSuffixes ipAddrs;
+    inherit ipAddrs;
   };
 
   systemd.services.postgresql = {
