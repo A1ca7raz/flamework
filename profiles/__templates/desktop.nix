@@ -20,7 +20,7 @@
     system.misc
     system.network.base
     system.network.network-manager
-    (system.security.exclude ["fail2ban"])
+    (system.security.exclude ["fail2ban" "kwallet"])
 
     users
   ];

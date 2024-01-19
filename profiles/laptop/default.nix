@@ -19,6 +19,7 @@ templates.desktop {
     ])
     services.client
     system.kernel.xanmod
+    system.security.kwallet
   ];
 
   extraConfig = { ... }: {

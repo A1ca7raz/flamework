@@ -16,7 +16,7 @@
     system.network.base
     system.network.headless
     system.network.systemd
-    (system.security.exclude ["fail2ban" "fido"])
+    (system.security.exclude ["fail2ban" "fido" "kwallet"])
 
     users.root
   ];
