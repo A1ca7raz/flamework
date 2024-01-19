@@ -2,7 +2,7 @@
 with lib; let
   cfg = config.utils.netns;
 
-  inherit (tools) removeCIDRSuffix;
+  inherit (tools) removeCIDRSuffixes;
 
   inherit (import ./types.nix) vethModule;
   vethType = types.submodule vethModule;
@@ -73,9 +73,9 @@ in {
           ip${op (_cfg.p2.ns != null && !_cfg.p2.isBridge) " -n ${_cfg.p2.ns}"} link set veth1-${name} up
         '' + (op _cfg.p1.isBridge (foldl (acc: ip:
           ''
-            ip -n ${_cfg.p2.ns} route add default via ${removeCIDRSuffix ip}
+            ip -n ${_cfg.p2.ns} route add default via ${ip}
           '' + acc
-        ) "" cfg.bridge.${_cfg.p1.ns}.ipAddrs));
+        ) "" (removeCIDRSuffixes cfg.bridge.${_cfg.p1.ns}.ipAddrs)));
       }
     )) cfg.veth;
   };
