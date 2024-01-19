@@ -1,7 +1,5 @@
-{ pkgs, config, tools, lib, ... }:
-let
-  constant = config.lib.services.step-ca;
-in {
+{ pkgs, ... }:
+{
   utils.secrets.acme-x1.enable = true;
   sops.secrets.acme-x1 = {
     mode = "0600";
@@ -21,8 +19,4 @@ in {
   imports = [ ./service.nix ];
 
   environment.systemPackages = [ pkgs.step-cli ];
-
-  networking.hosts = lib.foldl (acc: ip:
-    acc // { ${ip} = constant.domains; }
-  ) {} (tools.removeCIDRSuffixes constant.ipAddrs);
 }

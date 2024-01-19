@@ -13,7 +13,7 @@ in {
   utils.secrets.step-ca_cfg.enable = true;
 
   utils.netns.enable = true;
-  utils.netns.bridge."0".ipAddrs = config.lib.services.vnet.ipAddrs;
+  utils.netns.bridge."0".ipAddrs = config.lib.vnet.ipAddrs;
 
   utils.netns.veth.step = {
     bridge = "0";
