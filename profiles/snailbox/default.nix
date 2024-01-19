@@ -9,8 +9,15 @@ in templates.vps {
     hardware.intelcpu
     hardware.fido
 
-    services.server.postgresql
+    # Infra
     services.server.router
+    services.server.netns
+    services.server.infra.step-ca
+    services.server.infra.caddy
+
+    # Services
+    services.server.postgresql
+    # services.server.gitea
 
     system.bootloader.efi.grub.removable
     system.kernel.xanmod
@@ -21,6 +28,9 @@ in templates.vps {
 
     systemd.network.networks.eth0 = {
       address = [ "${ip4}/24" "${ip6}/64" ];
+      networkConfig = {
+        IPForward = "yes";
+      };
       matchConfig.Name = "eth0";
     };
 
