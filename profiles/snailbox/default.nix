@@ -14,9 +14,9 @@ in templates.vps {
     services.server.netns
     services.server.infra.step-ca
     services.server.infra.caddy
+    services.server.infra.postgresql
 
     # Services
-    services.server.postgresql
     # services.server.gitea
 
     system.bootloader.efi.grub.removable
