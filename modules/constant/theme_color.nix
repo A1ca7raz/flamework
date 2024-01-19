@@ -10,7 +10,7 @@ let
         konsoleOpacity = "0." + windecoOpacity;
       };
     in {
-      config.lib.themeColor = {
+      lib.themeColor = {
         light = mktc {
           color = "";
           opacity = 36;
