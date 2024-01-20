@@ -59,6 +59,11 @@
           default = null;
           description = "netns in the veth";
         };
+        addDefaultRoute = mkOption {
+          type = types.bool;
+          default = true;
+          description = "add default route";
+        };
       };
 
       config = mkMerge [

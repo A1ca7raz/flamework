@@ -71,7 +71,7 @@ in {
         ) + ''
           ip${op (_cfg.p1.ns != null && !_cfg.p1.isBridge) " -n ${_cfg.p1.ns}"} link set veth0-${name} up
           ip${op (_cfg.p2.ns != null && !_cfg.p2.isBridge) " -n ${_cfg.p2.ns}"} link set veth1-${name} up
-        '' + (op _cfg.p1.isBridge (foldl (acc: ip:
+        '' + (op (_cfg.addDefaultRoute && _cfg.p1.isBridge) (foldl (acc: ip:
           ''
             ip -n ${_cfg.p2.ns} route add default via ${ip}
           '' + acc
