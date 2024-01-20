@@ -20,7 +20,7 @@ in templates.vps {
     services.server.infra.postgresql
 
     # Services
-    # services.server.applications.gitea
+    services.server.applications.authentik
 
     system.bootloader.efi.grub.removable
     system.kernel.xanmod
