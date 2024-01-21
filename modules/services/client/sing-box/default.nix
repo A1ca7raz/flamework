@@ -65,7 +65,7 @@ in {
             -o $SB_CONF_FILE
         fi
 
-        [[ -f $SB_CONF_FILE ]] && chmod 0700 $SB_CONF_FILE || exit 1
+        [[ -f $SB_CONF_FILE ]] && chmod 0600 $SB_CONF_FILE || exit 1
 
         sing-box run -D $SB_WORK_DIR -c $SB_CONF_FILE
       '';
