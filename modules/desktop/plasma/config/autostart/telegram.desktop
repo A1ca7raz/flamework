@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Telegram Desktop
-Exec=sh -c "sleep 5; exec telegram-desktop -autostart %U"
+Exec=sh -c "sleep 5; exec telegram-desktop -autostart"
 Icon=telegram
 Terminal=false
 StartupWMClass=TelegramDesktop
