@@ -36,6 +36,7 @@ in {
         RuntimeMaxSec = "${updateTimeoutMin}min";
 
         OOMPolicy = "kill";
+        MemoryMax = "200M";
       };
 
       environment = {
