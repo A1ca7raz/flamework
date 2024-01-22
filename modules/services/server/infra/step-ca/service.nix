@@ -28,7 +28,7 @@ in {
       "https://smallstep.com/docs/step-ca"
       "https://smallstep.com/docs/step-ca/certificate-authority-server-production"
     ];
-    after = [ netnsService ];
+    after = [ netnsService "authentik.service" ];
     bindsTo = [ netnsService ];
     wantedBy = [ "multi-user.target" ];
     startLimitIntervalSec = 30;
