@@ -15,6 +15,7 @@
       sbctl
       sops
       baidupcs-go
+      step-cli
     ];
   };
 
