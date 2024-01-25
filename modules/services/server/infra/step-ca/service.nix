@@ -30,6 +30,7 @@ in {
     ];
     after = [ netnsService "authentik.service" ];
     bindsTo = [ netnsService ];
+    requires = [ "authentik.service" ];
     wantedBy = [ "multi-user.target" ];
     startLimitIntervalSec = 30;
     startLimitBurst = 3;
