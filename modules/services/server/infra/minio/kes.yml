@@ -1,0 +1,43 @@
+# https://min.io/docs/kes/tutorials/configuration/
+address: 198.18.10.6:443 # Listen on all network interfaces on port 7373
+
+admin:
+  identity: disabled # The client.crt identity
+
+tls:
+  key: /run/credentials/minio-kes.service/private.key    # The KES server TLS private key
+  cert: /run/credentials/minio-kes.service/public.crt    # The KES server TLS certificate
+  password: ""                     # An optional password to decrypt the TLS private key
+
+  # ca: ""
+
+  # The TLS proxy configuration. A TLS proxy, like nginx, sits in
+  # between a KES client and the KES server and usually acts as a
+  # load balancer or common endpoint.
+  # All connections from the KES client to the TLS proxy as well
+  # the connections from the TLS proxy to the KES server must be
+  # established over TLS.
+  proxy:
+    # The identities of all TLS proxies directly connected to the
+    # KES server.
+    #
+    # Note that a TLS proxy can act as any identity (including root)
+    # since it can forward arbitrary client certificates. Client certificates
+    # aren't secret information and a malicious TLS proxy can fake any
+    # identity it has seen before. Therefore, its critical that all TLS proxy
+    # identities are secure and trusted servers.
+    identities: []
+    # The HTTP header sent by the TLS proxy to forward certain data
+    # about the client to the KES server.
+    header:
+      # The HTTP header containing the URL-escaped and PEM-encoded
+      # certificate of the kes client forwarded by the TLS proxy.
+      cert: X-Tls-Client-Cert
+
+log:
+  error: on
+  audit: off
+
+keystore:
+  fs:
+    path: /var/lib/kes/keys
