@@ -18,6 +18,7 @@ in templates.vps {
     services.server.infra.caddy
     services.server.infra.redis
     services.server.infra.postgresql
+    services.server.infra.minio
 
     # Services
     services.server.applications.authentik
