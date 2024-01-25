@@ -44,8 +44,13 @@ in {
     in {
       authentik-migrate = {
         requiredBy = [ "authentik.service" ];
-        requires = [ "postgresql.service" "netns-veth-authentik.service" ];
-        after = [ "postgresql.service" "netns-veth-authentik.service" ];
+        requires = [ "postgresql.service" "redis-authentik.service" ];
+        bindsTo = [ "netns-veth-authentik.service" ];
+        after = [
+          "postgresql.service"
+          "netns-veth-authentik.service"
+          "redis-authentik.service"
+        ];
         before = [ "authentik.service" ];
         restartTriggers = [ configFile ];
         serviceConfig = {
@@ -57,7 +62,7 @@ in {
 
       authentik-worker = {
         requiredBy = [ "authentik.service" ];
-        requires = [ "netns-veth-authentik.service" ];
+        bindsTo = [ "netns-veth-authentik.service" ];
         before = [ "authentik.service" ];
         after = [ "netns-veth-authentik.service" ];
         restartTriggers = [ configFile ];
@@ -78,7 +83,7 @@ in {
 
       authentik = {
         wantedBy = [ "multi-user.target" ];
-        requires = [ "netns-veth-authentik.service" ];
+        bindsTo = [ "netns-veth-authentik.service" ];
         after = [
           "network-online.target"
           "postgresql.service"
