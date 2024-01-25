@@ -14,6 +14,7 @@
 
     # Services
     authentik = { domains = [ "id.insyder" ]; ipAddrs = [ "198.18.10.10/24" ]; };
+    gitea = { domains = [ "git.insyder" ]; ipAddrs = [ "198.18.10.11/24" ]; };
   };
 
   networking.hosts =
