@@ -7,6 +7,8 @@
     postgresql = { domains = [ "psql.insyder" ]; ipAddrs = [ "198.18.10.1/24" ]; };
     caddy = { domains = [ "caddy.insyder" ]; ipAddrs = [ "198.18.10.2/24" ]; };
     minio = { domains = [ "s3.insyder" ]; ipAddrs = [ "198.18.10.3/24" ]; };
+    minio-ui = { domains = [ "console.s3.insyder" ]; ipAddrs = [ "198.18.10.7/24" ]; };
+    minio-kes = { domains = [ "kes.s3.insyder" ]; ipAddrs = [ "198.18.10.6/24" ]; };
     step-ca = { domains = [ "pki.insyder" ]; ipAddrs = [ "198.18.10.4/24" ]; };
     redis = { domains = [ "redis.insyder" ]; ipAddrs = [ "198.18.10.5/24" ]; };
 
