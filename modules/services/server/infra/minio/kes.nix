@@ -30,11 +30,11 @@ in {
       NetworkNamespacePath = "/run/netns/minio-kes";
 
       LoadCredential = [
-          "private.key:/var/lib/acme/insyder.key"
-          "public.crt:/var/lib/acme/insyder.crt"
-          "config:${./kes.yml}"
-        ];
-      ExecStart = "${lib.getExe pkgs.kes} server --config %d/config";
+        "private.key:/var/lib/acme/insyder.key"
+        "public.crt:/var/lib/acme/insyder.crt"
+        "config:${./kes.yml}"
+      ];
+      ExecStart = "${lib.getExe pkgs.kes} server --config %d/config --auth off";
 
       # Let systemd restart this service always
       Restart = "always";
