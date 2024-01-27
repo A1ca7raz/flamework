@@ -17,4 +17,8 @@ creation_rules:
     key_groups:
       - age: *keys_home
 
+  - path_regex: config/secrets_yaml_uncrypted/.*
+    key_groups:
+      - age: *keys
+
   - pgp: *admin
