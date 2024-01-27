@@ -30,7 +30,7 @@ in {
     ];
     after = [ netnsService "authentik.service" "caddy.service" ];
     bindsTo = [ netnsService ];
-    requires = [ "authentik.service" ];
+    requires = [ "authentik.service" "caddy.service" ];
     wantedBy = [ "multi-user.target" ];
     startLimitIntervalSec = 30;
     startLimitBurst = 3;
@@ -47,6 +47,8 @@ in {
       UMask = "0077";
       WorkingDirectory = workDir;
       StateDirectory = "step-ca";
+
+      Restart = "always";
 
       # Conflict with PrivateNetwork
       NetworkNamespacePath = "/run/netns/step";
