@@ -22,6 +22,7 @@ in templates.vps {
 
     # Services
     services.server.applications.authentik
+    services.server.applications.gitea
 
     system.bootloader.efi.grub.removable
     system.kernel.xanmod
