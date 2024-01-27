@@ -23,7 +23,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       environment = {
-        MINIO_REGION = "cn-east-home-01";
+        # MINIO_REGION = "cn-east-home-01";
         MINIO_BROWSER = "on";
       };
 
