@@ -1,4 +1,4 @@
-{ pkgs, lib, config, tools, ... }:
+{ pkgs, lib, config, ... }:
 let
   cfg = config.lib.gitea;
   constant = config.lib.services.gitea;
@@ -13,7 +13,6 @@ in {
     lfsDir = "${cfg.stateDir}/data/lfs";
     repositoryRoot = "${cfg.stateDir}/repositories";
 
-    ip = tools.removeCIDRSuffix (lib.elemAt constant.ipAddrs 0);
     domain = lib.elemAt constant.domains 0;
   };
 }

@@ -8,11 +8,11 @@ in {
 
     security = {
       INSTALL_LOCK = true;
-      SECRET_KEY = placeholder.gitea_secret_key;
+      SECRET_KEY = placeholder."gitea/secret_key";
       COOKIE_USERNAME = "vl9s08hj";
       COOKIE_REMEMBER_NAME = "as2qw5r2";
 
-      INTERNAL_TOKEN = placeholder.gitea_internal_token;
+      INTERNAL_TOKEN = placeholder."gitea/internal_token";
 
       PASSWORD_COMPLEXITY = "lower,upper,digit";
     };
