@@ -5,8 +5,8 @@
     optimise.automatic = true;
     gc = {
       automatic = true;
-      dates = "daily";
-      options = "--delete-older-than 2d";
+      dates = "weekly";
+      options = "--delete-older-than 5d";
     };
 
     # nix-direnv
