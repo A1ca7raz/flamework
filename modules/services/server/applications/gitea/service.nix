@@ -54,6 +54,17 @@ in with cfg; {
       # update command option in authorized_keys
       [[ -r ${cfg.stateDir}/.ssh/authorized_keys ]] && gitea admin regenerate keys
       echo "Regenerate keys completed."
+
+      # create admin user for the first time
+      # initial password will be in ${cfg.stateDir}/superuser.lock
+      if [[ ! -e ${cfg.stateDir}/superuser.lock ]]; then
+        password=$(gitea generate secret SECRET_KEY)
+        gitea admin user create --admin \
+          --username giteasu \
+          --password $password \
+          --email gitea@example.com
+        echo $password > ${cfg.stateDir}/superuser.lock
+      fi
     '';
 
     serviceConfig = {
