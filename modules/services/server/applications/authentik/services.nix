@@ -2,6 +2,7 @@
 let
   authentikComponents = inputs.authentik-nix.packages.x86_64-linux;
   constant = config.lib.services;
+  healthCheckURL = "https://${lib.elemAt config.lib.services.authentik.domains 0}/-/health/ready/";
 
   settings = {
     blueprints_dir = "${authentikComponents.staticWorkdirDeps}/blueprints";
@@ -94,7 +95,10 @@ in {
         preStart = ''
           ln -svf ${authentikComponents.staticWorkdirDeps}/* /var/lib/authentik/
         '';
+        path = [ pkgs.curl ];
         serviceConfig = {
+          Type = "notify";
+          NotifyAccess = "all";
           Environment = [
             "AUTHENTIK_ERROR_REPORTING__ENABLED=false"
             "AUTHENTIK_DISABLE_UPDATE_CHECK=true"
@@ -103,10 +107,37 @@ in {
           ];
           StateDirectory = "authentik";
           UMask = "0027";
-          # TODO /run might be sufficient
+
           WorkingDirectory = "%S/authentik";
-          ExecStart = "${authentikComponents.gopkgs}/bin/server";
-        } // mountOptions // commonOptions;
+          DynamicUser = "yes";
+          User = "authentik";
+          EnvironmentFile = [ environmentFile ];
+          NetworkNamespacePath = "/run/netns/proxy";
+          PrivateMounts = "yes";
+          BindReadOnlyPaths = [
+            "${configFile}:/etc/authentik/config.yml"
+            # https://goauthentik.io/docs/installation/docker-compose#explanation
+            "${pkgs.tzdata}/share/zoneinfo/UTC:/etc/localtime"
+          ];
+        };
+
+        script = ''
+          env -u NOTIFY_SOCKET ${authentikComponents.gopkgs}/bin/server &
+
+          while sleep 5; do
+            status=$(curl ${healthCheckURL} -o /dev/null -s -w "%{http_code}")
+            if [[ $status = 204 ]]; then
+              sleep 5
+              systemd-notify --ready --status="Authentik health check succeeded."
+              echo "Authentik health check succeeded."
+              break
+            fi
+            systemd-notify --status="Authentik health check failed. Try again. (HTTP_CODE:$status)"
+            echo "Authentik health check failed. Try again. (HTTP_CODE:$status)"
+          done
+          echo "End of Authentik script"
+          wait
+        '';
       };
 
       authentik-ldap =

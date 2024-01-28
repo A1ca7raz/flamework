@@ -19,7 +19,7 @@ in {
       documentation = [ "https://min.io/docs/minio/linux/index.html" ];
       requires = [ "authentik.service" ];
       bindsTo = [ "netns-veth-minio.service" ];
-      after = [ "netns-veth-minio.service" "authentik.service" "caddy.service" ];
+      after = [ "netns-veth-minio.service" "authentik.service" ];
       wantedBy = [ "multi-user.target" ];
 
       environment = {

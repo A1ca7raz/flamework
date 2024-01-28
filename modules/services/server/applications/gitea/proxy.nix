@@ -10,8 +10,6 @@ in {
 
     extraConfig = ''
       reverse_proxy http://127.0.0.1:60005 {
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Host {host}
         header_up X-Real-IP {remote}
         header_up Host {host}
       }
@@ -41,7 +39,6 @@ in {
     after = [
       "netns-veth-gitea.service"
       "authentik.service"
-      "caddy.service"
       "minio.service"
       "redis-gitea.service"
       "postgresql.service"
