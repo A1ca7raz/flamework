@@ -1,7 +1,6 @@
 { config, ... }:
 let
   cfg = config.utils.gitea;
-  constant = config.lib.services.gitea;
 in {
   imports = [
     ./sops.nix
