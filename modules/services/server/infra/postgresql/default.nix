@@ -19,6 +19,10 @@ in {
       host all all ${config.lib.subnet.v4Full} md5
       host all all ${config.lib.subnet.v6Full} md5
     '';
+
+    # set up pgvecto-rs plugin
+    extraPlugins = [ pkgs.pgvecto-rs ];
+    settings = { shared_preload_libraries = "vectors.so"; };
   };
 
   # add support for netns
