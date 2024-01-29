@@ -15,26 +15,13 @@
         autostart_tg = mkLink "telegram";
       };
 
-      systemd.user.services.latte-dock-autostart =
-        with pkgs; let
-          lattePackage = latte-dock-nostartup;
-        in {
-          Unit = {
-            Description = "Keep latte alive";
-            After = "graphical-session.target";
-            PartOf = "graphical-session.target";
-          };
-          Service = {
-            ExecStop = "${procps}/bin/pkill latte";
-            ExecStart = "${lattePackage}/bin/latte-dock";
-            Type = "idle";
-            Restart = "on-failure";
-            Slice = "app.slice";
-          };
-          Install = {
-            WantedBy = [ "default.target" ];
-          };
-        };
+      xdg.configFile.autostart_latte_override = {
+        target = "systemd/user/app-org.kde.latte\\x2ddock@autostart.service.d/override.conf";
+        text = ''
+          [Service]
+          Restart=on-failure
+        '';
+      };
     };
 
   nixosModule = { user, tools, ... }:

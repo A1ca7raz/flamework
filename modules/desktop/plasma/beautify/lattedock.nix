@@ -33,7 +33,7 @@
 
   homeModule = { pkgs, lib, tools, ... }: {
     home.packages = with pkgs; [
-      latte-dock-nostartup
+      latte-dock
       libsForQt5.applet-window-buttons
       applet-virtual-desktop-bar-wayland
       applet-window-appmenu
