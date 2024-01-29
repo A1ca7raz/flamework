@@ -309,11 +309,11 @@
         "spicetify-nix": "spicetify-nix"
       },
       "locked": {
-        "lastModified": 1706538270,
-        "narHash": "sha256-8zQpu0xZcqQp802Z8Gu2Rx8eMK/0EuKnZSXLTSp/7kY=",
+        "lastModified": 1706542121,
+        "narHash": "sha256-7eR6FswybOgjIt8BOE+g2AWx8KXzjh1EyFWVOqUCo4M=",
         "owner": "A1ca7raz",
         "repo": "nurpkgs",
-        "rev": "3ed94d2b48f40fd520f5bbae26fcd323f6800b6a",
+        "rev": "9c52000f81b83de703a9054bccebd5c71fe39f13",
         "type": "github"
       },
       "original": {
