@@ -16,6 +16,7 @@ in {
     in {
       description = "Sing-box networking service";
       wantedBy = [ "multi-user.target" ];
+      requires = [ "network-online.target" ];
       after = [ "network-online.target" ];
       path = with pkgs; [ coreutils curl sing-box ];
 
