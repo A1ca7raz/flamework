@@ -86,7 +86,6 @@ in {
         wantedBy = [ "multi-user.target" ];
         bindsTo = [ "netns-veth-authentik.service" ];
         after = [
-          "network-online.target"
           "postgresql.service"
           "redis-authentik.service"
           "netns-veth-authentik.service"
@@ -147,7 +146,6 @@ in {
           wantedBy = [ "multi-user.target" ];
           requires = [ "netns-veth-authentik.service" ];
           after = [
-            "network-online.target"
             "authentik.service"
             "netns-veth-authentik.service"
           ];
