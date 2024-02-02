@@ -1,6 +1,6 @@
 { ... }:
 let
-  mkMirror = x: "https://${x}/nix-channels/store";
+  mkMirror = x: "https://${x}/nix-channels/store?priority=10";
   mkEduMirror = x: mkMirror "mirrors.${x}.edu.cn";
 in {
   nix.settings.substituters = [
@@ -8,7 +8,5 @@ in {
     (mkEduMirror "bfsu")
 #     (mkEduMirror "sjtug.sjtu")
 #     (mkEduMirror "nju")
-
-    "https://cache.nixos.org/"
   ];
 }
