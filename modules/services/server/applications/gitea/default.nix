@@ -7,6 +7,7 @@ in {
     ./service.nix
     ./proxy.nix
     ./config
+    # TODO: 给repository挂载rclone s3/seaweedfs
   ];
 
   # PostgreSQL
