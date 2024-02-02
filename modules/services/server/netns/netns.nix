@@ -12,6 +12,7 @@ in {
       documentation = [
         "https://github.com/systemd/systemd/issues/2741#issuecomment-336736214"
       ];
+      requires = [ "network-online.target" ];
       after = [ "network-online.target" ];
 
       unitConfig = {
