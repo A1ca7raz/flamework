@@ -3,10 +3,9 @@ let
   cfg = config.utils.gitea;
 in {
   imports = [
-    ./sops.nix
+    ./config.nix
     ./service.nix
     ./proxy.nix
-    ./config
     # TODO: 给repository挂载rclone s3/seaweedfs
   ];
 
