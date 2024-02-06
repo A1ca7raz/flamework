@@ -6,6 +6,10 @@ with lib; let
   in
     func kwc;
 in rec {
+  mkItem = g: k: v: { inherit g k v; };
+
+  mkRule = f: g: k: v: { inherit f g k v; };
+
   wrapWC_ = wrapper
     (kc: file: group: key: value:
     let
