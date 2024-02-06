@@ -29,11 +29,9 @@ in {
 
   fileSystems."/nix/persist" = mkRootMount "PERSIST" // { neededForBoot = true; };
 
-  boot = {
-    initrd.luks.devices.block = {
-      device = "/dev/disk/by-label/ROOT";
-      bypassWorkqueues = true;
-      crypttabExtraOpts = [ "fido2-device=auto" "discard" ];
-    };
+  boot.initrd.luks.devices.block = {
+    device = "/dev/disk/by-label/ROOT";
+    bypassWorkqueues = true;
+    crypttabExtraOpts = [ "fido2-device=auto" "discard" ];
   };
 }
