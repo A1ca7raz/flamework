@@ -18,7 +18,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       requires = [ "network-online.target" ];
       after = [ "network-online.target" ];
-      path = with pkgs; [ coreutils curl sing-box ];
+      path = with pkgs; [ curl sing-box ];
 
       environment = {
         SB_WORK_DIR = "/var/lib/sing-box";
