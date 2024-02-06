@@ -1,22 +1,20 @@
-{ home, tools, lib, pkgs, ... }:
-let
-  wc = tools.wrapWC pkgs;
-in {
-  home.activation.setupDesktopEffects = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ${wc "kwinrc" "Plugins" "blurEnabled" "true"}
-    ${wc "kwinrc" "Effect-blur" "BlurStrength" "10"}
-    ${wc "kwinrc" "Effect-blur" "NoiseStrength" "11"}
-    # ${wc "kwinrc" "Effect-blur" "BlurStrength" "4"}
-    # ${wc "kwinrc" "Effect-blur" "NoiseStrength" "0"}
-    ${wc "kwinrc" "Plugins" "contrastEnabled" "true"}
-    ${wc "kwinrc" "Plugins" "dynamic_workspacesEnabled" "true"}
-    ${wc "kwinrc" "Plugins" "kwin4_effect_eyeonscreenEnabled" "true"}
-    ${wc "kwinrc" "Plugins" "kwin4_effect_windowapertureEnabled" "false"}
-    ${wc "kwinrc" "Plugins" "kwin4_effect_dimscreenEnabled" "true"}
-    ${wc "kwinrc" "Effect-kwin4_effect_scale" "InScale" "0.3"}
-    ${wc "kwinrc" "Effect-kwin4_effect_scale" "OutScale" "0.3"}
-    ${wc "kwinrc" "Effect-slide" "HorizontalGap" "0"}
-    ${wc "kwinrc" "Effect-slide" "VerticalGap" "0"}
-    ${wc "kwinrc" "Effect-slide" "SlideDocks" "true"}
-  '';
+{ tools, ... }:
+with tools; {
+  utils.kconfig.files.kwinrc.items = [
+    (mkItem "Plugins" "blurEnabled" "true")
+    (mkItem "Effect-blur" "BlurStrength" "10")
+    (mkItem "Effect-blur" "NoiseStrength" "11")
+    # (mkItem "Effect-blur" "BlurStrength" "4")
+    # (mkItem "Effect-blur" "NoiseStrength" "0")
+    (mkItem "Plugins" "contrastEnabled" "true")
+    (mkItem "Plugins" "dynamic_workspacesEnabled" "true")
+    (mkItem "Plugins" "kwin4_effect_eyeonscreenEnabled" "true")
+    (mkItem "Plugins" "kwin4_effect_windowapertureEnabled" "false")
+    (mkItem "Plugins" "kwin4_effect_dimscreenEnabled" "true")
+    (mkItem "Effect-kwin4_effect_scale" "InScale" "0.3")
+    (mkItem "Effect-kwin4_effect_scale" "OutScale" "0.3")
+    (mkItem "Effect-slide" "HorizontalGap" "0")
+    (mkItem "Effect-slide" "VerticalGap" "0")
+    (mkItem "Effect-slide" "SlideDocks" "true")
+  ];
 }

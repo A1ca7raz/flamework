@@ -1,103 +1,120 @@
-{ home, pkgs, tools, config, lib, ... }:
-with tools; let
-  inherit (config.lib) themeColor;
+{
+  nixosModule = { tools, config, user, lib, ... }:
+    with tools; let
+      inherit (config.lib) themeColor;
+      inherit (config.lib.theme)
+        ThemeColor
+        IconTheme
+        CursorTheme
+        PlasmaTheme
+        ColorScheme
+        KvantumTheme;
+    mkcl = lib.foldl (acc: i: acc // {
+      ${i} = {
+        target = c i;
+        source = config.utils.kconfig.files."${i}".path;
+      };
+    }) {};
+    in {
+      environment.overlay = mkOverlayTree user (mkcl [
+        "plasmarc"
+        # "sierrabreezeenhancedrc"
+        "Kvantum/kvantum.kvconfig"
+        "ksplashrc"
+        "kscreenlockerrc"
+      ]);
 
-  ThemeColor = "Light";  # Dark&Light
+      utils.kconfig.rules = [
+        # Application Style
+        (mkRule "kdeglobals" "KDE" "widgetStyle" "kvantum")
+        # Plasma Style
+        (mkRule "plasmarc" "Theme" "name" PlasmaTheme)
+        (mkRule "plasmarc" "Theme-plasmathemeexplorer" "name" "Win11OS-dark")
+        # Window decorations
+        (mkRule "kwinrc" "org.kde.kdecoration2" "theme" "Sierra Breeze Enhanced")
+        (mkRule "kwinrc" "org.kde.kdecoration2" "library" "org.kde.sierrabreezeenhanced")
+        (mkRule "sierrabreezeenhancedrc" "Windeco" "BackgroundOpacity" (
+          if (ThemeColor == "Dark")
+          then themeColor.dark.windecoOpacity
+          else if (ThemeColor == "Light")
+          then themeColor.light.windecoOpacity
+          else "100"
+        ))
+        # Colors
+        (mkRule "kdeglobals" "General" "ColorScheme" ColorScheme)
+        # Icons
+        (mkRule "kdeglobals" "Icons" "Theme" IconTheme.name)
+        # Cursors
+        (mkRule "kcminputrc" "Mouse" "cursorTheme" CursorTheme.name)
+        # Kvantum Theme
+        (mkRule "Kvantum/kvantum.kvconfig" "General" "theme" KvantumTheme)
+        # Splash screen
+        (mkRule "ksplashrc" "KSplash" "Theme" "Arch-Splash")
 
-  IconTheme = {
-    package = pkgs.tela-icon-theme;
-    name = "Tela-dracula-light";
-  };
-  CursorTheme = {
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
-  };
-  PlasmaTheme     = "Win11OS-light";
-  ColorScheme     = "My${ThemeColor}";
-  KvantumTheme    = "Breeze-Blur-${ThemeColor}";
-  KonsoleProfile  = "${ThemeColor}.profile";
+        # Screen Locker
+        (mkRule "kscreenlockerrc" "Daemon" "Autolock" "false")
+        (mkRule "kscreenlockerrc" "Greeter" "WallpaperPlugin" "org.kde.potd")
+        (mkRule "kscreenlockerrc" ["Greeter" "Wallpaper" "org.kde.potd" "General"] "Provider" "bing")
+        (mkRule "kscreenlockerrc" ["Greeter" "Wallpaper" "org.kde.potd" "General"] "UpdateOverMeteredConnection" "1")
 
-  konsole_path = "$HOME/.local/share/konsole";
-  wc = wrapWC pkgs;
-  wc_ = wrapWC_ pkgs;
-  _wc = wc_ "$HOME/.config/kscreenlockerrc" ["Greeter" "Wallpaper" "org.kde.potd" "General"];
-in {
-  home.packages = with pkgs; [
-    libsForQt5.qtstyleplugin-kvantum
-    dconf
-    IconTheme.package
-    CursorTheme.package
-    kwin-dynamic-workspaces
-  ];
+        ## Window Border
+        (mkRule "kwinrc" "org.kde.kdecoration2" "BorderSize" "None")
+        (mkRule "kwinrc" "org.kde.kdecoration2" "BorderSizeAuto" "false")
+        ## Titlebar Buttons
+        (mkRule "kwinrc" "org.kde.kdecoration2" "ButtonsOnLeft" "XM")
+        (mkRule "kwinrc" "org.kde.kdecoration2" "ButtonsOnRight" "IA")
+        (mkRule "kwinrc" "org.kde.kdecoration2" "CloseOnDoubleClickOnMenu" "true")
+        ## Use accent color From Wallpaper
+        (mkRule "kdeglobals" "General" "accentColorFromWallpaper" "true")
 
-  qt = {
-    enable = true;
-    platformTheme = "kde";
-  };
+        ## Cursor Animation
+        # ?
+        # (mkRule "klaunchrc" "BusyCursorSettings" "Bouncing" "false")
 
-  home.activation.setupTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    # Application Style
-    ${wc "kdeglobals" "KDE" "widgetStyle" "kvantum"}
-    # Plasma Style
-    ${wc "plasmarc" "Theme" "name" PlasmaTheme}
-    ${wc "plasmarc" "Theme-plasmathemeexplorer" "name" "Win11OS-dark"}
-    # Window decorations
-    ${wc "kwinrc" "org.kde.kdecoration2" "theme" "Sierra Breeze Enhanced"}
-    ${wc "kwinrc" "org.kde.kdecoration2" "library" "org.kde.sierrabreezeenhanced"}
-    ${wc "sierrabreezeenhancedrc" "Windeco" "BackgroundOpacity" (
-      if (ThemeColor == "Dark")
-      then themeColor.dark.windecoOpacity
-      else if (ThemeColor == "Light")
-      then themeColor.light.windecoOpacity
-      else "100"
-    )}
-    # Colors
-    ${wc "kdeglobals" "General" "ColorScheme" ColorScheme}
-    # Icons
-    ${wc "kdeglobals" "Icons" "Theme" IconTheme.name}
-    # Cursors
-    ${wc "kcminputrc" "Mouse" "cursorTheme" CursorTheme.name}
-    # Kvantum Theme
-    ${wc "Kvantum/kvantum.kvconfig" "General" "theme" KvantumTheme}
-    # Splash screen
-    ${wc "ksplashrc" "KSplash" "Theme" "Arch-Splash"}
+        ## Screen Edge Actions
+        (mkRule "kwinrc" "Effect-windowview" "BorderActivateClass" "7")
+        (mkRule "kwinrc" "Effect-overview" "BorderActivate" "1")
+        (mkRule "kwinrc" "Script-minimizeall" "BorderActivate" "3")
+      ];
+    };
 
-    # Screen Locker
-    ${wc "kscreenlockerrc" "Daemon" "Autolock" "false"}
-    ${wc "kscreenlockerrc" "Greeter" "WallpaperPlugin" "org.kde.potd"}
-    ${_wc "Provider" "bing"}
-    ${_wc "UpdateOverMeteredConnection" "1"}
+  homeModule = { pkgs, tools, config, lib, ... }:
+    with tools; let
+      inherit (config.lib.theme)
+        IconTheme
+        CursorTheme
+        KonsoleProfile;
 
-    ## Window Border
-    ${wc "kwinrc" "org.kde.kdecoration2" "BorderSize" "None"}
-    ${wc "kwinrc" "org.kde.kdecoration2" "BorderSizeAuto" "false"}
-    ## Titlebar Buttons
-    ${wc "kwinrc" "org.kde.kdecoration2" "ButtonsOnLeft" "XM"}
-    ${wc "kwinrc" "org.kde.kdecoration2" "ButtonsOnRight" "IA"}
-    ${wc "kwinrc" "org.kde.kdecoration2" "CloseOnDoubleClickOnMenu" "true"}
-    ## Use accent color From Wallpaper
-    ${wc "kdeglobals" "General" "accentColorFromWallpaper" "true"}
+      konsole_path = "$HOME/.local/share/konsole";
+    in {
+      home.packages = with pkgs; [
+        libsForQt5.qtstyleplugin-kvantum
+        dconf
+        IconTheme.package
+        CursorTheme.package
+        kwin-dynamic-workspaces
+      ];
 
-    ## Cursor Animation
-    # ?
-    # ${wc "klaunchrc" "BusyCursorSettings" "Bouncing" "false"}
+      qt = {
+        enable = true;
+        platformTheme = "kde";
+      };
 
-    ## Screen Edge Actions
-    ${wc "kwinrc" "Effect-windowview" "BorderActivateClass" "7"}
-    ${wc "kwinrc" "Effect-overview" "BorderActivate" "1"}
-    ${wc "kwinrc" "Script-minimizeall" "BorderActivate" "3"}
+      home.activation.setupTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        ## Konsole Profile
+        ln -sf ${konsole_path}/${KonsoleProfile} ${konsole_path}/Default.profile
+      '';
 
-    ## Konsole Profile
-    ln -sf ${konsole_path}/${KonsoleProfile} ${konsole_path}/Default.profile
-  '';
+      home.sessionVariables.GTK_USE_PORTAL = "1";
 
-  home.sessionVariables.GTK_USE_PORTAL = "1";
-
-  # gtk = {
-  #   enable = true;
-  #   theme.name = "Breeze";
-  #   font.name = "Source Han Sans SC";
-  #   cursorTheme.name = CursorTheme.name;
-  #   iconTheme.name = IconTheme.name;
-  # };
+      # gtk = {
+      #   enable = true;
+      #   theme.name = "Breeze";
+      #   font.name = "Source Han Sans SC";
+      #   cursorTheme.name = CursorTheme.name;
+      #   iconTheme.name = IconTheme.name;
+      # };
+    };
 }
+
+
