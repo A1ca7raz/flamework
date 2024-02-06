@@ -1,36 +1,34 @@
-{ home, tools, lib, pkgs, ... }:
-let
-  wc = tools.wrapWC pkgs;
-in {
-  home.activation.setupKwinWindow = lib.hm.dag.entryAfter ["writeBoundary"] ''
+{ tools, ... }:
+with tools; {
+  utils.kconfig.rules = [
     ## Screen Edge Actions
-    ${wc "kwinrc" "Effect-windowview" "BorderActivateClass" "7"}
-    ${wc "kwinrc" "Effect-overview" "BorderActivate" "1"}
-    ${wc "kwinrc" "Script-minimizeall" "BorderActivate" "3"}
+    (mkRule "kwinrc" "Effect-windowview" "BorderActivateClass" "7")
+    (mkRule "kwinrc" "Effect-overview" "BorderActivate" "1")
+    (mkRule "kwinrc" "Script-minimizeall" "BorderActivate" "3")
 
     ## Normal Behavior
-    ${wc "kdeglobals" "KDE" "SingleClick" "false"}
-    ${wc "kdeglobals" "KDE" "ScrollbarLeftClickNavigatesByPage" "true"}
+    (mkRule "kdeglobals" "KDE" "SingleClick" "false")
+    (mkRule "kdeglobals" "KDE" "ScrollbarLeftClickNavigatesByPage" "true")
 
     ## Window Behavior
-    ${wc "kwinrc" "Windows" "DelayFocusInterval" "0"}
-    ${wc "kwinrc" "MouseBindings" "CommandTitlebarWheel" "Maximize/Restore"}
-    ${wc "kwinrc" "MouseBindings" "CommandActiveTitlebar2" "Close"}
-    ${wc "kwinrc" "MouseBindings" "CommandInactiveTitlebar2" "Close"}
-    ${wc "kdeglobals" "General" "AllowKDEAppsToRememberWindowPositions" "false"}
-    ${wc "kwinrc" "Windows" "ActivationDesktopPolicy" "BringToCurrentDesktop"}
+    (mkRule "kwinrc" "Windows" "DelayFocusInterval" "0")
+    (mkRule "kwinrc" "MouseBindings" "CommandTitlebarWheel" "Maximize/Restore")
+    (mkRule "kwinrc" "MouseBindings" "CommandActiveTitlebar2" "Close")
+    (mkRule "kwinrc" "MouseBindings" "CommandInactiveTitlebar2" "Close")
+    (mkRule "kdeglobals" "General" "AllowKDEAppsToRememberWindowPositions" "false")
+    (mkRule "kwinrc" "Windows" "ActivationDesktopPolicy" "BringToCurrentDesktop")
     
     ## TabBox
-    ${wc "kwinrc" "TabBox" "HighlightWindows" "false"}
-    ${wc "kwinrc" "TabBox" "LayoutName" "thumbnail_grid"}
-    ${wc "kwinrc" "TabBox" "ShowDesktopMode" "1"}
-    ${wc "kwinrc" "TabBox" "ApplicationsMode" "1"}
-    ${wc "kwinrc" "TabBox" "OrderMinimizedMode" "1"}
-    ${wc "kwinrc" "TabBoxAlternative" "HighlightWindows" "false"}
-    ${wc "kwinrc" "TabBoxAlternative" "ShowTabBox" "false"}
+    (mkRule "kwinrc" "TabBox" "HighlightWindows" "false")
+    (mkRule "kwinrc" "TabBox" "LayoutName" "thumbnail_grid")
+    (mkRule "kwinrc" "TabBox" "ShowDesktopMode" "1")
+    (mkRule "kwinrc" "TabBox" "ApplicationsMode" "1")
+    (mkRule "kwinrc" "TabBox" "OrderMinimizedMode" "1")
+    (mkRule "kwinrc" "TabBoxAlternative" "HighlightWindows" "false")
+    (mkRule "kwinrc" "TabBoxAlternative" "ShowTabBox" "false")
 
     ## KWin Scripts
-    ${wc "kwinrc" "Plugins" "minimizeallEnabled" "true"}
-    ${wc "kwinrc" "Plugins" "synchronizeskipswitcherEnabled" "true"}
-  '';
+    (mkRule "kwinrc" "Plugins" "minimizeallEnabled" "true")
+    (mkRule "kwinrc" "Plugins" "synchronizeskipswitcherEnabled" "true")
+  ];
 }

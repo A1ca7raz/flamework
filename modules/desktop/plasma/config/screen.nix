@@ -1,10 +1,8 @@
-{ home, lib, tools, pkgs, ... }:
-let
-  wc = tools.wrapWC pkgs;
-in {
-  home.activation.setupScreen = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ${wc "kdeglobals" "KScreen" "ScaleFactor" "1.0625"}
-    ${wc "kwinrc" "Compositing" "WindowsBlockCompositing" "false"}
-    ${wc "kwinrc" "Compositing" "LatencyPolicy" "ExtremelyHigh"}
-  '';
+{ tools, ... }:
+with tools; {
+  utils.kconfig.rules = [
+    (mkRule "kdeglobals" "KScreen" "ScaleFactor" "1.0625")
+    (mkRule "kwinrc" "Compositing" "WindowsBlockCompositing" "false")
+    (mkRule "kwinrc" "Compositing" "LatencyPolicy" "ExtremelyHigh")
+  ];
 }

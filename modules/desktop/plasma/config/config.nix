@@ -1,17 +1,9 @@
-{ home, ... }:
-{
-  xdg.configFile = {
-    kiorc = {
-      target = "kiorc";
-      text = ''
-        [Confirmations]
-        ConfirmDelete=false
-        ConfirmEmptyTrash=false
-        ConfirmTrash=false
-
-        [Executable scripts]
-        behaviourOnLaunch=open
-      '';
-    };
-  };
+{ user, config, tools, ... }:
+with tools; {
+  utils.kconfig.files.kiorc.items = [
+    (mkItem "Confirmations" "ConfirmDelete" "false")
+    (mkItem "Confirmations" "ConfirmEmptyTrash" "false")
+    (mkItem "Confirmations" "ConfirmTrash" "false")
+    (mkItem "Executable scripts" "behaviourOnLaunch" "open")
+  ];
 }

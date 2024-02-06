@@ -1,20 +1,23 @@
-{ home, lib, tools, pkgs, ... }:
+{ tools, ... }:
 with tools; let
-  wc = wrapWC pkgs "kcminputrc";
-  wc_ = wrapWC_ pkgs "$HOME/.config/kcminputrc";
-  wctouchpad = wc_ ["Libinput" "1739" "52781" "MSFT0004:00 06CB:CE2D Touchpad"];
-  wcmouse = x: wc_ (["Libinput"] ++ x) "PointerAccelerationProfile" "1";
+  mk = mkRule "kcminputrc";
+  mk_ = mkRule "kcminputrc";
+  mktouchpad = mk_ ["Libinput" "1739" "52781" "MSFT0004:00 06CB:CE2D Touchpad"];
+  mkmouse = x: mk_ (["Libinput"] ++ x) "PointerAccelerationProfile" "1";
 in {
-  home.activation.setupInput = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ${wc "Keyboard" "NumLock" "0"}
-    ${wc "Mouse" "X11LibInputXAccelProfileFlat" "false"}
-    ${wc "Mouse" "XLbInptAccelProfileFlat" "true"}
-    ${wcmouse ["1133" "16505" "Logitech G Pro "]}
-    ${wcmouse ["1133" "16500" "Logitech G304"]}
-    ${wctouchpad "ClickMethod" "2"}
-    ${wctouchpad "NaturalScroll" "true"}
-    ${wctouchpad "TapToClick" "true"}
-    echo '[Wayland]' >> $HOME/.config/kwinrc
-    echo 'InputMethod[$e]=/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop' >> $HOME/.config/kwinrc
+  utils.kconfig.rules = [
+    (mk "Keyboard" "NumLock" "0")
+    (mk "Mouse" "X11LibInputXAccelProfileFlat" "false")
+    (mk "Mouse" "XLbInptAccelProfileFlat" "true")
+    (mkmouse ["1133" "16505" "Logitech G Pro "])
+    (mkmouse ["1133" "16500" "Logitech G304"])
+    (mktouchpad "ClickMethod" "2")
+    (mktouchpad "NaturalScroll" "true")
+    (mktouchpad "TapToClick" "true")
+  ];
+
+  utils.kconfig.files.kwinrc.extraScript = ''
+    echo '[Wayland]' >> $out
+    echo 'InputMethod[$e]=/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop' >> $out
   '';
 }
