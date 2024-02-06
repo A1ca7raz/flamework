@@ -20,29 +20,59 @@ in {
       after = [ "network-online.target" ];
       path = with pkgs; [ coreutils curl sing-box ];
 
-      serviceConfig = {
-        Type = "simple";
-        StateDirectory = "sing-box";
-        CapabilityBoundingSet = caps;
-        AmbientCapabilities = caps;
-        NoNewPrivileges = "yes";
-        User = "sing-box";
-        Group = "sing-box";
-        DynamicUser = "yes";
-
-        EnvironmentFile = [ subscriptionEnv ];
-
-        # Sing-box auto update
-        Restart = "always";
-        RuntimeMaxSec = "${updateTimeoutMin}min";
-
-        OOMPolicy = "kill";
-        MemoryMax = "200M";
-      };
-
       environment = {
         SB_WORK_DIR = "/var/lib/sing-box";
         SB_CONF_FILE = configFile;
+      };
+
+      serviceConfig = {
+        Type = "simple";
+        User = "sing-box";
+        Group = "sing-box";
+        StateDirectory = "sing-box";
+        EnvironmentFile = [ subscriptionEnv ];
+        ExecStart = "${pkgs.sing-box}/bin/sing-box run -D $SB_WORK_DIR -c $SB_CONF_FILE";
+
+        # Sing-box Auto Update
+        Restart = "always";
+        RuntimeMaxSec = "${updateTimeoutMin}min";
+
+        # OOM Killer
+        OOMPolicy = "kill";
+        MemoryMax = "200M";
+
+        DynamicUser = "yes";
+        # Capabilities
+        CapabilityBoundingSet = caps;
+        AmbientCapabilities = caps;
+        # Proc filesystem
+        ProcSubset = "pid";
+        ProtectProc = "invisible";
+        # Security
+        NoNewPrivileges = true;
+        # Sandboxing
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        # PrivateDevices = true;        # NOT WORK on Tun Mode
+        PrivateMounts = true;
+        PrivateTmp = true;
+        # PrivateUsers = true;          # NOT WORK on Tun Mode
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectSystem = "strict";
+        RemoveIPC = true;
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_NETLINK" ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        # System Call Filtering
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" "setrlimit" ];
       };
 
       preStop = ''
@@ -51,7 +81,7 @@ in {
           -o $SB_CONF_FILE
       '';
 
-      script = ''
+      preStart = ''
         [[ -d $SB_WORK_DIR ]] || mkdir -p $SB_WORK_DIR
 
         if [[ -f $SB_CONF_FILE ]] && test `find $SB_CONF_FILE -mmin -2`; then
@@ -66,9 +96,7 @@ in {
             -o $SB_CONF_FILE
         fi
 
-        [[ -f $SB_CONF_FILE ]] && chmod 0600 $SB_CONF_FILE || exit 1
-
-        sing-box run -D $SB_WORK_DIR -c $SB_CONF_FILE
+        [[ -f $SB_CONF_FILE ]] && chmod 0600 $SB_CONF_FILE || exit 1      
       '';
     }
   );
