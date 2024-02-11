@@ -6,6 +6,7 @@
         text = profile_tpl x;
         target = ".local/share/konsole/${x}.profile";
       };
+      tc = x: ".local/share/konsole/${x}.colorscheme";
 
       path = ./profiles;
       profile_tpl = import /${path}/profile_tpl.nix;
@@ -16,12 +17,12 @@
 
         konsole_color_dark = {
           text = import /${path}/dark_color.nix themeColor;
-          target = t "Blur Dark.colorscheme";
+          target = tc "Blur Dark";
         };
 
         konsole_color_light = {
           text = import /${path}/light_color.nix themeColor;
-          target = t "Blur Light.colorscheme";
+          target = tc "Blur Light";
         };
       };
     };
