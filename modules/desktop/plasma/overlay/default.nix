@@ -33,7 +33,6 @@ in mkOverlayModule user (mkcl [
 
   "plasmarc"
   # "sierrabreezeenhancedrc"
-  "kvconfig"
   "ksplashrc"
   "kscreenlockerrc"
 ])
