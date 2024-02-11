@@ -7,6 +7,7 @@ templates.desktop {
 
   modules = with self.nixosModules.modules; [
     constant.theme_color
+    constant.theme
 
     desktop.plasma
 
@@ -21,7 +22,7 @@ templates.desktop {
     ])
     services.client
     system.kernel.xanmod
-    system.security.kwallet
+    # system.security.kwallet
   ];
 
   extraConfig = { ... }: {
