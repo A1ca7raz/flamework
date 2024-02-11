@@ -1,6 +1,6 @@
 { tools, ... }:
-with tools; {
-  utils.kconfig.files.kglobalshortcutsrc.items = [
+{
+  utils.kconfig.files.kglobalshortcutsrc.items = with tools; [
     (mkItem "kaccess" "Toggle Screen Reader On and Off" "none,Meta+Alt+S,切换屏幕阅读器开关")
     (mkItem "kcm_touchpad" "Toggle Touchpad" "Meta+Ins\tTouchpad Toggle,Touchpad Toggle,切换触摸板")
     (mkItem "kwin" "Expose" "none,Ctrl+F9,显示/隐藏窗口平铺 (当前桌面)")
