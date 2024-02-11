@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Birdtray
+Exec=sh -c "sleep 5; exec birdtray"
+Icon=com.ulduzsoft.Birdtray
+MimeType=
+Name=Birdtray
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+X-MultipleArgs=false
