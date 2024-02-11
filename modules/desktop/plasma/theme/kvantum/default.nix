@@ -1,6 +1,6 @@
 {
   nixosModule = { config, user, tools, ... }:
-    let
+    with tools; let
       inherit (config.lib.theme) KvantumTheme;
     in {
       utils.kconfig.rules = [
@@ -11,9 +11,15 @@
       ];
 
       # Persistence
-      environment.persistence = with tools; mkPersistDirsModule user [
+      environment.persistence = mkPersistDirsTree user [
         (c "Kvantum")
       ];
+      environment.overlay = mkOverlayTree user {
+        kvconfig = {
+          source = config.utils.kconfig.files.kvconfig.path;
+          target = c "Kvantum/kvantum.kvconfig";
+        };
+      };
     };
   
   homeModule = { pkgs, ... }: {
