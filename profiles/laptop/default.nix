@@ -6,7 +6,6 @@ templates.desktop {
   # system = "x86_64-linux";
 
   modules = with self.nixosModules.modules; [
-    constant.theme_color
     constant.theme
 
     desktop.plasma
