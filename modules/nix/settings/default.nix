@@ -34,6 +34,4 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = [ pkgs.nil ];
 }
