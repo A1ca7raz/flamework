@@ -26,7 +26,7 @@ in {
   '';
 
   ## Touchpad
-  # NOTE: kwriteconfig5 cannot proceed "-0.1"
+  # NOTE: kwriteconfig5 cannot handle "-0.1"
   utils.kconfig.files.touchpadxlibinputrc.extraScript = ''
     echo > $out << EOF
     [MSFT0004:00 06CB:CE2D Touchpad]
