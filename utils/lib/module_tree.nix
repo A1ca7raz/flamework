@@ -30,6 +30,8 @@ in rec {
           # 目录型模块，声明读取文件型模块
           else if (v == "directory" && hasDefault /${path}/${n} && (import /${path}/${n}/default.nix) == {})
           then { name = n; value = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
+          else if (v == "directory" && builtins.pathExists /${path}/${n}/__.nix && (import /${path}/${n}/__.nix) == {})
+          then { name = n; value = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
           # 目录型模块
           else if v == "directory" && type == "dir" && hasDefault /${path}/${n}
           then { name = n; value = import /${path}/${n}; }

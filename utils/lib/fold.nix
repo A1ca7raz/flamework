@@ -19,7 +19,7 @@ in rec {
   # _fold "directory/regular" /path/to/dir [] (x: y: [ ./${x} ] ++ y);
   _fold = type: dir: y: xy:
   let
-    RESERVED_WORDS = [ "default" "default.nix" ];
+    RESERVED_WORDS = [ "default" "default.nix" "__.nix" ];
   in
     lib.fold xy y
       (lib.subtractLists RESERVED_WORDS (_getListFromDir type dir));
