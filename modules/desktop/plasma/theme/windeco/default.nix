@@ -1,15 +1,17 @@
 {
-  nixosModule = { tools, user, config, ... }:
+  nixosModule = { tools, config, user, ... }:
     with tools; let
       inherit (config.lib) themeColor;
       inherit (config.lib.theme) ThemeColor;
 
       kwinrc = mkRule "kwinrc";
     in {
+      imports = [ ./config.nix ];
+
       environment.overlay = mkOverlayTree user {
         sierrabreezeenhancedrc = {
           target = c "sierrabreezeenhancedrc";
-          source = ./sierrabreezeenhancedrc;
+          source = config.utils.kconfig.files.sierrabreezeenhancedrc.path;
         };
       };
 
