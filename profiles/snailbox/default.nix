@@ -13,7 +13,6 @@ in templates.vps {
 
     # Infra
     services.server.infra.router
-    services.server.netns
     services.server.infra.step-ca
     services.server.infra.caddy
     services.server.infra.redis
