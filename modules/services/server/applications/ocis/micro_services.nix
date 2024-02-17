@@ -16,6 +16,7 @@ builtins.concatStringsSep "," [
   "nats"
   # "notifications"
   "ocdav"
+  "ocm"
   "ocs"
   "postprocessing"
   "proxy"
