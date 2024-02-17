@@ -9,6 +9,7 @@
       mkRcloneService = { targetPath, sourcePath }:
         let
           mountPath = ".cache/rclone/${targetPath}";
+          rcloneOptions = import ./options.nix;
         in {
           Unit = {
             Description = "Rclone Daemon Auto mount";
@@ -16,14 +17,12 @@
           };
           Service = {
             ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${mountPath}";
-            ExecStart = "${pkgs.rclone}/bin/rclone mount ${sourcePath} ${mountPath} --vfs-cache-mode writes";
+            ExecStart = "${pkgs.rclone}/bin/rclone mount ${sourcePath} ${mountPath} ${rcloneOptions} --cache-dir \".cache/rclone/cache/${targetPath}\"";
             ExecStop = "${pkgs.util-linux}/bin/umount ${mountPath}";
             # https://discourse.nixos.org/t/fusermount-systemd-service-in-home-manager/5157
             Environment = "PATH=/run/wrappers/bin/:$PATH";
           };
-          Install = {
-            WantedBy = [ "default.target" ];
-          };
+          Install.WantedBy = [ "default.target" ];
         };
     in {
       home.packages = [ pkgs.rclone ];
