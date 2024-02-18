@@ -76,15 +76,19 @@ in {
       };
 
       preStop = ''
-        curl --connect-timeout 5 --retry 3 --retry-delay 1 \
-          -L $SB_SUBSCRIPTION_URI \
-          -o $SB_CONF_FILE
+        if [[ -f $SB_CONF_FILE ]] && test `find $SB_CONF_FILE -mmin -2`; then
+          :
+        else
+          curl --connect-timeout 5 --retry 3 --retry-delay 1 \
+            -L $SB_SUBSCRIPTION_URI \
+            -o $SB_CONF_FILE
+        fi
       '';
 
       preStart = ''
         [[ -d $SB_WORK_DIR ]] || mkdir -p $SB_WORK_DIR
 
-        if [[ -f $SB_CONF_FILE ]] && test `find $SB_CONF_FILE -mmin -2`; then
+        if [[ -f $SB_CONF_FILE ]] && test `find $SB_CONF_FILE -mmin -3`; then
           :
         elif [[ -f $SB_CONF_FILE ]] && test `find $SB_CONF_FILE -mmin -${updateTimeoutMin}`; then
           curl --connect-timeout 5 \
