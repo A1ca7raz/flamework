@@ -100,7 +100,7 @@ in {
             -o $SB_CONF_FILE
         fi
 
-        [[ -f $SB_CONF_FILE ]] && chmod 0600 $SB_CONF_FILE || exit 1      
+        [[ -f $SB_CONF_FILE ]] && chmod 0600 $SB_CONF_FILE || exit 1
       '';
     }
   );
