@@ -44,10 +44,10 @@ in {
     options = [ "bind" ];
   };
 
-  # fileSystems."/mnt/data/1" = {
-  #   device = "/dev/disk/by-label/DATA1";
-  #   fsType = "btrfs";
-  #   options = [ "subvol=/DATA1" "compress-force=zstd" ];
-  #   neededForBoot = true;
-  # };
+  fileSystems."/mnt/data/minio/0" = {
+    device = "/dev/disk/by-label/MINIO_0";
+    fsType = "xfs";
+    options = [ "defaults" "noatime" ];
+    neededForBoot = true;
+  };
 }

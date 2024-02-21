@@ -17,8 +17,8 @@ in {
     sops.secrets = {
       "gitea/internal_token" = enabled;
       "gitea/lfs_jwt_secret" = enabled;
-      "gitea/minio_access_key_id" = enabled;
-      "gitea/minio_secret_access_key" = enabled;
+      "gitea/minio_assets_access_key_id" = enabled;
+      "gitea/minio_assets_access_key_secret" = enabled;
       "gitea/secret_key" = enabled;
       "gitea/oauth2_jwt_secret" = enabled;
     };

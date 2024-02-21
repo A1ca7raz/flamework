@@ -2,7 +2,7 @@
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/web-servers/minio.nix
 let
   configDir = "/var/lib/minio/config";
-  dataDir = [ "/mnt/data/0" ];
+  dataDir = [ "/mnt/data/minio/0" ];
   rootCredentialsFile = config.sops.secrets.minio_env.path;
 
   listenAddress = "127.0.0.1:60003";
