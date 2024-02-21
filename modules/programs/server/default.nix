@@ -5,5 +5,6 @@
     sops
     age
     e2fsprogs
+    xfsprogs
   ];
 }
