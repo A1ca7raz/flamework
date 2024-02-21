@@ -2,7 +2,6 @@
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
       # audacity
-      barrier
       # drawio
       fsearch
       # gimp
@@ -33,7 +32,6 @@
       (ls "vulkan")
       ".local/state/wireplumber"
 
-      (ls "barrier")                  # Barrier
       (c "draw.io")                   # Draw.io
       (c "GIMP")                      # GIMP
       (ls "qalculate")                # Qalc
