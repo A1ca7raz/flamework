@@ -15,7 +15,7 @@
 
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
-      birdtray-ya
+      birdtray
       (thunderbird.override {
         cfg = {
           smartcardSupport = true;
