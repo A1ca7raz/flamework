@@ -18,7 +18,9 @@
     system.network.base
     system.network.headless
     system.network.systemd
-    (system.security.exclude ["fail2ban" "fido" "kwallet"])
+    system.security.pki
+    system.security.sudo
+    system.security.oomd
 
     users.root
   ];

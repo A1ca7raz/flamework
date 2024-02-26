@@ -24,12 +24,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
-#     lanzaboote = {
-#       url = "github:nix-community/lanzaboote";
-#       inputs.nixpkgs.follows = "nixpkgs";
-#       inputs.flake-compat.follows = "flake-compat";
-#       inputs.flake-utils.follows = "flake-utils";
-#     };
+    lanzaboote.follows = "nur/lanzaboote";
     sops-nix.follows = "nur/sops-nix";
     spicetify-nix.follows = "nur/spicetify-nix";
     authentik-nix.follows = "nur/authentik-nix";
@@ -58,7 +53,7 @@
         sops = sops-nix.nixosModules.sops;
         impermanence = impermanence.nixosModules.impermanence;
         home = home-manager.nixosModules.home-manager;
-        # lanzaboote = lanzaboote.nixosModules.lanzaboote;
+        lanzaboote = lanzaboote.nixosModules.lanzaboote;
         nur = inputs.nur.nixosModule;
       });
 

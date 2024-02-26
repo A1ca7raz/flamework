@@ -20,7 +20,10 @@
     system.misc
     system.network.base
     system.network.network-manager
-    (system.security.exclude ["fail2ban" "kwallet"])
+    system.security.fido
+    system.security.pki
+    system.security.sudo
+    system.security.oomd
 
     users
   ];
