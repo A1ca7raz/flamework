@@ -1,0 +1,77 @@
+{
+    "YouTube": {
+        "searchURL": "https://www.youtube.com/results?search_query=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAq0lEQVQ4jaWT0Q2DMAxEXyIGYAMygkdgBTZgRDaAETpC2CAbXD+giKoJbYklK4niO8tn20mixnwVGmiOm3MtYPurL8Qv+/lASgBIQjAK9KePkkBgN8AvNw+ECgnMn+r+tBihL8kBQLjuQtfBPMM0QQjZkN/a2LbFr2uCdYVh2MqIMRvSAI8igRmkdJUieiBPDd/AsA1U3SC5Y5neR9mAnHLLKXMCTgQ3rXobnzl8hRUj722/AAAAAElFTkSuQmCC",
+        "keyword": "yt"
+    },
+    "Bing4": {
+        "searchURL": "https://www4.bing.com/search?setlang=zh-Hans&setmkt=zh-hk&q=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAFVBMVEVHcEwQbr4QcL8Qbr4Qbr4Qbr4Qbr7G+VbAAAAABnRSTlMAihTBuxWwCgCFAAAAQUlEQVQYlZ2PQQoAIAzDVjfz/yfLEFQUD9pDYYG11OxPxSHKcoMEkwTp+AAoXdyB95fYQzVratZqJdZDTvI0Z6gBbyYAxPTIOvgAAAAASUVORK5CYII=",
+        "keyword": "bing"
+    },
+    "NixOS Search - Packages": {
+        "searchURL": "https://search.nixos.org/packages?channel=unstable&type=packages&query=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAC3UlEQVQ4jaWTX2iVdRjHP8/v/Z1ztnPm2R82zxgbs6M01xaiECmWojgjaWl2p17YJMhCQpAFBV3spoy86SovGhGVlAt2YdRCiQha4D/UNp2so266Nm3zuM45O+c97/t7unCLugmi79Vz8/ncPN8v/M/I0rH7jR8Bdqq6j9W5fbVNya9bOlNHgHeBA8AU8AWqPcBg3zMtDwWL4FLaVN2QunAkfz/3YtfBp6vz9wvfqqqgOo+SBp7NZ4tXblycBsBrf6pnCd4GPAnainObbNQsy5zPNESiXjxRHd+K6grgaDHvf5U5N51ACADsIvwI8D7QBpQVSqCvGCPcHp2cqaqN36ysqmwQOHPhm0xVsr7yHeBDYMRWJmMUssUHiLzqWbFN6bqDwKO/T2Xfe3A3O+EXSi4sldPEY8eBPTXL4784py8Dw8CITa9N2YpENP/mpsbhvqGJjS5w21X11IbuzoGTx74LbRRWrlt1bubX37YVF8rdoM+DjoIMI+LJ20OT/ShpVMuorkA1LrDDOb0U+iE25lHKl/Gs6Zgcu3f8j9nCRjHeDCLXRcwti0gUNAKyGiE1e3v2p/Gz46GNWoyJEfgLeJEKQIwY0yrGyxjHTYyJAGqA/YjsxcidMNRbU2PTjV4kdqQwH3rt61eyZksnpz741LigfNgFQSIolXoGjw10lXLFLtXwgAUCYD3QIZ687i8E7cazPQ0tydMVidi48cQc+qi35d7k3Fobi55pXdPKE7vWbUC4mptbmFt64xWgvyaV/Nx40dViZL+q6Sv7gYnE7PLaxjqpbap3eGYV8JyqjqHsTtRU/CUYBXp/Hric82xkC0J14OuyuxPzXza31X2vD/txCNWziJwArgGZvxdJb5y/kwv9sEOMeQ0xwyImPjddaJ8azx7evK8jW5j324DHgdOLgn+O6YXeHxDoRuQTkL1APdAPvNX8WP3RmlTVDoTPEHkJGOzb3vwvG/0P+RP32yl+LqR21gAAAABJRU5ErkJggg==",
+        "keyword": "pkg"
+    },
+    "NixOS Search - Options": {
+        "searchURL": "https://search.nixos.org/options?channel=unstable&type=options&query=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAC3UlEQVQ4jaWTX2iVdRjHP8/v/Z1ztnPm2R82zxgbs6M01xaiECmWojgjaWl2p17YJMhCQpAFBV3spoy86SovGhGVlAt2YdRCiQha4D/UNp2so266Nm3zuM45O+c97/t7unCLugmi79Vz8/ncPN8v/M/I0rH7jR8Bdqq6j9W5fbVNya9bOlNHgHeBA8AU8AWqPcBg3zMtDwWL4FLaVN2QunAkfz/3YtfBp6vz9wvfqqqgOo+SBp7NZ4tXblycBsBrf6pnCd4GPAnainObbNQsy5zPNESiXjxRHd+K6grgaDHvf5U5N51ACADsIvwI8D7QBpQVSqCvGCPcHp2cqaqN36ysqmwQOHPhm0xVsr7yHeBDYMRWJmMUssUHiLzqWbFN6bqDwKO/T2Xfe3A3O+EXSi4sldPEY8eBPTXL4784py8Dw8CITa9N2YpENP/mpsbhvqGJjS5w21X11IbuzoGTx74LbRRWrlt1bubX37YVF8rdoM+DjoIMI+LJ20OT/ShpVMuorkA1LrDDOb0U+iE25lHKl/Gs6Zgcu3f8j9nCRjHeDCLXRcwti0gUNAKyGiE1e3v2p/Gz46GNWoyJEfgLeJEKQIwY0yrGyxjHTYyJAGqA/YjsxcidMNRbU2PTjV4kdqQwH3rt61eyZksnpz741LigfNgFQSIolXoGjw10lXLFLtXwgAUCYD3QIZ687i8E7cazPQ0tydMVidi48cQc+qi35d7k3Fobi55pXdPKE7vWbUC4mptbmFt64xWgvyaV/Nx40dViZL+q6Sv7gYnE7PLaxjqpbap3eGYV8JyqjqHsTtRU/CUYBXp/Hric82xkC0J14OuyuxPzXza31X2vD/txCNWziJwArgGZvxdJb5y/kwv9sEOMeQ0xwyImPjddaJ8azx7evK8jW5j324DHgdOLgn+O6YXeHxDoRuQTkL1APdAPvNX8WP3RmlTVDoTPEHkJGOzb3vwvG/0P+RP32yl+LqR21gAAAABJRU5ErkJggg==",
+        "keyword": "opt"
+    },
+    "AUR": {
+        "searchURL": "https://aur.archlinux.org/packages?K=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABvElEQVQ4jY2TP4gTQRTGfzM7ybp35mBX8LY4GxM5OI4UiqDWtoKIjWhl4QmmEQwIhzZaa3GLlYWgjViI+AcUrrASUYTbQ0UxepwpFj1EDCSXuLNj4QYSLxP8mnm8972P3wyMMMZgUxjF+ycLUjUW5l/YPMq6/VfnHCEmAGuAsBHsurG6QwiaRUeq2cCdfXy88nmUT9qSJ4tywVNyGxjVSbPzNp81wFNyt6cknpJ00uzk2Wfr/n8HHLrz4ajriFeuEsuekvS08Zu/eoujvFveYN+t98XAUw1jmEmN+ZEZfG2M8BzZKhVl+f6x8vexBIGn6hMFOeMqgTEEXZ2J39qwqbNSR5tLYwnmbr6b2hO4axvt1P/a6tHTw3SuI1pTrlNZPT33bSTBps7qb5K23/jZ7S8/AO72511tShud9MJIgjCKdwINYHs+e5TUqkfy2W3gVN5vA+WkVk3+Jbg8sAzwcKB+mp8G+ALUh64QRnEZOMOwPg3Ub/vEgAvcGwoArgKFvF4DrgEfBwKawHVgHagAy2EUnwAQ00sre4HXwBPgSlKrvmSMwig+CCwCh4F5Mb20chF4ntSq1h83JujAH3Eom+H9uAq8AAAAAElFTkSuQmCC",
+        "keyword": "aur"
+    },
+    "Github": {
+        "searchURL": "https://github.com/search?type=repositories&q=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAZlBMVEX///8AAAAjKC0kKS6XmJoSGSArMDUADheGiYsUGyEAAAj09fUfJCrq6utCRkqXmZpYXF8AAA9gZGd9gIPOz9BPU1cOFh6OkJLs7OyEhoigoaJTV1owNDkACBTT1NU2Oz9wc3Xf3+A4w9aYAAAAoElEQVQYlUVOVxaDMAyznUUGo0BYbSDc/5JNgLT6sJ/0ZMkACTVvpGzaBR5UKChB43zz7qUcI2JOmT7zIXSjx0mjH3tTpXvUyWkvLxe4pKHXEjYLsUFDxhbBGvcGSRP8QPRJgvkLgSR4F/bC9+A8cD3JJ8QeTrSpdosYT4BzMI6lWlixjj57kJiqstMf45k3MtXdtxHxEnAo6Se/Hq/z/AK18QcGYnwzCQAAAABJRU5ErkJggg==",
+        "keyword": "github"
+    },
+    "Arch Linux - Package Search": {
+        "searchURL": "https://archlinux.org/packages/?q=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABvElEQVQ4jY2TP4gTQRTGfzM7ybp35mBX8LY4GxM5OI4UiqDWtoKIjWhl4QmmEQwIhzZaa3GLlYWgjViI+AcUrrASUYTbQ0UxepwpFj1EDCSXuLNj4QYSLxP8mnm8972P3wyMMMZgUxjF+ycLUjUW5l/YPMq6/VfnHCEmAGuAsBHsurG6QwiaRUeq2cCdfXy88nmUT9qSJ4tywVNyGxjVSbPzNp81wFNyt6cknpJ00uzk2Wfr/n8HHLrz4ajriFeuEsuekvS08Zu/eoujvFveYN+t98XAUw1jmEmN+ZEZfG2M8BzZKhVl+f6x8vexBIGn6hMFOeMqgTEEXZ2J39qwqbNSR5tLYwnmbr6b2hO4axvt1P/a6tHTw3SuI1pTrlNZPT33bSTBps7qb5K23/jZ7S8/AO72511tShud9MJIgjCKdwINYHs+e5TUqkfy2W3gVN5vA+WkVk3+Jbg8sAzwcKB+mp8G+ALUh64QRnEZOMOwPg3Ub/vEgAvcGwoArgKFvF4DrgEfBwKawHVgHagAy2EUnwAQ00sre4HXwBPgSlKrvmSMwig+CCwCh4F5Mb20chF4ntSq1h83JujAH3Eom+H9uAq8AAAAAElFTkSuQmCC",
+        "keyword": "arch"
+    },
+    "ArchWiki": {
+        "searchURL": "https://wiki.archlinux.org/index.php?search=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABvElEQVQ4jY2TP4gTQRTGfzM7ybp35mBX8LY4GxM5OI4UiqDWtoKIjWhl4QmmEQwIhzZaa3GLlYWgjViI+AcUrrASUYTbQ0UxepwpFj1EDCSXuLNj4QYSLxP8mnm8972P3wyMMMZgUxjF+ycLUjUW5l/YPMq6/VfnHCEmAGuAsBHsurG6QwiaRUeq2cCdfXy88nmUT9qSJ4tywVNyGxjVSbPzNp81wFNyt6cknpJ00uzk2Wfr/n8HHLrz4ajriFeuEsuekvS08Zu/eoujvFveYN+t98XAUw1jmEmN+ZEZfG2M8BzZKhVl+f6x8vexBIGn6hMFOeMqgTEEXZ2J39qwqbNSR5tLYwnmbr6b2hO4axvt1P/a6tHTw3SuI1pTrlNZPT33bSTBps7qb5K23/jZ7S8/AO72511tShud9MJIgjCKdwINYHs+e5TUqkfy2W3gVN5vA+WkVk3+Jbg8sAzwcKB+mp8G+ALUh64QRnEZOMOwPg3Ub/vEgAvcGwoArgKFvF4DrgEfBwKawHVgHagAy2EUnwAQ00sre4HXwBPgSlKrvmSMwig+CCwCh4F5Mb20chF4ntSq1h83JujAH3Eom+H9uAq8AAAAAElFTkSuQmCC",
+        "keyword": "wiki"
+    },
+    "哔哩哔哩": {
+        "searchURL": "https://search.bilibili.com/all?keyword=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAFVBMVEUAodZHcEwAodYAodYAodYAodYAodZpZuTXAAAAB3RSTlP/ACOU32IrDrMBJwAAAE9JREFUGJVtjlEOwDAIQkHb3v/Is9Rkq44PIy8EBclplGzGALkAEQOWAF0kvCsR9pUTl4dsVmZNiB8lGGObPROc1Nn+E62jgHK2PdZeZ9EDiRAA6SOYpwEAAAAASUVORK5CYII=",
+        "keyword": "bili"
+    },
+    "npm": {
+        "searchURL": "https://www.npmjs.com/search?q=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAALVBMVEXLAAD////KAADXSEjYTEzHAADJAADedXXOExPdcXHbZ2fqpqbfenrPISHYS0tAKQ2QAAAASElEQVQYlWNgwAKY4ADC52BhhgIWDrA8CyMcsIDUMDEjBJiRBLg4uVEFWNk40QXYqSnAAhXggToM4nQgk5cP4nSo58A0Nq8DAPmPAey2ObvQAAAAAElFTkSuQmCC",
+        "keyword": "npm"
+    },
+    "MC百科": {
+        "searchURL": "https://www.mcmod.cn/s?key=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAclBMVEVYtthYtthTteN3vn1/vkqJwkiGwVVHcEyGwVVXttlHsNVYttiGwVX///+GwUp7vEBTtuJQtNjx+frw+OhCr9fE4K/q9OC83KVkvNt5vn1yvJSEwmnd8Pey2+zN5bqq1+11wt5wuWyPzeSKyuJrtSSs18nXztdoAAAAC3RSTlP0zTgu7TXLAPT69WUaeQUAAACUSURBVBiVVY6JCsMgEERXqRpqRqsmKs3V8/9/sSuUkAzs4nswsmSU7vZoZUj1x0yS9AHddBPUndgSdc57fvPyz2FgcSnI3hUknwE8WIzA5BNSwftVQxM5rz3WuMxDsK0yphJXHhb2Lzzw3eIWba21ifjJCAsC/4n52u5w9xu3Q2u0OxrbPUT6xFaQOrGVZKSgPUKaH1FHDVESmzJOAAAAAElFTkSuQmCC",
+        "keyword": "mcmod"
+    },
+    "Hurricane Electric BGP": {
+        "searchURL": "https://bgp.he.net/search?search[search]=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAb1BMVEX9/f38/PwSMHd3h7DDydtJYJY0NDTGxsavr6/Kz99kd6YFJXAnQoNqfKnR1ePn6fBwgqz29/k7VI6/v7/o6vBkZGTf4usOLHXZ3ehmeaapqak1T4sWM3nr6+vf39/Pz89ISEgkJCSSkpKyu9IrKyvt5ekYAAAAlElEQVQYlWVPSQKCMAycQKGlBUtBEKssKv9/o0nlJHPLJLMEAKiytXN1cyEkBJvlynvVZk1Ic1f432bsCmbIFqE382JW2bWEKruiH4BdzsfbhHsOaCZKcSSbo1ZMbMa8YnwDnwecPy4CFmB6JkI8ylXrRLCEOOUgWCKmApbMs5hKLGPZYxxIYqUYDqRip+rn5/7e/wL0Ewkx91gWoAAAAABJRU5ErkJggg==",
+        "keyword": "bgp"
+    },
+    "Google 翻译": {
+        "searchURL": "https://translate.google.com/?sl=auto&tl=auto&text=%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACOUlEQVQ4jX2ST0hUURTGf/e+Ny/nn4ma05BOlIYFTZsGoj9Gi2gTRLUoCIpA3bRq1SpoIGpXSyFpWVCrNpFQG1GCiHBRGJkSKISmpM6Yo857954W8ydngrlw4HIv3znf951PXX28+tRop18ELICAACIQNiunX9xJjdPg6EA5/aBBaVRdbZimgUZgAC2UJ9ZNF0BcdS2bnfQaNXClcpP/P5WOuK2HI5+npqanPc+1ruuKtWCMRWuRQiF46VaAu+LQ3+fTHoX5HDx6GyIQmFmN9p4p/u6NRiM4jkZECIUcRIR43LnoVigP9Pm8+eIwMaeJN0FgS++zuQjL+QU8r0A8FkEpVeuBLevtaBYm5jRnD1nunvd5eMkHwIji21KE4laRe8PPERFESrRFhKqExbzi6F7Lu6+a3Aac7LFVY8dnLKsLExzs6uTZyCjLa+t0Jdq5cCrzz8QnYyEG+3xunDAs5RVDo051K2sk2RlvI92T4MfPedLdKY4c2Ie1FrfMhoUc3H8dqtmIlGn6othUnYy8/0C4yeN4uhff93EcBy1SMottJdvAFRnfcy1sFQNQCmMM1lqCIKgNkgC2bJLdBhZgNt/MuWMZ0t0pXo19xBhbkhBsbg1pz7tVnycRUAqU0oiAweVXsZVMqpmWWAQRCzjULrXuZLOfIuOTi+sAsZjD7ZsJkokwSoHWGqUUunGDTGH/Hnc2vEMzeKWN9tZQNQOVHDRsAJDcbR9cv9xMssNBxCJS0m6MYWnlz/BfVT0X3fHmE3AAAAAASUVORK5CYII=",
+        "keyword": "trans"
+    },
+    "Whois": {
+        "searchURL": "https://www.whois.com/whois/%s",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAWlBMVEX////1iTr70bP/+vf5uIn+8Ob7zKr5uoz4rnj+7uL6xqD1iz36xJz817z+8+v+9/L3pGb70bH2mVX3n1796Nn1j0T828P4qW/6vpL2k0v84Mv6wZf5s4D838kEXiCmAAAAlklEQVQYlUVPiw6EIAzrBBTEB8rh+/7/N68gyS2BtB2jHfBW2w3jVLHjmb2wQlN6+e7lrYV4zS/WKkTgk8i3ymVXaAOFvXJNrA9+W7nPPnYEuipYwMAaqCRyXluQC+rGADRs3sBNi/bIsTQFh8mPmM8SzZbph3aP5FCMmQyu5DgbyzJKf2ltsPkS/dXyUj7+eT80/VLmf4jSBTo8EDRPAAAAAElFTkSuQmCC",
+        "keyword": "whois"
+    },
+    "Font Awesome": {
+        "searchURL": "https://fontawesome.com/search?q=%s&o=r&m=free",
+        "iconURL": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABEUlEQVQ4jcWSzU3DUBCEv/Ezd1MBcEwEkqmAUIFDKoAOiCApAsUKHYQKQtyBqSA5RORIqABfkbCXAwHFhvxICDGXp7fa/XZWGvilBNDqPT4BDK/rB1F/HLh8p2mmfTnvJRdJ0q7Nl4ei/jjgzQ+TzlH6AYhnBmBYKtSobjGYUNgDWIanPRlNpGB4VZNftqMGZpkZI7BnUCARSQrxFC4Mfz0AJUBecJp06mnFwGV0Mw2d704sL3Ylb44YlDpa8cw+z9hGy/3etkOr9P8A/6diqzc9X5eDjQDkBhJg4Izbs3hWysFGgBV2tzYHZpnBZCXgvlO/WPp+y0HuXkdJ+zhbfUJFSfdwwmJjVf7C0nwb0J/oHQgCcnOUJvD/AAAAAElFTkSuQmCC",
+        "keyword": "font"
+    }
+}
