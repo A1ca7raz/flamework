@@ -70,7 +70,7 @@ in {
     eventCalendar
     panelSpacer
     systemTray
-    virtualDesktopBar1
+    virtualDesktopBar1080
     separator
     lockLogout
     latteSpacer
@@ -82,7 +82,7 @@ in {
     eventCalendar
     panelSpacer
     systemTray
-    virtualDesktopBar2
+    virtualDesktopBar1440
     separator
     lockLogout
     latteSpacer

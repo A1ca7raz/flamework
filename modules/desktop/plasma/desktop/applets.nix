@@ -65,7 +65,7 @@ in {
     };
   };
 
-  virtualDesktopBar1 = {
+  virtualDesktopBar1440 = {
     _ = regApplet "org.kde.plasma.virtualdesktopbar";
     confP = {
       AddDesktopButtonShow = "false";
@@ -84,7 +84,7 @@ in {
       DesktopLabelsStyle = "1";
     };
   };
-  virtualDesktopBar2 = {
+  virtualDesktopBar1080 = {
     _ = regApplet "org.kde.plasma.virtualdesktopbar";
     confP = {
       AddDesktopButtonShow = "false";
