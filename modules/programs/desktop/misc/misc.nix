@@ -12,7 +12,6 @@
       anki
       qalculate-qt
       sbctl
-      sops
       baidupcs-go
       step-cli
     ];
