@@ -1,6 +1,6 @@
 { ... }:
 let
-  offset = 5066578;
+  offset = 533760;
 in
 {
   swapDevices = [
