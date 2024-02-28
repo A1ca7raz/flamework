@@ -122,4 +122,19 @@ in {
       lengthPixels = "5";
     };
   };
+
+  inlineClock = {
+    _ = regApplet "org.kde.plasma.betterinlineclock";
+    conf = {
+      PreloadWeight = "60";
+    };
+    confA = {
+      customDateFormat = ''yyyy.M.'<font color="#55ff55">'d'</font>' ddd'';
+      dateFormat = "customDate";
+      fixedFont = "true";
+      fontSize = "17";
+      showSeconds = "true";
+      showSeparator = "false";
+    };
+  };
 }

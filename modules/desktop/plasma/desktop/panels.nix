@@ -27,6 +27,7 @@ with tools; let
       conf = ["Configuration"];
       confG = conf ++ ["General"];
       confP = conf ++ ["Preferences"];
+      confA = conf ++ ["Appearance"];
 
       mkApplets = apps: with lib;
         let
@@ -40,7 +41,8 @@ with tools; let
             else (mkAppletItems id i conf v.conf)
           else []) ++
           (if v ? confG then (mkAppletItems id i confG v.confG) else []) ++
-          (if v ? confP then (mkAppletItems id i confP v.confP) else [])
+          (if v ? confP then (mkAppletItems id i confP v.confP) else []) ++
+          (if v ? confA then (mkAppletItems id i confA v.confA) else [])
         ) apps)) ++
         (mkPanelItems id ["General"] {
           AppletOrder = concatStringsSep ";" appIds;
@@ -67,7 +69,7 @@ in {
     windowTitle
     windowAppMenu
     panelSpacer
-    eventCalendar
+    inlineClock # eventCalendar
     panelSpacer
     systemTray
     virtualDesktopBar1080
@@ -79,7 +81,7 @@ in {
     windowTitle
     windowAppMenu
     panelSpacer
-    eventCalendar
+    inlineClock # eventCalendar
     panelSpacer
     systemTray
     virtualDesktopBar1440
