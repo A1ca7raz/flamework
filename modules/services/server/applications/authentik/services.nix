@@ -19,6 +19,30 @@ let
     enable = false;
     environmentFile = null;
   };
+
+  serviceDefaults = {
+    DynamicUser = true;
+    User = "authentik";
+    EnvironmentFile = [ config.sops.secrets.authentik_env.path ];
+  };
+  akOptions = with lib; flatten (mapAttrsToList
+    # Map defaults for each authentik service (listed above) to command line parameters for
+    # `systemd-run(1)` in order to spin up an environment with correct (dynamic) user,
+    # state directory and environment to run `ak` inside.
+    (k: vs: map
+      (v: "--property ${k}=${if isBool v then boolToString v else toString v}")
+      (toList vs))
+    # Read serviceDefaults from `authentik.service`. That way, module system primitives (mk*)
+    # can be used inside `serviceDefaults` and it doesn't need to be evaluated here again.
+    (getAttrs (attrNames serviceDefaults) config.systemd.services.authentik.serviceConfig // {
+      StateDirectory = "authentik";
+    }));
+  akScript = pkgs.writeShellScriptBin "ak" ''
+    exec ${config.systemd.package}/bin/systemd-run --pty --collect \
+      ${lib.concatStringsSep " \\\n" akOptions} \
+      --working-directory /var/lib/authentik \
+      -- ${authentikComponents.manage}/bin/manage.py "$@"
+  '';
 in {
   systemd.services =
     let
@@ -54,6 +78,7 @@ in {
         ];
         before = [ "authentik.service" ];
         restartTriggers = [ configFile ];
+        path = [ akScript ];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
@@ -70,15 +95,12 @@ in {
         preStart = ''
           ln -svf ${authentikComponents.staticWorkdirDeps}/* /run/authentik/
         '';
+        path = [ akScript ];
         serviceConfig = {
           RuntimeDirectory = "authentik";
           WorkingDirectory = "%t/authentik";
           # TODO maybe make this configurable
-          ExecStart = "${authentikComponents.celery}/bin/celery -A authentik.root.celery worker -Ofair --max-tasks-per-child=1 --autoscale 3,1 -E -B -s /tmp/celerybeat-schedule -Q authentik,authentik_scheduled,authentik_events";
-          # LoadCredential = mkIf (cfg.nginx.enable && cfg.nginx.enableACME) [
-          #   "${cfg.nginx.host}.pem:${config.security.acme.certs.${cfg.nginx.host}.directory}/fullchain.pem"
-          #   "${cfg.nginx.host}.key:${config.security.acme.certs.${cfg.nginx.host}.directory}/key.pem"
-          # ];
+          ExecStart = "${authentikComponents.manage}/bin/manage.py worker";
         } // mountOptions // commonOptions;
       };
 
@@ -94,7 +116,7 @@ in {
         preStart = ''
           ln -svf ${authentikComponents.staticWorkdirDeps}/* /var/lib/authentik/
         '';
-        path = [ pkgs.curl ];
+        path = [ pkgs.curl akScript ];
         serviceConfig = {
           Type = "notify";
           NotifyAccess = "all";
@@ -150,6 +172,7 @@ in {
             "netns-veth-authentik.service"
           ];
           restartTriggers = [ configFile ];
+          path = [ akScript ];
           serviceConfig = {
             RuntimeDirectory = "authentik-ldap";
             UMask = "0027";
