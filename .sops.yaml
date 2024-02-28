@@ -1,11 +1,11 @@
 keys_trivial:
-  - &admin  01D737F36BEBE286 
+  - &admin  01D737F36BEBE286
 
 keys_home: &keys_home
-  - age1fwqccrhcurtdyx9ck3q0sjvcjzrgfmyr6jhjycfjghewc65aecyqj355sd  # laptop
+  - age1udvrvtqu3x6wyvgw0j4d5rx20k9q6c27yj8jgsfzy94t6j24r4wsd0mnvl  # laptop
 
 keys: &keys
-  - age1h94rv0w2wt2rjfgnz9wuecr7skh954nps542dhuhp60yl4jqnsasv009c9  # laptop
+  - age1aer5emgezctnsu08va04xtuk73chxnqh7umls8eu69twlk7prgsq2hu2mx  # laptop
   - age1g7cw65v67qqftkau33adyap3ffrcpgqswe95qrjxqp9uc93hnd4sn32yrl  # snailbox
 
 creation_rules:
