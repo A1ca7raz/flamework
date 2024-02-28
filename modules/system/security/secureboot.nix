@@ -10,10 +10,10 @@
 
   boot.lanzaboote = {
     enable = true;
-    pkiBundle = "/var/lib/secureboot";
+    pkiBundle = "/etc/secureboot";
   };
 
-  environment.persistence."/nix/persiste".directories = [
+  environment.persistence."/nix/persist".directories = [
     "/etc/secureboot"
   ];
 }

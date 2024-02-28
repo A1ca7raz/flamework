@@ -21,6 +21,7 @@ templates.desktop {
     ])
     services.client
     system.kernel.xanmod
+    system.security.secureboot
     # system.security.kwallet
   ];
 
