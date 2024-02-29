@@ -2,7 +2,7 @@
   nixosModule = { user, tools, lib, ... }:
     with tools; lib.mkMerge [
       (mkPersistDirsModule user [
-        ".mozilla/thunderbird"
+        # ".mozilla/thunderbird"
         ".thunderbird"
       ])
       (mkOverlayModule user {
