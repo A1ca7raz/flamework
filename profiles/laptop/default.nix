@@ -18,8 +18,9 @@ templates.desktop {
 
     (programs.desktop.exclude [
       "networking.cloudflare-warp"
+      "development.jetbrains"
     ])
-    services.client
+    (services.client.exclude ["homepage"])
     system.kernel.xanmod
     system.security.secureboot
     # system.security.kwallet
