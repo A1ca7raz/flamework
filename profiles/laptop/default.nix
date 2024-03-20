@@ -12,6 +12,7 @@ templates.desktop {
 
     hardware.amdcpu
     hardware.amdgpu
+    hardware.deep_sleep
     hardware.logitech
     hardware.nvme
     hardware.tpm
