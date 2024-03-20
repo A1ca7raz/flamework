@@ -11,7 +11,7 @@ in {
       filterByScreen = "false";
       hiddenState = "EmptySpace";
       inactiveStateEnabled = "true";
-      lengthFirstMargin = "5x";
+      lengthFirstMargin = "5";
       lengthLastMargin = "5";
       selectedScheme = "/etc/profiles/per-user/nomad/share/color-schemes/KvArc.colors";
       useCurrentDecoration = "false";
@@ -35,13 +35,13 @@ in {
   };
 
   windowAppMenu = {
-    _ = regApplet "org.kde.windowappmenu";
-    confG = {
-      containmentType = "Plasma";
-      filterByActive = "false";
-      filterByScreen = "true";
-      spacing = "4";
-    };
+    _ = regApplet "org.kde.plasma.appmenu";
+    # confG = {
+    #   containmentType = "Plasma";
+    #   filterByActive = "false";
+    #   filterByScreen = "true";
+    #   spacing = "4";
+    # };
   };
 
   panelSpacer._ = regApplet "org.kde.plasma.panelspacer";
@@ -135,6 +135,21 @@ in {
       fontSize = "17";
       showSeconds = "true";
       showSeparator = "false";
+    };
+  };
+
+  digitalClock = {
+    _ = regApplet "org.kde.plasma.digitalclock";
+    confA = {
+      customDateFormat = ''yyyy.M.'<font color="#55ff55">'d'</font>' ddd'';
+      dateDisplayFormat = "BesideTime";
+      dateFormat = "custom";
+      fixedFont = "true";
+      fontFamily = "Source Han Sans SC";
+      fontWeight = "400";
+      showSeconds = "Always";
+      showSeparator = "false";
+      use24hFormat = "0";
     };
   };
 }

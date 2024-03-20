@@ -14,10 +14,11 @@
           fcitx5-chinese-addons
           fcitx5-gtk
           fcitx5-lua
-          libsForQt5.fcitx5-qt
+          kdePackages.fcitx5-qt
           fcitx5-pinyin-zhwiki
           fcitx5-pinyin-moegirl
         ];
+        fcitx5.plasma6Support = true;
       };
 
       environment.persistence = mkPersistDirsTree user [

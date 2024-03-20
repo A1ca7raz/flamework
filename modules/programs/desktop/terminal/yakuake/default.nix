@@ -13,6 +13,6 @@
     };
 
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.yakuake ];
+    home.packages = [ pkgs.kdePackages.yakuake ];
   };
 }

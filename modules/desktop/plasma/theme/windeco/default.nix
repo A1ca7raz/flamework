@@ -18,7 +18,7 @@
       utils.kconfig.rules = [
         # Window decorations
         (kwinrc "org.kde.kdecoration2" "theme" "Sierra Breeze Enhanced")
-        (kwinrc "org.kde.kdecoration2" "library" "org.kde.sierrabreezeenhanced")
+        (kwinrc "org.kde.kdecoration2" "library" "sierrabreezeenhanced")
 
         ## Titlebar Transparency
         (mkRule "sierrabreezeenhancedrc" "Windeco" "BackgroundOpacity" (
@@ -41,6 +41,9 @@
     };
 
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.sierra-breeze-enhanced-wayland ];
+    home.packages = with pkgs; [
+      sierra-breeze-enhanced-kde6
+      breeze-enhanced-kde6
+    ];
   };
 }

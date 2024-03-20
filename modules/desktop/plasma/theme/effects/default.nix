@@ -62,6 +62,6 @@
     };
 
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.kwin-dynamic-workspaces ];
+    # home.packages = [ pkgs.kwin-dynamic-workspaces ];
   };
 }

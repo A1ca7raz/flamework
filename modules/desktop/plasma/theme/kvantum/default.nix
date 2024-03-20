@@ -23,6 +23,10 @@
     };
   
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.libsForQt5.qtstyleplugin-kvantum ];
+    home.packages = with pkgs; [
+      kvantum-qt6
+      # kdePackages.qtstyleplugin-kvantum
+      # libsForQt5.qtstyleplugin-kvantum
+    ];
   };
 }

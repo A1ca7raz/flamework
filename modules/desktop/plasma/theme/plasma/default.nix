@@ -12,10 +12,10 @@
     };
 
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.dconf ];
+    # home.packages = [ pkgs.dconf ];
     home.sessionVariables.GTK_USE_PORTAL = "1";
 
-    qt.enable = true;
-    qt.platformTheme = "kde";
+    # qt.enable = true;
+    # qt.platformTheme = "kde";
   };
 }

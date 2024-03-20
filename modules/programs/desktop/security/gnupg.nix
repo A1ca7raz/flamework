@@ -1,5 +1,5 @@
 {
-  nixosModule = { user, tools, ... }: {
+  nixosModule = { user, pkgs, tools, ... }: {
     environment.persistence = tools.mkPersistDirsTree user [
       ".gnupg"
     ];
@@ -7,7 +7,7 @@
     programs.gnupg = {
       agent = {
         enable = true;
-        # pinentryFlavor = "qt";
+        pinentryPackage = pkgs.pinentry-qt;
         enableBrowserSocket = true;
         enableExtraSocket = true;
         enableSSHSupport = true;

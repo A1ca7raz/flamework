@@ -38,9 +38,9 @@
     };
 
   homeModule = { pkgs, ... }: {
-    home.packages = with pkgs; [
+    home.packages = with pkgs; with kdePackages; [
       kcolorchooser
-      kdeconnect
+      kdeconnect-kde
       krita
     ];
   };

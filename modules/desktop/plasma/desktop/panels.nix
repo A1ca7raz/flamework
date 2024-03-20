@@ -69,24 +69,24 @@ in {
     windowTitle
     windowAppMenu
     panelSpacer
-    inlineClock # eventCalendar
+    digitalClock # inlineClock # eventCalendar
     panelSpacer
     systemTray
-    virtualDesktopBar1080
-    separator
+    # virtualDesktopBar1080
+    # separator
     lockLogout
-    latteSpacer
+    # latteSpacer
   ]) ++ (mkAppletPanel ((lib.elemAt monitorIds 1) + 2) 2 [
     windowButtons
     windowTitle
     windowAppMenu
     panelSpacer
-    inlineClock # eventCalendar
+    digitalClock # inlineClock # eventCalendar
     panelSpacer
     systemTray
-    virtualDesktopBar1440
-    separator
+    # virtualDesktopBar1080
+    # separator
     lockLogout
-    latteSpacer
+    # latteSpacer
   ]);
 }

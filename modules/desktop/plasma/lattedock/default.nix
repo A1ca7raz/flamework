@@ -41,9 +41,9 @@
   homeModule = { pkgs, lib, tools, ... }: {
     home.packages = with pkgs; [
       latte-dock
-      libsForQt5.applet-window-buttons
-      applet-virtual-desktop-bar-wayland
-      applet-window-appmenu
+      applet-window-buttons6
+      # applet-virtual-desktop-bar-wayland  # FIXME: no KDE6 port
+      # applet-window-appmenu               # FIXME: no KDE6 port
     ];
 
     # Autostart

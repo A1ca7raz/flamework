@@ -19,6 +19,6 @@
     };
 
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.gwenview ];
+    home.packages = [ pkgs.kdePackages.gwenview ];
   };
 }

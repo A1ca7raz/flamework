@@ -13,6 +13,6 @@
     };
 
     homeModule = { pkgs, ... }: {
-      home.packages = [ pkgs.kteatime ];
+      home.packages = [ pkgs.kdePackages.kteatime ];
     };
 }

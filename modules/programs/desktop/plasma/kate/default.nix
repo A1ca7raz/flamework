@@ -1,6 +1,6 @@
 {
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.kate ];
+    home.packages = [ pkgs.kdePackages.kate ];
   };
 
   nixosModule = { user, tools, ... }: with tools; {

@@ -1,11 +1,8 @@
 { pkgs, ... }:
 {
-  services.xserver.desktopManager.plasma5 = {
-    enable = true;
-    useQtScaling = true;
-  };
+  services.desktopManager.plasma6.enable = true;
 
-  environment.plasma5.excludePackages = with pkgs; [
+  environment.plasma6.excludePackages = with pkgs; with kdePackages; [
     oxygen
     elisa
     khelpcenter
@@ -16,6 +13,7 @@
     autoLogin.enable = true;
     autoLogin.user = "nomad";
     sddm.enable = true;
+    sddm.wayland.enable = true;
     sddm.settings = {
       Theme = {
         Current = "breeze";
