@@ -26,6 +26,10 @@
         playerctl
       ];
 
+      programs.fish.interactiveShellInit = ''
+        sptlrx completion fish | source
+      '';
+
       xdg.configFile.sptlrx = {
         target = "sptlrx/config.yaml";
         text = ''
