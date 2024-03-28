@@ -1,5 +1,5 @@
-{ ... }:
-{
+{ user, tools, ... }:
+with tools; {
   programs.fish = {
     enable = true;
     useBabelfish = true;
@@ -8,4 +8,8 @@
       set -U fish_greeting
     '';
   };
+
+  environment.persistence = mkPersistDirsTree user [
+    (ls "fish")
+  ];
 }

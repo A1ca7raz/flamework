@@ -9,7 +9,8 @@
 
     nix.settings
 
-    (programs.exclude ["desktop"])
+    programs.misc
+    programs.server
 
     services.server.openssh
 
