@@ -43,7 +43,6 @@
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
       sierra-breeze-enhanced-kde6
-      breeze-enhanced-kde6
     ];
   };
 }
