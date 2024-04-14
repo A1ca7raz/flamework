@@ -9,7 +9,7 @@
       programs.spicetify = with spicePkgs; {
         enable = true;
         theme = themes.Dribbblish;
-        colorScheme = "rosepine";
+        colorScheme = "nord-light";
 
         enabledExtensions = with extensions; [
           volumePercentage
