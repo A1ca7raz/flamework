@@ -1,7 +1,5 @@
 secret:
-	./scripts/update_sops_secrets
-	git add config/secrets
-	git add config/secrets_home
+	GIT_ADD=1 ./scripts/update_sops_secrets
 	git commit -m "update secrets"
 
 disko:
