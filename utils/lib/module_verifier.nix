@@ -1,9 +1,14 @@
 lib:
-with lib; with builtins; {
+with lib; with builtins; rec {
+  # Home-manager Module with arg user
+  isHomeModuleUser = x:
+    isFunction x &&
+    (intersectLists (attrNames (functionArgs x)) ["user" "home"] == ["user" "home"]);
+
   # Home-manager Module
   isHomeModule = x:
     isFunction x &&
-    ! mutuallyExclusive ["home"] (attrNames (functionArgs x));
+    (intersectLists (attrNames (functionArgs x)) ["user" "home"] == ["home"]);
 
   # NixosModule
   isNixosModule = x:
@@ -12,8 +17,8 @@ with lib; with builtins; {
 
   # NixosModule with arg user
   isNixosModuleUser = x:
-    isFunction x &&
-    ! mutuallyExclusive ["user"] (attrNames (functionArgs x));
+    isFunction x && ! isHomeModule x &&
+    (intersectLists (attrNames (functionArgs x)) ["user" "home"] == ["user"]);
 
   # Hybrid module with NixosModule and Home-manager module
   isHybridModule = x: isAttrs x && x ? nixosModule || x ? homeModule;

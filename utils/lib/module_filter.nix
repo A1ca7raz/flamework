@@ -3,6 +3,7 @@ with lib; with builtins;
 let
   inherit (import ./module_verifier.nix lib)
     isHomeModule
+    isHomeModuleUser
     isNixosModule
     isNixosModuleUser
     isHybridModule
@@ -60,10 +61,17 @@ in {
   filterHomeModules = users: modules:
     let
       wrapper = module: args@{ pkgs, ... }: module (args // { home = null; });
-      _filtered = concatMap (x: if isHomeModule x then [(wrapper x)] else []) modules;
+      wrapperUser = module: user: args@{ pkgs, ... }: module (args // { home = null; inherit user; });
+      _filtered = user: concatMap (x:
+          if isHomeModuleUser x
+          then [(wrapperUser x user)]
+          else if isHomeModule x
+          then [(wrapper x)]
+          else []
+        ) modules;
     in
       if _filtered == []
       then []
       else forEach users
-        (user: { ... }: { home-manager.users.${user}.imports = _filtered; });
+        (user: { ... }: { home-manager.users.${user}.imports = _filtered user; });
 }
