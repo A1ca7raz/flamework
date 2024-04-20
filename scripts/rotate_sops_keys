@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+profile="${ROTATE_profile:-laptop}"
+user="${ROTATE_USER:-1000}"
+group="${ROTATE_GROUP:-1000}"
+root="${ROTATE_ROOT:-/mnt}"
+
+home_dir="${root}/nix/persist/home/${user}"
+home_key_dir="${home_dir}/.cache"
+home_key="${home_key_dir}/age.key"
+
+system_key_dir="${root}/nix/persist/var/lib"
+system_key="${system_key_dir}/age.key"
+
+if [[ ! $ROTATE_NO_HOME ]]; then
+  mkdir -p "$home_key_dir"
+  chmod 0600 "$home_dir"
+  chown "$user:$group" "$home_key_dir"
+  age-keygen -o "$home_key"
+  pubkey_home=$(age-keygen -y "$home_key")
+  chown "$user:$group" "$home_key"
+  chmod 0600 "$home_key"
+
+  sed -i "/ - &home_${profile}/c\  - &home_${profile} ${pubkey_home}" .sops.yaml
+fi
+
+mkdir -p "$system_key_dir"
+age-keygen -o "$system_key"
+pubkey_sys=$(age-keygen -y "$system_key")
+chmod 0600 "$system_key"
+
+sed -i "/ - &sys_${profile}/c\  - &sys_${profile} ${pubkey_sys}" .sops.yaml
