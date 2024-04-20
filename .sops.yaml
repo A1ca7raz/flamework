@@ -1,6 +1,6 @@
 laptop:
-  - &home_laptop asdasdasd
-  - &sys_laptop age1aer5emgezctnsu08va04xtuk73chxnqh7umls8eu69twlk7prgsq2hu2mx
+  - &home_laptop age1n84cc8hmfnckhz2rgaq49eqvanzct56uxxdagmvtmj43zk0zvdaspgg99g
+  - &sys_laptop age10nynwfurvdgnuf4yeh62gdfln2kns58pfjm5t4q2q7dg6kpmwd4qx77ydp
 
 keys_trivial:
   - &admin  01D737F36BEBE286
