@@ -1,4 +1,4 @@
-{ pkgs, path, ... }:
+{ pkgs, path, lib, ... }:
 {
   utils.secrets.rootpwd.enable = true;
   sops.secrets.rootpwd.neededForUsers = true;
@@ -10,4 +10,6 @@
     password = "asd";
     openssh.authorizedKeys.keys = import /${path}/config/sshkeys.nix;
   };
+
+  programs.fish.enable = lib.mkDefault true;
 }

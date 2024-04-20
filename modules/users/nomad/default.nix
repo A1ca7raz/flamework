@@ -1,4 +1,4 @@
-{ pkgs, config, path, ... }:
+{ pkgs, config, path, lib, ... }:
 {
   utils.secrets.nomad_pwd.enable = true;
   sops.secrets.nomad_pwd.neededForUsers = true;
@@ -19,4 +19,6 @@
     "Desktop" "Documents" "Downloads"
     "Music"   "Pictures"  "Videos"
   ];
+
+  programs.fish.enable = lib.mkDefault true;
 }
