@@ -1,9 +1,6 @@
-laptop:
+laptop: &laptop
   - &home_laptop age1n84cc8hmfnckhz2rgaq49eqvanzct56uxxdagmvtmj43zk0zvdaspgg99g
   - &sys_laptop age10nynwfurvdgnuf4yeh62gdfln2kns58pfjm5t4q2q7dg6kpmwd4qx77ydp
-
-keys_trivial:
-  - &admin  01D737F36BEBE286
 
 keys_home: &keys_home
   - *home_laptop
@@ -13,16 +10,18 @@ keys: &keys
   - age1g7cw65v67qqftkau33adyap3ffrcpgqswe95qrjxqp9uc93hnd4sn32yrl  # snailbox
 
 creation_rules:
-  - path_regex: config/secrets_uncrypted/.*
+  - path_regex: config/secrets_unenc/.*
     key_groups:
       - age: *keys
 
-  - path_regex: config/secrets_home_uncrypted/.*
+  - path_regex: config/secrets_home_unenc/.*
     key_groups:
       - age: *keys_home
 
-  - path_regex: config/secrets_yaml_uncrypted/.*
+  - path_regex: modules/*
     key_groups:
       - age: *keys
-
-  - pgp: *admin
+  
+  - path_regex: profiles/laptop/.*
+    key_groups:
+      - age: *laptop
