@@ -21,7 +21,7 @@ in {
     '';
 
     # set up pgvecto-rs plugin
-    extraPlugins = [ pkgs.pgvecto-rs ];
+    extraPlugins = [ pkgs.postgresql16JitPackages.pgvecto-rs ];
     settings = { shared_preload_libraries = "vectors.so"; };
   };
 
