@@ -5,6 +5,7 @@
   system = "x86_64-linux";
 
   modules = with self.nixosModules.modules; [
+    constant.global
     constant.services
 
     nix.settings
