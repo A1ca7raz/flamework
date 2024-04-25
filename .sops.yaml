@@ -7,7 +7,7 @@ keys_home: &keys_home
 
 keys: &keys
   - *sys_laptop
-  - age1g7cw65v67qqftkau33adyap3ffrcpgqswe95qrjxqp9uc93hnd4sn32yrl  # snailbox
+  - age1xfcnkq4ynkj60adu36v6up8355vh88ea33penx3rzxsfcjua8ytsqzrxha  # snailbox
 
 creation_rules:
   - path_regex: config/secrets_unenc/.*
