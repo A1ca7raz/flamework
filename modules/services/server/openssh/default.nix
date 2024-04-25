@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, ... }:
 let
   PORTS = [ 48422 ];
 in {
@@ -6,7 +6,9 @@ in {
     enable = true;
     settings = {
       PasswordAuthentication = false;
-      PermitRootLogin = lib.mkForce "prohibit-password";
+      PermitRootLogin = if config.lib.global.type == "server"
+        then "prohibit-password"
+        else "no";
     };
     ports = PORTS;
     hostKeys = [
