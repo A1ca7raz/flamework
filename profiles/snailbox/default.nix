@@ -9,20 +9,17 @@ in templates.vps {
     constant.subnet
 
     hardware.intelcpu
-    hardware.fido
 
-    # Infra
+    # # Infra
     services.server.infra.router
-    services.server.infra.step-ca
-    services.server.infra.caddy
-    services.server.infra.redis
-    services.server.infra.postgresql
-    services.server.infra.minio
+    # services.server.infra.step-ca
+    # services.server.infra.caddy
+    # services.server.infra.redis
+    # services.server.infra.postgresql
 
-    # Services
-    services.server.applications.authentik
-    services.server.applications.gitea
-    services.server.applications.ocis
+    # # Services
+    # services.server.applications.gitea
+    # services.server.applications.ocis
 
     system.bootloader.efi.grub.removable
     system.kernel.xanmod
@@ -30,6 +27,8 @@ in templates.vps {
 
   extraConfig = { ... }: {
     networking.hostName = "oxygenbox";
+
+    utils.netns.enable = true;
 
     systemd.network.networks.eth0 = {
       address = [ "${ip4}/24" "${ip6}/64" ];

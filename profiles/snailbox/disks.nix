@@ -1,6 +1,6 @@
 { ... }:
 let
-  ssdOptions = ["discard=async" "noatime" "nodiratime" "ssd" "compress-force=zstd" "space_cache=v2"];
+  ssdOptions = ["discard=async" "noatime" "nodiratime" "ssd" "compress=zstd:3" "space_cache=v2"];
 in {
   fileSystems."/" = {
     fsType = "tmpfs";
@@ -13,41 +13,36 @@ in {
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-label/PERSIST";
+    device = "/dev/disk/by-partlabel/PERSIST";
     fsType = "btrfs";
-    options = [ "subvol=/NIX" "compress-force=zstd" ];
+    options = [ "subvol=/NIX" ] ++ ssdOptions;
   };
 
   fileSystems."/nix/persist" = {
-    device = "/dev/disk/by-label/PERSIST";
+    device = "/dev/disk/by-partlabel/PERSIST";
     fsType = "btrfs";
     options = [ "subvol=/PERSIST" ] ++ ssdOptions;
     neededForBoot = true;
   };
 
-  fileSystems."/mnt/data/0" = {
-    device = "/dev/disk/by-label/DATA0";
-    fsType = "btrfs";
-    options = [ "subvol=/DATA0" "compress-force=zstd" ];
-    neededForBoot = true;
-  };  
-  fileSystems."/mnt/data/0_local" = {
-    device = "/dev/disk/by-label/DATA0";
-    fsType = "btrfs";
-    options = [ "subvol=/DATA0_LOCAL" "compress-force=zstd" ];
-    neededForBoot = true;
-  };
-  fileSystems."/var/lib/ocis/storage/users/uploads" = {
-    device = "/mnt/data/0_local/ocis_uploads";
-    depends = [ "/mnt/data/0_local" ];
-    fsType = "none";
-    options = [ "bind" ];
-  };
+  # NOTE: DATA Drive
+  # fileSystems."/mnt/data/0" = {
+  #   device = "/dev/disk/by-label/DATA0";
+  #   fsType = "btrfs";
+  #   options = [ "subvol=/DATA0" "compress=zstd:3" ];
+  #   neededForBoot = true;
+  # };  
+  # fileSystems."/mnt/data/1" = {
+  #   device = "/dev/disk/by-label/DATA0";
+  #   fsType = "btrfs";
+  #   options = [ "subvol=/DATA1" "compress=zstd:3" ];
+  #   neededForBoot = true;
+  # };
 
-  fileSystems."/mnt/data/minio/0" = {
-    device = "/dev/disk/by-label/MINIO_0";
-    fsType = "xfs";
-    options = [ "defaults" "noatime" ];
-    neededForBoot = true;
-  };
+  # fileSystems."/var/lib/ocis/storage/" = {
+  #   device = "/mnt/data/1/ocis_storage";
+  #   depends = [ "/mnt/data/1" ];
+  #   fsType = "none";
+  #   options = [ "bind" ];
+  # };
 }
