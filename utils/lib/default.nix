@@ -1,4 +1,4 @@
-lib:
+final: prev:
 let
   inherit (import ./fold.nix lib) foldGetFile;
 in

@@ -32,8 +32,7 @@
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
       SYSTEM = [ "x86_64-linux" ];
-      lib = nixpkgs.lib;
-      utils = import ./utils lib self;
+      utils = import ./utils self;
     in flake-utils.lib.eachSystem SYSTEM (system:
       let
         pkgs = import nixpkgs {
@@ -58,5 +57,6 @@
 
       nixosConfigurations = utils.profiles.nixosConfigurations;
       colmena = utils.profiles.colmena;
+      inherit utils;
     };
 }

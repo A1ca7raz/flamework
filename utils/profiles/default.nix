@@ -1,5 +1,10 @@
-{ lib, self, path, inputs, tools, ... }@args:
-with lib; with tools; let
+{ lib, self, path, inputs, ... }@args:
+with lib; let
+  specialArgs = {
+    inherit self path inputs;
+    var = import ./../constant.nix lib;
+  };
+
   # module处理器
   module_parser = import ./modules.nix args;
 
@@ -37,8 +42,7 @@ with lib; with tools; let
     let
       module_parsed = module_parser { inherit modules users targetUser; };
     in {
-      inherit system;
-      specialArgs = { inherit self path inputs tools; };
+      inherit system specialArgs;
       modules = [
         self.nixosModules.utils
         self.nixosModules.impermanence
@@ -52,7 +56,7 @@ with lib; with tools; let
               useGlobalPkgs = true;
               useUserPackages = true;
               sharedModules = [ inputs.sops-nix.homeManagerModule ] ++ (importsFiles /${path}/utils/home);
-              extraSpecialArgs = { inherit self path inputs tools; };
+              extraSpecialArgs = specialArgs;
             };
           }
         ))
