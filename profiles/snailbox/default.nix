@@ -1,14 +1,17 @@
-{ self, templates, ... }:
+{ self, lib, templates, ... }:
 let
   ip4 = "198.18.0.1";
   ip6 = "fcb7:25f7:5bf3:100::1";
 in templates.vps {
   targetHost = ip4;
+  tags = with lib.tags; [
+    local internal private
+  ];
 
   modules = with self.nixosModules.modules; [
-    constant.subnet
-
     hardware.intelcpu
+
+    services.server.domains
 
     # # Infra
     services.server.infra.router
