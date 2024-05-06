@@ -17,8 +17,8 @@
     ];
   };
 
-  nixosModule = { user, tools, pkgs, ... }:
-    with tools; mkPersistDirsModule user [
+  nixosModule = { user, lib, pkgs, ... }:
+    with lib; mkPersistDirsModule user [
       (c "BaiduPCS-Go")                 # 百度网盘
 
       # System

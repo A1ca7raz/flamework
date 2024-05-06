@@ -1,4 +1,4 @@
-{ config, lib, tools, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib; let
   cfg = config.utils.ocis;
   enabled = {
@@ -13,7 +13,7 @@ with lib; let
     EOF
   '';
 in {
-  imports = tools.importsFiles ./config;
+  imports = lib.importsFiles ./config;
   options.utils.ocis = lib.mkOption {
     default = {};
     type = with types; attrsOf attrs;

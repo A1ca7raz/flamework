@@ -1,11 +1,11 @@
-{ config, tools, lib, ... }:
+{ config, lib, ... }:
 let
   constant = config.lib.services.gitea;
 in {
   # Caddy
   services.caddy.virtualHosts.gitea = {
     hostName = lib.elemAt constant.domains 0;
-    listenAddresses = tools.removeCIDRSuffixes constant.ipAddrs;
+    listenAddresses = lib.removeCIDRSuffixes constant.ipAddrs;
     serverAliases = [];
 
     extraConfig = ''

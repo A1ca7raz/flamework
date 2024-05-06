@@ -9,8 +9,8 @@
   };
 
 
-  nixosModule = { user, tools, ... }:
-    with tools; mkPersistDirsModule user [
+  nixosModule = { user, lib, ... }:
+    with lib; mkPersistDirsModule user [
       (c "VSCodium")
       (ls "VSCodium")
     ];

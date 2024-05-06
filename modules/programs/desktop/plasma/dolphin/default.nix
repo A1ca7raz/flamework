@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, tools, ... }:
-    with tools; {
+  nixosModule = { user, lib, ... }:
+    with lib; {
       environment.persistence = mkPersistDirsTree user [
         (ls "dolphin")
       ];

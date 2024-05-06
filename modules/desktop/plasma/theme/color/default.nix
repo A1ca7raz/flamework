@@ -1,5 +1,5 @@
-{ tools, user, config, ... }:
-with tools; let
+{ lib, user, config, ... }:
+with lib; let
   inherit (config.lib.theme) ColorScheme;
   mk = x: {
     source = ./schemes/${x}.colors;

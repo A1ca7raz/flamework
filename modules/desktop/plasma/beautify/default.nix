@@ -1,5 +1,5 @@
-{ user, tools, ... }:
-with tools; mkPersistDirsModule user [
+{ user, lib, ... }:
+with lib; mkPersistDirsModule user [
   (c "menus")
   (ls "plasma")
   (ls "kwin")

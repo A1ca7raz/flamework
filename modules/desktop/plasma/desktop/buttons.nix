@@ -1,5 +1,5 @@
-{ tools, ... }:
-with tools; let
+{ lib, ... }:
+with lib; let
   btn = x: mkItem ["ActionPlugins" "0"] "${x}Button;NoModifier";
   btn_ = x: mkItem ["ActionPlugins" "0" "${x}Button;NoModifier"];
   btnR = btn_ "Right";

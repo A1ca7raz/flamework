@@ -1,5 +1,5 @@
-{ tools, ... }:
-with tools; {
+{ lib, ... }:
+with lib; {
   utils.kconfig.rules = [
     (mkRule "kdeglobals" "General" "font" "Source Han Sans SC,10,-1,5,50,0,0,0,0,0")
     (mkRule "kdeglobals" "General" "fixed" "Source Han Mono SC,10,-1,5,50,0,0,0,0,0")

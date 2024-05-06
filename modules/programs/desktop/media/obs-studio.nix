@@ -15,8 +15,8 @@
     };
   };
 
-  nixosModule = { user, tools, config, ... }:
-    with tools; {
+  nixosModule = { user, lib, config, ... }:
+    with lib; {
       environment.persistence = mkPersistDirsTree user [
         (c "obs-studio")
       ];

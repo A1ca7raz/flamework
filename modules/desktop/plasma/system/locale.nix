@@ -1,6 +1,6 @@
-{ tools, ... }:
+{ lib, ... }:
 {
-  utils.kconfig.rules = with tools; [
+  utils.kconfig.rules = with lib; [
     (mkRule "plasma-localerc" "Formats" "LANG" "zh_CN.UTF-8")
     (mkRule "plasma-localerc" "Translations" "LANGUAGE" "zh_CN:en_US")
 

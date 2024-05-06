@@ -1,5 +1,5 @@
-{ tools, ... }:
-with tools; {
+{ lib, ... }:
+with lib; {
   utils.kconfig.files.powerdevilrc.items = [
     (mkItem "BatteryManagement" "BatteryCriticalAction" "1")
   ];

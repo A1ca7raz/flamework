@@ -3,8 +3,8 @@
     home.packages = [ pkgs.affine ];
   };
   
-  nixosModule = { user, tools, ... }:
-    with tools; mkPersistDirsModule user [
+  nixosModule = { user, lib, ... }:
+    with lib; mkPersistDirsModule user [
       (c "AFFiNE")
     ];
 }

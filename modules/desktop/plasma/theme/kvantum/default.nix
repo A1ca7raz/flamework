@@ -1,6 +1,6 @@
 {
-  nixosModule = { config, user, tools, ... }:
-    with tools; let
+  nixosModule = { config, user, lib, ... }:
+    with lib; let
       inherit (config.lib.theme) KvantumTheme;
     in {
       utils.kconfig.rules = [

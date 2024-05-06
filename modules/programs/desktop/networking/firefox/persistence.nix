@@ -1,5 +1,5 @@
-{ tools, user, ... }:
-with tools; mkPersistDirsModule user [
+{ lib, user, ... }:
+with lib; mkPersistDirsModule user [
   ".mozilla/firefox"
   ".mozilla/native-messaging-hosts"
   (ls "tor-browser")

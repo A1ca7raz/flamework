@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config,lib, ... }:
 let
   PORTS = [ 48422 ];
 in {
@@ -6,7 +6,7 @@ in {
     enable = true;
     settings = {
       PasswordAuthentication = false;
-      PermitRootLogin = if config.lib.global.type == "server"
+      PermitRootLogin = if (lib.traceVal config.lib.global.type) == "server"
         then "prohibit-password"
         else "no";
     };

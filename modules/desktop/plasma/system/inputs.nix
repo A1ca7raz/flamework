@@ -1,5 +1,5 @@
-{ tools, ... }:
-with tools; let
+{ lib, ... }:
+with lib; let
   mk = mkRule "kcminputrc";
   mk_ = mkRule "kcminputrc";
   mktouchpad = mk_ ["Libinput" "1739" "52781" "MSFT0004:00 06CB:CE2D Touchpad"];

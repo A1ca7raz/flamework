@@ -4,22 +4,9 @@ let
 
   passwordFile = config.sops.secrets.step-ca_pwd.path;
   configFile = config.sops.secrets.step-ca_cfg.path;
-
-  inherit (config.lib.services.step-ca) ipAddrs;
-
-  netnsService = "netns-veth-step.service";
 in {
   utils.secrets.step-ca_pwd.enable = true;
   utils.secrets.step-ca_cfg.enable = true;
-
-  utils.netns.enable = true;
-  utils.netns.bridge."0".ipAddrs = config.lib.vnet.ipAddrs;
-
-  utils.netns.veth.step = {
-    bridge = "0";
-    netns = "step";
-    ipAddrs = ipAddrs;
-  };
 
   # https://github.com/smallstep/certificates/blob/master/systemd/step-ca.service
   systemd.services.step-ca = {
@@ -28,9 +15,9 @@ in {
       "https://smallstep.com/docs/step-ca"
       "https://smallstep.com/docs/step-ca/certificate-authority-server-production"
     ];
-    after = [ netnsService "authentik.service" ];
-    bindsTo = [ netnsService ];
-    requires = [ "authentik.service" ];
+    # after = [ netnsService "authentik.service" ];
+    # bindsTo = [ netnsService ];
+    # requires = [ "authentik.service" ];
     wantedBy = [ "multi-user.target" ];
     startLimitIntervalSec = 30;
     startLimitBurst = 3;

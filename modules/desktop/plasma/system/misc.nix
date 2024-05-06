@@ -1,6 +1,6 @@
-{ tools, ... }:
+{ lib, ... }:
 {
-  utils.kconfig.rules = with tools; [
+  utils.kconfig.rules = with lib; [
     ## KDE Daemon
     (mkRule "kded5rc" "Module-baloosearchmodule" "autoload" "false")
     (mkRule "kded5rc" "Module-freespacenotifier" "autoload" "false")

@@ -1,15 +1,15 @@
-{ config, lib, tools, ... }:
-let
+{ config, lib, ... }:
+with lib; let
   cfg = config.utils.gitea;
   cfg_ = config.lib.gitea;
   enabled = {
     sopsFile = ./secrets.yml;
   };
 in {
-  imports = tools.importsFiles ./config;
-  options.utils.gitea = lib.mkOption {
+  imports = importsFiles ./config;
+  options.utils.gitea = mkOption {
     default = {};
-    type = lib.types.attrsOf lib.types.attrs;
+    type = with types; attrsOf attrs;
   };
 
   config = {
@@ -25,7 +25,7 @@ in {
 
     # Final configuration
     sops.templates.gitea_config = {
-      content = lib.generators.toINI {} cfg;
+      content = generators.toINI {} cfg;
       path = "${cfg_.customDir}/conf/app.ini";
       owner = cfg_.user;
       group = cfg_.group;

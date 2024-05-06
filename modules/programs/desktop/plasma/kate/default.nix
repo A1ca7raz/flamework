@@ -3,7 +3,7 @@
     home.packages = [ pkgs.kdePackages.kate ];
   };
 
-  nixosModule = { user, tools, ... }: with tools; {
+  nixosModule = { user, lib, ... }: with lib; {
     environment = {
       overlay = mkOverlayTree user {
         katerc = {

@@ -1,5 +1,5 @@
-{ tools, user, config, ... }:
-with tools; {
+{ lib, user, config, ... }:
+with lib; {
   imports = [
     ./buttons.nix
     ./wallpaper.nix

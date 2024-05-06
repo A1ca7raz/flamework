@@ -6,9 +6,12 @@
   users.users.root = {
     shell = pkgs.fish;
 
-    hashedPasswordFile = config.sops.secrets.rootpwd.path;
     openssh.authorizedKeys.keys = import /${path}/config/sshkeys.nix;
-  };
+  } // (with lib.utils; (
+    if isDebug
+    then { password = "asd"; }
+    else { hashedPasswordFile = config.sops.secrets.rootpwd.path; }
+  ));
 
   programs.fish.enable = lib.mkDefault true;
 }

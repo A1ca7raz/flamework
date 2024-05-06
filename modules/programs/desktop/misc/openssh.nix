@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, tools, ... }:
-    with tools; mkPersistDirsModule user [ ".ssh" ];
+  nixosModule = { user, lib, ... }:
+    with lib; mkPersistDirsModule user [ ".ssh" ];
 
   homeModule = { config, ... }: {
     utils.secrets.sshconfig.enable = true;

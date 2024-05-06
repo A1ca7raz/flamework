@@ -1,6 +1,6 @@
-{ config, tools, lib, user, ... }:
-with tools; let
-  mkcl = lib.foldl (acc: i: acc // {
+{ config, lib, user, ... }:
+with lib; let
+  mkcl = foldl (acc: i: acc // {
     ${i} = {
       target = c i;
       source = config.utils.kconfig.files."${i}".path;

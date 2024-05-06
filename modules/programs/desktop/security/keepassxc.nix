@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, tools, ... }:
-    with tools; mkOverlayModule user {
+  nixosModule = { user, lib, ... }:
+    with lib; mkOverlayModule user {
       keepassxc_ini = {
         target = c "keepassxc/keepassxc.ini";
         text = ''

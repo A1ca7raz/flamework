@@ -1,5 +1,5 @@
-{ tools, config, lib, ... }:
-with tools; let
+{ config, lib, ... }:
+with lib; let
   inherit (config.lib.appletsrc) monitorIds;
   presets = import ./applets.nix;
   tray = import ./tray.nix;
@@ -15,7 +15,7 @@ with tools; let
   calcTrayId = id: builtins.toString (id + 1);
   
   mkPanelItems = id: groups:
-    lib.mapAttrsToList (n: v:
+    mapAttrsToList (n: v:
       mkItem (["Containments" (builtins.toString id)] ++ groups) n v
     );
   mkAppletItems = id: appId: groups: mkPanelItems id (["Applets" (calcAppletId id appId)] ++ groups);
@@ -29,7 +29,7 @@ with tools; let
       confP = conf ++ ["Preferences"];
       confA = conf ++ ["Appearance"];
 
-      mkApplets = apps: with lib;
+      mkApplets = apps:
         let
           appIds = forEach (range 1 (count (x: true) apps)) (calcAppletId id);
         in (flatten (imap1 (i: v:
@@ -61,10 +61,10 @@ in {
   utils.kconfig.files.plasmashellrc.items = [
     (mkItem "PlasmaTransientsConfig" "PreloadWeight" "0")
     (mkItem "Updates" "performed" "/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/containmentactions_middlebutton.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_migrate_font_settings.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_rename_timezonedisplay_key.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/folderview_fix_recursive_screenmapping.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/keyboardlayout_migrateiconsetting.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/keyboardlayout_remove_shortcut.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/klipper_clear_config.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/maintain_existing_desktop_icon_sizes.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/mediaframe_migrate_useBackground_setting.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/move_desktop_layout_config.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/no_middle_click_paste_on_panels.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/systemloadviewer_systemmonitor.js,/run/current-system/sw/share/plasma/shells/org.kde.plasma.desktop/contents/updates/unlock_widgets.js")
-  ] ++ (mkPlasmaPanel ((lib.elemAt monitorIds 0) + 2) 26)
-    ++ (mkPlasmaPanel ((lib.elemAt monitorIds 1) + 2) 22);
+  ] ++ (mkPlasmaPanel ((elemAt monitorIds 0) + 2) 26)
+    ++ (mkPlasmaPanel ((elemAt monitorIds 1) + 2) 22);
 
-  utils.kconfig.files.appletsrc.items = with presets; (mkAppletPanel ((lib.elemAt monitorIds 0) + 2) 1 [
+  utils.kconfig.files.appletsrc.items = with presets; (mkAppletPanel ((elemAt monitorIds 0) + 2) 1 [
     windowButtons
     windowTitle
     windowAppMenu
@@ -76,7 +76,7 @@ in {
     # separator
     lockLogout
     # latteSpacer
-  ]) ++ (mkAppletPanel ((lib.elemAt monitorIds 1) + 2) 2 [
+  ]) ++ (mkAppletPanel ((elemAt monitorIds 1) + 2) 2 [
     windowButtons
     windowTitle
     windowAppMenu

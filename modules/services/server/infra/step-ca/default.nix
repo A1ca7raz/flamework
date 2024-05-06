@@ -16,7 +16,10 @@
   };
   users.groups.step = {};
 
-  imports = [ ./service.nix ];
+  imports = [
+    ./service.nix
+    ./netns.nix
+  ];
 
   environment.systemPackages = [ pkgs.step-cli ];
 }

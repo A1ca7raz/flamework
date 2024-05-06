@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, tools, ... }:
-    with tools; mkOverlayModule user {
+  nixosModule = { user, lib, ... }:
+    with lib; mkOverlayModule user {
       kteatime_notifyrc = {
         source = ./kteatime.notifyrc;
         target = c "kteatime.notifyrc";

@@ -1,5 +1,5 @@
-{ lib, tools, ... }:
-with tools; with lib; let
+{ lib, ... }:
+with lib; let
   mkException = id: attr:
     generators.toINI {} { "Windeco Exception ${builtins.toString id}" = attr; };
 

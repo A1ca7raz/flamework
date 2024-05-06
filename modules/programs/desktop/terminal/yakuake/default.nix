@@ -1,6 +1,6 @@
 {
-  nixosModule = { tools, user, ... }:
-    with tools; mkOverlayModule user {
+  nixosModule = { lib, user, ... }:
+    with lib; mkOverlayModule user {
       yakuakerc = {
         source = ./yakuakerc;
         target = c "yakuakerc";

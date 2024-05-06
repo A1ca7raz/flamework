@@ -1,6 +1,6 @@
 {
-  nixosModule = { tools, user, config, ... }:
-    with tools; {
+  nixosModule = { lib, user, config, ... }:
+    with lib; {
       utils.kconfig.files.kwinrc.items = [
         (mkItem "ModifierOnlyShortcuts" "Meta" "org.kde.lattedock,/Latte,org.kde.LatteDock,activateLauncherMenu")
       ];
@@ -38,7 +38,7 @@
       ];
     };
 
-  homeModule = { pkgs, lib, tools, ... }: {
+  homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
       latte-dock
       applet-window-buttons6

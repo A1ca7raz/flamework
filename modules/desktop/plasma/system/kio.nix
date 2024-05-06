@@ -1,5 +1,5 @@
-{ tools, ... }:
-with tools; {
+{ lib, ... }:
+with lib; {
   utils.kconfig.files.kiorc.items = [
     (mkItem "Confirmations" "ConfirmDelete" "false")
     (mkItem "Confirmations" "ConfirmEmptyTrash" "false")

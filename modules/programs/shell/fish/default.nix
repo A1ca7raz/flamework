@@ -1,5 +1,5 @@
-{ user, tools, ... }:
-with tools; {
+{ user, lib, ... }:
+with lib; {
   programs.fish = {
     enable = true;
     useBabelfish = true;

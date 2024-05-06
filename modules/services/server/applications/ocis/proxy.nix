@@ -1,11 +1,11 @@
-{ config, tools, lib, ... }:
+{ config, lib, ... }:
 let
   constant = config.lib.services.ocis;
 in {
   # Caddy
   services.caddy.virtualHosts.ocis = {
     hostName = lib.elemAt constant.domains 0;
-    listenAddresses = tools.removeCIDRSuffixes constant.ipAddrs;
+    listenAddresses = lib.removeCIDRSuffixes constant.ipAddrs;
     serverAliases = [];
 
     extraConfig = ''

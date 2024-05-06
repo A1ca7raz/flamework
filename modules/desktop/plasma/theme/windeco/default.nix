@@ -1,6 +1,6 @@
 {
-  nixosModule = { tools, config, user, ... }:
-    with tools; let
+  nixosModule = { lib, config, user, ... }:
+    with lib; let
       inherit (config.lib) themeColor;
       inherit (config.lib.theme) ThemeColor;
 

@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, pkgs, tools, ... }: {
-    environment.persistence = tools.mkPersistDirsTree user [
+  nixosModule = { user, pkgs, lib, ... }: {
+    environment.persistence = lib.mkPersistDirsTree user [
       ".gnupg"
     ];
 

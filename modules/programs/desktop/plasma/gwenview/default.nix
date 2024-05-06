@@ -1,6 +1,6 @@
 {
-  nixosModule = { tools, user, ... }:
-    with tools; {
+  nixosModule = { lib, user, ... }:
+    with lib; {
       environment.overlay.users.${user}.gwenviewrc = {
         target = c "gwenviewrc";
         text = ''

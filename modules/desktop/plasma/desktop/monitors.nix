@@ -1,9 +1,9 @@
-{ config, tools, lib, ... }:
+{ config, lib, ... }:
 let
   inherit (config.lib.plasma) activityId;
   mkItem = x: if builtins.isList x
-   then tools.mkItem (["Containments"] ++ x)
-   else tools.mkItem (["Containments" (builtins.toString x)]);
+   then lib.mkItem (["Containments"] ++ x)
+   else lib.mkItem (["Containments" (builtins.toString x)]);
   mkMonitorBasic = id: [
     (mkItem id "activityId" activityId)
     (mkItem id "formfactor" "0")

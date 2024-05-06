@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, tools, config, ... }:
-    with tools; let
+  nixosModule = { user, lib, config, ... }:
+    with lib; let
       inherit (config.lib) themeColor;
       t = x: {
         text = profile_tpl x;

@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, tools, lib, ... }:
-    with tools; lib.mkMerge [
+  nixosModule = { user,  lib, ... }:
+    with lib; mkMerge [
       (mkPersistDirsModule user [
         # ".mozilla/thunderbird"
         ".thunderbird"

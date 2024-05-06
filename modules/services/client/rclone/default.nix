@@ -1,6 +1,6 @@
 {
-  nixosModule = { tools, user, ... }:
-    with tools; mkPersistDirsModule user [
+  nixosModule = { lib, user, ... }:
+    with lib; mkPersistDirsModule user [
       (c "rclone")
   ];
 

@@ -1,5 +1,5 @@
-{ tools, config, lib, ... }:
-with tools; let
+{ config, lib, ... }:
+with lib; let
   inherit (config.lib.appletsrc) monitorIds;
 
   use = id: plugin: [(mkItem ["Containments" (builtins.toString id)] "wallpaperplugin" plugin)];
@@ -11,6 +11,6 @@ with tools; let
     (mkItem ["Containments" (builtins.toString id) "Wallpaper" "org.kde.potd" "General"] "Provider" "wcpotd")
   ];
 in {
-  utils.kconfig.files.appletsrc.items = (useImage (lib.elemAt monitorIds 0))
-    ++ (useImage (lib.elemAt monitorIds 1));
+  utils.kconfig.files.appletsrc.items = (useImage (elemAt monitorIds 0))
+    ++ (useImage (elemAt monitorIds 1));
 }

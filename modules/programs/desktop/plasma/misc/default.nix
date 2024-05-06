@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, tools, ... }:
-    with tools; {
+  nixosModule = { user, lib, ... }:
+    with lib; {
       environment.overlay = mkOverlayTree user {
         klaunchrc = {
           target = c "klaunchrc";

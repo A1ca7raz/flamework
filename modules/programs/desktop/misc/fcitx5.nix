@@ -1,6 +1,6 @@
 {
-  nixosModule = { user, tools, pkgs, ... }:
-    with tools; let
+  nixosModule = { user, lib, pkgs, ... }:
+    with lib; let
       s = x: ./fcitx5_config/${x};
       t = x: ".config/fcitx5/" + x;
       mkst = x: {

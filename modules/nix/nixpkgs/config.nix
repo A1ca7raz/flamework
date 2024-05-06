@@ -1,5 +1,5 @@
-{ user, tools, ... }:
-with tools; mkOverlayModule user {
+{ user, lib, ... }:
+with lib; mkOverlayModule user {
   nixpkgs_config = {
     target = c "nixpkgs/config.nix";
     text = ''

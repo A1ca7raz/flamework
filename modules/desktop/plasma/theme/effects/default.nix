@@ -1,7 +1,7 @@
 {
-  nixosModule = { config, tools, ... }:
+  nixosModule = { config, lib, ... }:
     let
-      inherit (tools) mkRule;
+      inherit (lib) mkRule;
       kwinrc = mkRule "kwinrc";
     in {
       utils.kconfig.rules = [

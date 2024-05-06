@@ -1,9 +1,9 @@
-{ tools, config, ... }:
+{ lib, config, ... }:
 let
   inherit (config.lib.plasma) activityId;
 in {
   lib.plasma.activityId = "114514aa-bbcc-ddee-ff00-1919810abcde";
-  utils.kconfig.rules = with tools; [
+  utils.kconfig.rules = with lib; [
     ## No Baloo
     (mkRule "kactivitymanagerdrc" "Plugins" "org.kde.ActivityManager.ResourceScoringEnabled" "false")
     (mkRule "kactivitymanagerd-pluginsrc" "Plugin-org.kde.ActivityManager.Resources.Scoring" "what-to-remember" "1")
