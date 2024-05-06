@@ -1,5 +1,5 @@
-{ lib, path, tools, ... }@args:
-with lib; with tools; let
+{ lib, path, ... }@args:
+with lib; let
   tpl_path = /${path}/profiles/__templates;
   tpl_list = _getListFromDir "nix" tpl_path;
 
@@ -10,6 +10,7 @@ with lib; with tools; let
     targetUser = "root";
     modules = [];
     users = {};
+    tags = [];
     # extraConfig = {};
   };
 
@@ -35,6 +36,7 @@ with lib; with tools; let
       modules = (attrByPath ["modules"] [] ctx) ++ (attrByPath ["modules"] [] tpl)
         ++ (optional (tpl ? extraConfig) tpl.extraConfig) ++ (optional (ctx ? extraConfig) ctx.extraConfig);
       users = foldr mergeUsers {} localUsers;
+      tags = unique ((attrByPath ["tags"] [] ctx) ++ (attrByPath ["tags"] [] tpl));
       # modules = trivial.modules ++ ctx_full.modules ++ [ trivial.extraConfig ctx_full.extraConfig ];
       # users = recursiveUpdate trivial.users ctx_full.users;
       "__isWrappedTpl__" = true;

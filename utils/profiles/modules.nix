@@ -1,10 +1,10 @@
-{ lib, self, path, inputs, tools, ... }:
+{ lib, self, path, inputs, ... }:
 {
   modules,
   users,
   targetUser
 }:
-with lib; with builtins; with tools;
+with lib; with builtins;
 let
   localUser = if targetUser == "root" then [] else [ targetUser ];
 

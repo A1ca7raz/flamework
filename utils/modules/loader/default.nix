@@ -1,5 +1,5 @@
-{ tools, ... }:
-with tools; {
+{ lib, ... }:
+with lib; {
   imports = foldGetFile ./. []
     (x: y:
       if isNix x

@@ -1,10 +1,5 @@
 { lib, self, path, inputs, ... }@args:
 with lib; let
-  specialArgs = {
-    inherit self path inputs;
-    var = import ./../constant.nix lib;
-  };
-
   # module处理器
   module_parser = import ./modules.nix args;
 
@@ -37,12 +32,21 @@ with lib; let
     modules ? [],
     users ? {},
     targetUser ? "root",
+    tags ? [],
     ...
   }:
     let
       module_parsed = module_parser { inherit modules users targetUser; };
+
+      var = recursiveUpdate (import ./../constant.nix lib) { host.tags = genAttrs tags (x: x); };
+
+      specialArgs = { inherit self path inputs var; };
+
+      lib = extend(final: prev: {
+        utils = import ./../lib/var { inherit lib var; };
+      });
     in {
-      inherit system specialArgs;
+      inherit system specialArgs lib;
       modules = [
         self.nixosModules.utils
         self.nixosModules.impermanence

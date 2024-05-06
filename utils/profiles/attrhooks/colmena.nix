@@ -1,8 +1,9 @@
-{ lib, self, path, inputs, tools, ... }:
+{ lib, self, path, inputs, ... }:
 {
   name,
   deployment,
   modules,
+  nixosSystem,
   system,
   ...
 }: {
@@ -15,7 +16,7 @@
         };
         overlays = lib.mapAttrsToList (n: v: v) (lib.attrByPath ["overlays"] {} self);
       };
-      specialArgs = { inherit self path inputs tools; };
+      specialArgs = nixosSystem.specialArgs // { lib = nixosSystem.lib; };
     };
     ${name} = {
       deployment = deployment;
