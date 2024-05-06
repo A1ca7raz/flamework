@@ -1,9 +1,8 @@
 { pkgs, ... }:
 {
-  services.xserver = {
-    enable = true;  # SDDM requires services.xserver.enable to be true
-    libinput.enable = true;
-    libinput.touchpad = {
+  services.libinput = {
+    enable = true;
+    touchpad = {
       horizontalScrolling = true;
       naturalScrolling = true;
       tapping = true;

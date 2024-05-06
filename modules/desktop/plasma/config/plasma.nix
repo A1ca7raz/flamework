@@ -9,7 +9,7 @@
     okular
   ];
 
-  services.xserver.displayManager = {
+  services.displayManager = {
     autoLogin.enable = true;
     autoLogin.user = "nomad";
     sddm.enable = true;
