@@ -1,12 +1,11 @@
-{ self, ... }:
+{ self, lib, ... }:
 {
   # targetPort = 22;
   targetUser = "nomad";
   system = "x86_64-linux";
+  tags = [ lib.tags.desktop ];
 
   modules = with self.nixosModules.modules; [
-    constant.global
-
     (desktop.exclude ["plasma"])
 
     hardware.fido
