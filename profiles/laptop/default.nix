@@ -1,13 +1,15 @@
-{ self, templates, ... }:
+{ self, lib, templates, ... }:
 templates.desktop {
   targetHost = "192.168.10.3";
   targetPort = 22;
   targetUser = "nomad";
   # system = "x86_64-linux";
+  tags = with lib.tags; [
+    local internal private
+    laptop
+  ];
 
   modules = with self.nixosModules.modules; [
-    constant.theme
-
     desktop.plasma
 
     hardware.amdcpu
