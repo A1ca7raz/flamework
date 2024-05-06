@@ -7,7 +7,7 @@
     file
     iperf
     lsof
-    neofetch
+    fastfetch
     nmap
     openssl
     tcpdump
