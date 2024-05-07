@@ -27,6 +27,7 @@
     lanzaboote.follows = "nur/lanzaboote";
     sops-nix.follows = "nur/sops-nix";
     spicetify-nix.follows = "nur/spicetify-nix";
+    nix-index-database.follows = "nur/nix-index-database";
   };
 
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
