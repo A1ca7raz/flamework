@@ -8,4 +8,5 @@ builtins.concatStringsSep " " [
   "--buffer-size 128M"
   "--vfs-read-chunk-size 128M"
   "--vfs-read-wait 0ms"
+  "--allow-non-empty"
 ]
