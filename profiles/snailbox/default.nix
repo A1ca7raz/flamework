@@ -1,9 +1,9 @@
 { self, lib, templates, ... }:
 let
-  ip4 = "198.18.0.1";
-  ip6 = "fcb7:25f7:5bf3:100::1";
+  ipv4 = "198.18.0.1";
+  ipv6 = "fcb7:25f7:5bf3:100::1";
 in templates.vps {
-  targetHost = ip4;
+  targetHost = ipv4;
   hostName = "oxygenbox";
   tags = with lib.tags; [
     local internal private
@@ -25,18 +25,13 @@ in templates.vps {
     # services.server.applications.gitea
     # services.server.applications.ocis
 
+    system.network.netns
     system.bootloader.efi.grub.removable
     system.kernel.xanmod
   ];
 
-  extraConfig = { ... }: {
-    utils.netns.enable = true;
-
-    systemd.network.networks.eth0 = {
-      address = [ "${ip4}/24" "${ip6}/64" ];
-      matchConfig.Name = "eth0";
-    };
-
-    lib.this = { inherit ip4 ip6; };    
+  args = {
+    privateIPv4 = ipv4;
+    privateIPv6 = ipv6;
   };
 }

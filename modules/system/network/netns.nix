@@ -1,0 +1,4 @@
+{ ... }:
+{
+  utils.netns.enable = true;
+}
