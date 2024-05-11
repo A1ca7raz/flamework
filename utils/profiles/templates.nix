@@ -33,6 +33,7 @@ with lib; let
       targetHost = updateKey "targetHost";
       targetPort = updateKey "targetPort";
       targetUser = updateKey "targetUser";
+      hostName = attrByPath ["hostName"] null ctx;
 
       modules = (attrByPath ["modules"] [] ctx) ++ (attrByPath ["modules"] [] tpl)
         ++ (optional (tpl ? extraConfig) tpl.extraConfig) ++ (optional (ctx ? extraConfig) ctx.extraConfig);

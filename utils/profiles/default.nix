@@ -32,6 +32,7 @@ with lib; let
     modules ? [],
     users ? {},
     targetUser ? "root",
+    hostName ? null,
     tags ? [],
     args ? {},
     ...
@@ -39,7 +40,12 @@ with lib; let
     let
       module_parsed = module_parser { inherit modules users targetUser; };
 
-      var = recursiveUpdate (import ./../constant.nix lib) { host = args // { tags = genAttrs tags (x: x); }; };
+      var = recursiveUpdate (import ./../constant.nix lib) {
+        host = args // {
+          inherit hostName;
+          tags = genAttrs tags (x: x);
+        };
+      };
 
       specialArgs = { inherit self path inputs var; };
 
