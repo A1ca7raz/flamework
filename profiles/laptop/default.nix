@@ -4,6 +4,8 @@ templates.desktop {
   targetPort = 22;
   targetUser = "nomad";
   # system = "x86_64-linux";
+  hostName = "oxygenlaptop";
+
   tags = with lib.tags; [
     local internal private
     laptop
@@ -28,9 +30,4 @@ templates.desktop {
     system.security.secureboot
     # system.security.kwallet
   ];
-
-  extraConfig = { ... }: {
-    networking.hostName = "oxygenlaptop";
-    environment.overlay.debug = false;
-  };
 }

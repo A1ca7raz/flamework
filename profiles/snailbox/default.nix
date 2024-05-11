@@ -4,6 +4,7 @@ let
   ip6 = "fcb7:25f7:5bf3:100::1";
 in templates.vps {
   targetHost = ip4;
+  hostName = "oxygenbox";
   tags = with lib.tags; [
     local internal private
   ];
@@ -29,8 +30,6 @@ in templates.vps {
   ];
 
   extraConfig = { ... }: {
-    networking.hostName = "oxygenbox";
-
     utils.netns.enable = true;
 
     systemd.network.networks.eth0 = {
