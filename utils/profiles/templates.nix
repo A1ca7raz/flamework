@@ -11,6 +11,7 @@ with lib; let
     modules = [];
     users = {};
     tags = [];
+    args = {};
     # extraConfig = {};
   };
 
@@ -37,6 +38,7 @@ with lib; let
         ++ (optional (tpl ? extraConfig) tpl.extraConfig) ++ (optional (ctx ? extraConfig) ctx.extraConfig);
       users = foldr mergeUsers {} localUsers;
       tags = unique ((attrByPath ["tags"] [] ctx) ++ (attrByPath ["tags"] [] tpl));
+      args = recursiveUpdate (attrByPath ["args"] {} tpl) (attrByPath ["args"] {} ctx);
       # modules = trivial.modules ++ ctx_full.modules ++ [ trivial.extraConfig ctx_full.extraConfig ];
       # users = recursiveUpdate trivial.users ctx_full.users;
       "__isWrappedTpl__" = true;
