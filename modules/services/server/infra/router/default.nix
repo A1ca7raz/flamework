@@ -1,4 +1,4 @@
-{ config, lib, var, ... }:
+{ lib, var, ... }:
 let
   mix = lib.concatStringsSep ","; 
 in {
@@ -10,8 +10,8 @@ in {
       # DNS Server
       listen-address = mix [
         "127.0.0.1" "::1"
-        config.lib.this.ip4
-        config.lib.this.ip6
+        var.host.privateIPv4
+        var.host.privateIPv6
       ];
 
       # Local Domain
@@ -25,7 +25,7 @@ in {
       interface = "eth0";
       bind-dynamic = true;
       dhcp-range = [
-        (mix var.subnet.ipv4DHCP)
+        (mix var.host.DHCPRangeV4)
         (mix [ "::100" "::1ff" "constructor:eth0" "ra-names" "slaac" ])
       ];
       dhcp-option = [
@@ -38,11 +38,11 @@ in {
     };
   };
 
-  systemd.network.networks.eth0 = {
-    networkConfig.IPForward = "yes";
+  # systemd.network.networks.eth0 = {
+  #   networkConfig.IPForward = "yes";
 
-    # Static IP for router
-    address = [ "${var.host.privateIPv4}/24" "${var.host.privateIPv6}/64" ];
-    matchConfig.Name = "eth0";
-  };
+  #   # Static IP for router
+  #   address = [ "${var.host.privateIPv4}/24" "${var.host.privateIPv6}/64" ];
+  #   matchConfig.Name = "eth0";
+  # };
 }

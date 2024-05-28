@@ -33,5 +33,7 @@ in templates.vps {
   args = {
     privateIPv4 = ipv4;
     privateIPv6 = ipv6;
+    
+    DHCPRangeV4 = [ "198.18.0.2" "198.18.0.50" "255.255.255.0" "12h" ];
   };
 }
