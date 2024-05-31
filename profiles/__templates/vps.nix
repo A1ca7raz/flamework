@@ -6,6 +6,8 @@
   tags = [ lib.tags.server ];
 
   modules = with self.nixosModules.modules; [
+    # hosts.nodes
+
     nix.settings
 
     programs.misc

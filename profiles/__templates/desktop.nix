@@ -11,6 +11,8 @@
     hardware.fido
     hardware.bluetooth
 
+    hosts.nodes
+
     nix
 
     (programs.exclude ["desktop" "server"])
