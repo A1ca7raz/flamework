@@ -28,12 +28,12 @@
         # System
         (ls "kactivitymanagerd")
         (ls "kcookiejar")
-        (ls "kded5")
-        (ls "keyrings")
+        # (ls "kded5")
+        # (ls "keyrings")
         (ls "klipper")
         (ls "kscreen")
         (ls "kwalletd")
-        (c "plasma-nm")
+        # (c "plasma-nm")
       ];
     };
 

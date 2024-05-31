@@ -1,6 +1,6 @@
 { user, lib, ... }:
 with lib; mkPersistDirsModule user [
-  (c "menus")
+  # (c "menus")
   (ls "plasma")
   (ls "kwin")
 ]
