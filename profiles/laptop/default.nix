@@ -20,6 +20,7 @@ templates.desktop {
     hardware.logitech
     hardware.nvme
     hardware.tpm
+    hardware.xbox
 
     (programs.desktop.exclude [
       "networking.cloudflare-warp"
