@@ -11,6 +11,6 @@ with lib; let
     (mkItem ["Containments" (builtins.toString id) "Wallpaper" "org.kde.potd" "General"] "Provider" "wcpotd")
   ];
 in {
-  utils.kconfig.files.appletsrc.items = (useImage (elemAt monitorIds 0))
+  utils.kconfig.files.appletsrc.items = (usePotd (elemAt monitorIds 0))
     ++ (useImage (elemAt monitorIds 1));
 }
