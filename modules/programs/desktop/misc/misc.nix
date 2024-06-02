@@ -10,15 +10,12 @@
       anki
       qalculate-qt
       sbctl
-      baidupcs-go
       step-cli
     ];
   };
 
   nixosModule = { user, lib, pkgs, ... }:
     with lib; mkPersistDirsModule user [
-      (c "BaiduPCS-Go")                 # 百度网盘
-
       # System
       (ls "applications")
       # (ls "networkmanagement")
