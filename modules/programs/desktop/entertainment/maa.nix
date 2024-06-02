@@ -5,9 +5,6 @@
     ];
   
   homeModule = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      maa-assistant-arknights
-      maa-cli
-    ];
+    home.packages = [ pkgs.maa-cli ];
   };
 }
