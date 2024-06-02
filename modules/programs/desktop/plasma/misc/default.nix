@@ -23,7 +23,6 @@
       environment.persistence = mkPersistDirsTree user [
         # Plasma APPs
         (c "kdeconnect")
-        (ls "krita")
 
         # System
         (ls "kactivitymanagerd")
@@ -39,9 +38,7 @@
 
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; with kdePackages; [
-      kcolorchooser
       kdeconnect-kde
-      krita
     ];
   };
 }

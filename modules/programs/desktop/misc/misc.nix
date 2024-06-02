@@ -4,8 +4,6 @@
       # audacity
       # drawio
       fsearch
-      # gimp
-      inkscape
       libnotify
       libqalculate
       lm_sensors
