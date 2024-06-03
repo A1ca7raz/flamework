@@ -26,7 +26,7 @@ templates.desktop {
       "networking.cloudflare-warp"
       "development.jetbrains"
     ])
-    (services.client.exclude ["homepage"])
+    services.client
     system.kernel.xanmod
     system.security.secureboot
     # system.security.kwallet
