@@ -7,7 +7,7 @@ templates.desktop {
   hostName = "oxygenlaptop";
 
   tags = with lib.tags; [
-    local internal private
+    local internal private physical
     laptop
   ];
 

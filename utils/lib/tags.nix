@@ -10,6 +10,8 @@ lib:
 
     "public" "private"  # Visibility and access control
 
+    "physical" "virtual"
+
     "laptop"
 
     "debug"
