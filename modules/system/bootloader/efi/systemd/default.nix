@@ -5,4 +5,6 @@
     systemd-boot.enable = true;
     timeout = 0;
   };
+
+  imports = [ ../common.nix ];
 }

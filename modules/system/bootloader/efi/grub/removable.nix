@@ -11,4 +11,6 @@
       device = "nodev";
     };
   };
+
+  imports = [ ../common.nix ];
 }

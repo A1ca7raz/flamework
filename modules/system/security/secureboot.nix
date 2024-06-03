@@ -1,4 +1,4 @@
-{ lib, self, ... }:
+{ lib, self, pkgs, ... }:
 {
   imports = [ self.nixosModules.lanzaboote ];
 
@@ -15,5 +15,10 @@
 
   environment.persistence."/nix/persist".directories = [
     "/etc/secureboot"
+  ];
+
+  environment.systemPackages = with pkgs; [
+    efibootmgr
+    sbctl
   ];
 }

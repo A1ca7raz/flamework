@@ -9,7 +9,6 @@
       lm_sensors
       anki
       qalculate-qt
-      sbctl
       step-cli
     ];
   };
