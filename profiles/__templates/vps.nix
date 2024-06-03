@@ -10,7 +10,7 @@
 
     nix.settings
 
-    programs.misc
+    programs.shell.misc
     programs.server
 
     services.server.openssh
