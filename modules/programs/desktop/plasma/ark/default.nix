@@ -19,6 +19,7 @@
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
       kdePackages.ark
+      unrar
       unzip-nls
       p7zip
     ];
