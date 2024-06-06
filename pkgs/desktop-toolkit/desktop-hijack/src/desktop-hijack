@@ -1,0 +1,92 @@
+#!/usr/bin/bash
+
+# Desktop-Locker
+script=${DESKTOP_HIJACK_SCRIPT}
+timer=10
+icon_locked=emblem-locked
+icon_unlocked=emblem-unlocked
+app_name=$0
+
+function error() {
+    echo "$app_name: $*"
+}
+
+function help() {
+    cat <<EOF
+
+用法：
+ $app_name [选项]
+
+在设定时间内强制最小化所有窗口。
+
+选项：
+ -t        设置时间，单位为秒 (默认值为 10）
+ -l        设置锁定图标 (默认值为 emblem-locked)
+ -u        设置解锁图标 (默认值为 emblem-unlocked)
+ -s        设置执行的 KWin Script 的绝对路径
+ -h        显示此帮助
+EOF
+}
+
+error=
+while getopts ":l:L:u:U:s:S:t:T:hH" opt; do
+    case $opt in
+        l|L)
+            icon_locked="${OPTARG}"
+            ;;
+        u|U)
+            icon_unlocked="${OPTARG}"
+            ;;
+        s|S)
+            script="${OPTARG}"
+            ;;
+        t|T)
+            timer="${OPTARG}"
+            ;;
+        h|H)
+            help
+            exit
+            ;;
+        :)
+            error "option ${OPTARG} requires an argument"
+            error=1
+            ;;
+        ?)
+            error "unrecognized option: ${OPTARG}"
+            error=1
+            ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+[[ -n ${@} ]] && error "Usage: $app_name [options]" && error=1
+
+[[ -n $error ]] && help && exit 1
+
+[[ -z $script ]] && error "no executable KWin script found" && exit 2
+
+function _n() {
+    qdbus org.freedesktop.Notifications /org/kde/osdService org.kde.osdService.showText "$1" "$2"
+}
+
+function tick() {
+    _n $icon_locked "距离桌面解锁还有 $1 秒"
+}
+
+function kwindbus() {
+    qdbus org.kde.KWin $*
+}
+
+script_id=$(kwindbus /Scripting loadScript $script)
+
+kwindbus /Scripting/Script${script_id} run &
+
+for i in $(seq $timer -1 1); do
+    tick $i
+    sleep 1
+done
+
+kwindbus /Scripting/Script${script_id} stop &
+
+_n $icon_unlocked "桌面已解锁"
