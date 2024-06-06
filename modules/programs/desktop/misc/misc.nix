@@ -10,6 +10,7 @@
       anki
       qalculate-qt
       step-cli
+      desktop-toolkit
     ];
   };
 
