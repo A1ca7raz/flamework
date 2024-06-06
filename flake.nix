@@ -51,6 +51,7 @@
       in {
         formatter = pkgs.nixpkgs-fmt;
         devShells.default = with pkgs; mkShell { nativeBuildInputs = [ colmena ]; };
+        packages = utils.packages pkgs;
       }
     ) // {
       nixosModules = utils.modules // (with inputs; {
@@ -60,6 +61,8 @@
         lanzaboote = lanzaboote.nixosModules.lanzaboote;
         nur = inputs.nur.nixosModule;
       });
+
+      inherit (utils) overlays;
 
       nixosConfigurations = utils.profiles.nixosConfigurations;
       colmena = utils.profiles.colmena;

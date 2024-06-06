@@ -26,4 +26,12 @@ in {
         (x: y: [ ./modules/${x} ] ++ y);      
     };
   };
+
+  packages = pkgs: lib.foldGetDir /${path}/pkgs {}
+    (pkg: acc:
+      { "${pkg}" = pkgs.callPackage (import /${path}/pkgs/${pkg}) { inherit lib; } ; } // acc
+    );
+  
+  overlays.pkgs = final: prev:
+    lib.mapPackages (lib.callPackage final lib) "function" /${path}/pkgs;
 }
