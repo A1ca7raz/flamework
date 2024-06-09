@@ -8,7 +8,7 @@ with lib; let
   ];
   usePotd = id: (use id "org.kde.potd") ++ [
     (mkItem ["Containments" (builtins.toString id) "Wallpaper" "org.kde.potd" "General"] "FillMode" "2")
-    (mkItem ["Containments" (builtins.toString id) "Wallpaper" "org.kde.potd" "General"] "Provider" "wcpotd")
+    (mkItem ["Containments" (builtins.toString id) "Wallpaper" "org.kde.potd" "General"] "Provider" "bing")
   ];
 in {
   utils.kconfig.files.appletsrc.items = (usePotd (elemAt monitorIds 0))
