@@ -16,6 +16,7 @@
     wget
     whois
     wireguard-tools
+    nvtopPackages.full
   ];
 
   programs = {
