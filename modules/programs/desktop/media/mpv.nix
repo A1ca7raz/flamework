@@ -4,14 +4,15 @@
 # https://github.com/LunNova/nixos-configs/blob/dev/packages/svpflow/default.nix
 { home, pkgs, ... }:
 with pkgs; let
-  scripts =  with mpvScripts; [
-    mpris                 # Mpris
-    thumbfast             # On-the-fly Thumbnail
-    uosc                  # Feature-rich UI
-    autoload
-  ];
-  mpvUnwrapped = mpv-unwrapped.override { vapoursynthSupport = true; };
-  mpvPackage = wrapMpv mpvUnwrapped { inherit scripts; };
+  mpvPackage = mpv-unwrapped.wrapper {
+    mpv = mpv-unwrapped.override { vapoursynthSupport = true; };
+    scripts = with mpvScripts; [
+      mpris                 # Mpris
+      thumbfast             # On-the-fly Thumbnail
+      uosc                  # Feature-rich UI
+      autoload
+    ];
+  };
 in {
   home.packages = [ mpvPackage ];
   xdg.configFile.mpvConf = {
