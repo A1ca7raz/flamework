@@ -19,6 +19,7 @@ templates.desktop {
     hardware.deep_sleep
     hardware.logitech
     hardware.nvme
+    hardware.printing
     hardware.tpm
     hardware.xbox
 
