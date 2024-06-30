@@ -12,10 +12,8 @@
 
   # hardware.steam-hardware.enable = true;
 
-  hardware.opengl = with pkgs; {
+  hardware.graphics = with pkgs; {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
     extraPackages = [
       libvdpau-va-gl
       vaapiVdpau
