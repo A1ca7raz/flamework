@@ -141,7 +141,8 @@ in {
   digitalClock = {
     _ = regApplet "org.kde.plasma.digitalclock";
     confA = {
-      customDateFormat = ''yyyy.M.'<font color="#55ff55">'d'</font>' ddd'';
+      # customDateFormat = ''yyyy.M.'<font color="#55ff55">'d'</font>' ddd'';
+      customDateFormat = ''yyyy.M.d ddd'';
       dateDisplayFormat = "BesideTime";
       dateFormat = "custom";
       fixedFont = "true";
