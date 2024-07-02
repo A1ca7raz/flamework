@@ -7,8 +7,7 @@
 
     programs.ssh = {
       enable = true;
-      # fix %r
-      includes = [ "/run/user/1000/secrets/sshconfig" ];
+      includes = [ config.sops.secrets.sshconfig.path ];
       
       matchBlocks = {
         gh = {
