@@ -1,10 +1,11 @@
 {
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.element-desktop ];
+    home.packages = [ pkgs.nheko ];
   };
 
   nixosModule = { user, lib, ... }:
     with lib; mkPersistDirsModule user [
-      (c "Element")
+      (c "nheko")
+      (ls "nheko")
     ];
 }
