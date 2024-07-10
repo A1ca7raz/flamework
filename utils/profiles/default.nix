@@ -71,7 +71,21 @@ with lib; let
             };
           }
         ))
-      ] ++ module_parsed.modules;
+      ] ++ module_parsed.modules
+        ++ optionals (builtins.pathExists /${profile_path}/${name}/secrets.yml) [
+          ({ ... }: {
+            sops.defaultSopsFile = /${profile_path}/${name}/secrets.yml;
+          })
+          (optionals module_parsed.enableHomeManager (
+            { ... }: {
+              home-manager.sharedModules = [
+                ({ ... }: {
+                  sops.defaultSopsFile = /${profile_path}/${name}/secrets.yml;
+                })
+              ];
+            }
+          ))
+        ];
     };
 
   _profiles = fold

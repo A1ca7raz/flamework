@@ -1,7 +1,6 @@
-{ lib, path, config, ... }:
+{ lib, config, ... }:
 with lib; let
   cfg = config.utils.secrets;
-  secret_path = "config/secrets_home";
 
   secretType = types.submodule (
     { name, config, ... }: {
@@ -13,8 +12,8 @@ with lib; let
         };
 
         path = mkOption {
-          type = types.str;
-          default = "${secret_path}/${name}.json";
+          type = with types; nullOr path;
+          default = null;
           description = ''
             Sops file the secret is loaded from.
           '';
@@ -38,9 +37,12 @@ in {
       };
       gnupg.sshKeyPaths = mkDefault [];
       secrets = mapAttrs (name: value:
-        if builtins.pathExists /${path}/${value.path}
+        if isNull value.path
+        then {}
+        else if builtins.pathExists value.path
         then {
-          sopsFile = /${path}/${value.path};
+          sopsFile = value.path;
+        } // optionals (hasSuffix ".json" (toString value.path)) {
           format = "binary";
         }
         else throw "${value.path} does not exists."
