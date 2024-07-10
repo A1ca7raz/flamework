@@ -1,6 +1,6 @@
 { pkgs, config, path, lib, ... }:
 {
-  utils.secrets.nomad_pwd.enable = true;
+  utils.secrets.nomad_pwd.path = ./nomadpwd.enc.json;
   sops.secrets.nomad_pwd.neededForUsers = true;
 
   users.users.nomad = {

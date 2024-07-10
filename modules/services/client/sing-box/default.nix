@@ -7,7 +7,7 @@ with lib; let
 
   uiPackage = pkgs.clash-webui-yacd-meta;
 in {
-  utils.secrets.sing-box.enable = true;
+  utils.secrets.sing-box.path = ./env.enc.json;
   sops.secrets.sing-box.mode = "0600";
 
   systemd.services.sing-box = optionalAttrs enable (

@@ -3,7 +3,7 @@
     with lib; mkPersistDirsModule user [ ".ssh" ];
 
   homeModule = { config, var, ... }: {
-    utils.secrets.sshconfig.enable = true;
+    utils.secrets.sshconfig.path = ./sshconfig.enc.json;
 
     programs.ssh = {
       enable = true;

@@ -1,6 +1,6 @@
 { pkgs, lib, config, path, ... }:
 {
-  utils.secrets.rootpwd.enable = true;
+  utils.secrets.rootpwd.path = ./rootpwd.enc.json;
   sops.secrets.rootpwd.neededForUsers = true;
 
   users.users.root = {
