@@ -9,69 +9,56 @@ let
     isHybridModule
     isModuleSet;
 in {
-
-  getModuleList = list:
+  classifyModules = mods: users:
     let
-      _parser = item:
-        if isFunction item
-        then item
-        else if isHybridModule item
+      initModuleSet = { nixosModules = []; homeModules = []; };
+
+      wrapNixosModulesUser = module:
+        let
+          wrapper = user: args@{ pkgs, ... }: module (args // { inherit user; });
+        in
+          forEach users (u: wrapper u);
+
+      wrapHomeModule = module: args@{ pkgs, ... }: module (args // { home = null; });
+
+      parseHybridModule = mods:
+        let
+          nixosModules =
+            if mods ? nixosModule
+            then
+              if isNixosModuleUser mods.nixosModule
+              then wrapNixosModulesUser mods.nixosModule
+              else [ mods.nixosModule ]
+            else [];
+          homeModules =  (
+            if mods ? homeModule
+            then [ mods.homeModule ]
+            else []);
+        in {
+          inherit nixosModules homeModules;
+        };
+
+      filterModuleSet = set: attrValues (filterAttrs (n: v: n != "exclude" && ! hasPrefix "_" n) set);
+
+      _parser = mod: acc:
+        if isNixosModule mod
+        then acc // { nixosModules = acc.nixosModules ++ [ mod ]; }
+        else if isNixosModuleUser mod
+        then acc // { nixosModules = acc.nixosModules ++ wrapNixosModulesUser mod; }
+        else if isHomeModule mod
+        then acc // { homeModules = acc.homeModules ++ [ (wrapHomeModule mod) ]; }
+        else if isHybridModule mod
         then
           let
-            wrapHomeModule = module: args@{ home, ... }: module args;
-          in
-            [ (optionalAttrs (item ? nixosModule) item.nixosModule) (optionalAttrs (item ? homeModule) (wrapHomeModule item.homeModule)) ]
-        else if isModuleSet item
-        then _recur (filterAttrs (n: v: n != "exclude") item)
-        else null;
-      _recur = mapAttrsToList (name: _parser);
+            mods = parseHybridModule mod;
+          in {
+            nixosModules = acc.nixosModules ++ mods.nixosModules;
+            homeModules = acc.homeModules ++ mods.homeModules;
+          }
+        else if isModuleSet mod
+        then _recur acc (filterModuleSet mod)
+        else acc;
+      _recur = foldr _parser;
     in
-      flatten (concatMap
-        (item:
-          if isFunction item
-          then [ item ]
-          else if isHybridModule item
-          then
-            let
-              wrapHomeModule = module: args@{ home, ... }: module args;
-            in
-              [ (optionalAttrs (item ? nixosModule) item.nixosModule) (optionalAttrs (item ? homeModule) (wrapHomeModule item.homeModule)) ]
-          else if isModuleSet item
-          then [(_recur (filterAttrs (n: v: n != "exclude") item))]
-          else []
-        ) list
-      );
-
-  # modules without 'user' arg (nixosModule)
-  filterNixosModules = concatMap (x: if isNixosModule x then [x] else []);
-
-  # modules with 'user' arg (nixosModule with current username)
-  filterNixosModulesUser = users: modules:
-    let
-      wrapper = user: module: args@{ pkgs, ... }: module (args // { inherit user; });
-    in
-      concatMap
-        (user:
-          concatMap
-            (x: if isNixosModuleUser x then [(wrapper user x)] else [])
-            modules
-        ) users;
-
-  # modules with 'home' args (homeModule)
-  filterHomeModules = users: modules:
-    let
-      wrapper = module: args@{ pkgs, ... }: module (args // { home = null; });
-      wrapperUser = module: user: args@{ pkgs, ... }: module (args // { home = null; inherit user; });
-      _filtered = user: concatMap (x:
-          if isHomeModuleUser x
-          then [(wrapperUser x user)]
-          else if isHomeModule x
-          then [(wrapper x)]
-          else []
-        ) modules;
-    in
-      if _filtered == []
-      then []
-      else forEach users
-        (user: { ... }: { home-manager.users.${user}.imports = _filtered user; });
+      foldr _parser initModuleSet mods;
 }

@@ -6,42 +6,38 @@
 }:
 with lib; with builtins;
 let
-  localUser = if targetUser == "root" then [] else [ targetUser ];
+  localUsers =
+    if targetUser == "root"
+    then attrNames users
+    else unique (attrNames users ++ [ targetUser ]);
 
-  module_list = getModuleList modules;
+  moduleAttrs = classifyModules modules localUsers;
 
-  nixosModules = filterNixosModules module_list;
-  nixosModulesUser = filterNixosModulesUser localUser module_list;
-  homeModules = filterHomeModules localUser module_list;
+  nixosModules = moduleAttrs.nixosModules;
+  sharedHomeModules = moduleAttrs.homeModules;
 
-  _enableHomeManager = homeModules != [];
-
-  # 用户指定的module
-  # specificUserModules = mapAttrsToList
-  #   (name: value:
-  #     let
-  #       _modules = getModuleList (attrByPath [ "modules" ] [] value);
-  #       _nixosModules_user = filterNixosModulesUser [name] _modules;
-  #       _homeModules_user = filterHomeModules [name] _modules;
-  #     in
-  #       { ... }: {
-  #         imports = _nixosModules_user ++ _homeModules_user;
-  #       }
-  #   ) users;
+  _enableHomeManager = sharedHomeModules != [];
 
   specificUserModules = foldlAttrs
     (acc: name: value:
       let
-        _modules = getModuleList (attrByPath [ "modules" ] [] value);
-        _nixosModules_user = filterNixosModulesUser [name] _modules;
-        _homeModules_user = filterHomeModules [name] _modules;
+        _moduleAttrs = classifyModules (attrByPath [ "modules" ] [] value) [name];
+        _nixosModules_user = _moduleAttrs.nixosModules;
+        _homeModules_user = _moduleAttrs.homeModules;
       in {
         _enableHomeManager = acc._enableHomeManager || (_homeModules_user != []);
-        modules = acc.modules ++ [({ ... }: { imports = _nixosModules_user ++ _homeModules_user; })];
+        modules = acc.modules ++ _nixosModules_user ++ [({ ... }: {
+          home-manager.users.${name}.imports = _homeModules_user;
+        })];
       }
     ) { _enableHomeManager = false; modules = []; } users;
 in {
-  modules = nixosModules ++ nixosModulesUser ++ homeModules ++ specificUserModules.modules;
   enableHomeManager = _enableHomeManager || specificUserModules._enableHomeManager;
+  modules = nixosModules ++ [({ ... }: {
+    home-manager = {
+      sharedModules = sharedHomeModules;
+      users = foldr (n: acc: acc // { "${n}" = {}; }) {} localUsers;
+    };
+  })] ++ specificUserModules.modules;
 }
   

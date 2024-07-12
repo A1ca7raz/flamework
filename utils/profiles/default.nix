@@ -61,7 +61,7 @@ with lib; let
         self.nixosModules.nur
         /${profile_path}/${name}/hardware-configuration.nix
         # automatically disable home-manager
-        (optionalAttrs module_parsed.enableHomeManager (
+        (optionals module_parsed.enableHomeManager (
           { ... }: {
             home-manager = {
               useGlobalPkgs = true;
