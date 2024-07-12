@@ -7,7 +7,7 @@ in {
   sops.secrets.u2f_keys.mode = "0444";
 
   security.pam = {
-    u2f = {
+    u2f.settings = {
       enable = true;
       cue = true;
       control = "sufficient";
