@@ -1,9 +1,9 @@
 {
   nixosModule = { pkgs, ... }: {
-    services.udev.packages = [ pkgs.solaar ];
+    # services.udev.packages = [ pkgs.solaar ];
   };
 
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.solaar ];
+    # home.packages = [ pkgs.solaar ];
   };
 }
