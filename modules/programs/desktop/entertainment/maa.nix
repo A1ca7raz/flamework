@@ -6,6 +6,6 @@
     ];
   
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.maa-cli-fix ];
+    home.packages = [ pkgs.maa-cli ];
   };
 }
