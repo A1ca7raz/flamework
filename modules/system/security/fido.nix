@@ -7,14 +7,14 @@ in {
   sops.secrets.u2f_keys.mode = "0444";
 
   security.pam = {
+    u2f.enable = true;
     u2f.settings = {
-      enable = true;
       cue = true;
       control = "sufficient";
 
       origin = uri;
       appId = uri;
-      authFile = config.sops.secrets.u2f_keys.path;
+      authfile = config.sops.secrets.u2f_keys.path;
     };
 
     services = {
