@@ -1,14 +1,8 @@
-{ pkgs, lib, ... }:
+{ home, pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
     ciel-latest
     squashfsTools # necessary dep
+    aosc-scriptlets
   ];
-
-  environment.persistence."/nix/persist".users.root = {
-    home = lib.mkDefault  "/root";
-    directories = [
-      "ciel"
-    ];
-  };
 }
