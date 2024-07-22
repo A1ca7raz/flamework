@@ -21,5 +21,8 @@
     (mkRule "kdeglobals" "General" "BrowserApplication" "firefox.desktop")
     (mkRule "kaccessrc" "ScreenReader" "Enabled" "false")
     (mkRule "kwalletrc" "Wallet" "First Use" "false")
+
+    ## Shakecursor
+    (mkRule "kdeglobals" "Effect-shakecursor" "Magnification" "2")
   ];
 }
