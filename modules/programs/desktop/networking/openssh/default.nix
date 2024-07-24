@@ -14,7 +14,7 @@
           sha256 = "sha256:1lh1hasggk739mzy48rymwa85d7l8db15gw6524ah9xy11m83f9i";
         })
       ];
-      
+
       matchBlocks = {
         gh = {
           hostname = "github.com";
@@ -26,6 +26,10 @@
         };
         "*.node" = {
           port = var.port.ssh;
+        };
+        archcn = {
+          hostname = "build.archlinuxcn.org";
+          user = "a1ca7raz";
         };
       };
     };
