@@ -1,4 +1,4 @@
-{ pkgs, lib, config, path, ... }:
+{ pkgs, lib, config, var, ... }:
 {
   utils.secrets.rootpwd.path = ./rootpwd.enc.json;
   sops.secrets.rootpwd.neededForUsers = true;
@@ -6,7 +6,7 @@
   users.users.root = {
     shell = pkgs.fish;
 
-    openssh.authorizedKeys.keys = import /${path}/config/sshkeys.nix;
+    openssh.authorizedKeys.keys = var.sshkeys;
   } // (with lib.utils; (
     if isDebug
     then { password = "asd"; }
