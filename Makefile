@@ -1,5 +1,5 @@
 secret:
-	./scripts/update_sops_secrets -g
+	update_sops_secrets -g
 	git commit -m "update secrets"
 
 disko:

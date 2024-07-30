@@ -46,11 +46,19 @@
           config = {
             allowUnfree = true;
           };
-          overlays = [ inputs.nur.overlay ];
+          overlays = [
+            inputs.nur.overlay
+            utils.overlays.pkgs
+          ];
         };
       in {
         formatter = pkgs.nixpkgs-fmt;
-        devShells.default = with pkgs; mkShell { nativeBuildInputs = [ colmena ]; };
+        devShells.default = with pkgs; mkShell {
+          nativeBuildInputs = [
+            colmena
+            flameworkPackages.deploykit
+          ];
+        };
         packages = utils.packages pkgs;
       }
     ) // {
