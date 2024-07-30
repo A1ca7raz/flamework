@@ -33,7 +33,7 @@ in {
       hideWidget = "true";
       panelBgColorMode = "1";
       panelBgEnabled = "true";
-      panelBgOpacity = "0.7";
+      panelBgOpacity = "0.8";
       panelBgRadius = "24";
       panelOutlineColorMode = "1";
       panelOutlineWidth = "1";
@@ -42,7 +42,7 @@ in {
       panelShadowX = "1";
       panelWidgets = "org.kde.plasma.kickoff,应用程序启动器,distributor-logo-nixos|luisbocanegra.panel.colorizer,Panel colorizer,desktop|org.kde.plasma.icontasks,图标任务管理器,preferences-system-windows";
       panelWidgetsWithTray = "org.kde.plasma.kickoff,应用程序启动器,distributor-logo-nixos|luisbocanegra.panel.colorizer,Panel colorizer,desktop|org.kde.plasma.icontasks,图标任务管理器,preferences-system-windows";
-      widgetBgEnabled = "20";
+      widgetBgEnabled = "false";
     };
   };
 
