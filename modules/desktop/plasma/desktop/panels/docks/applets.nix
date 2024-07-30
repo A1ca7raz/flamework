@@ -20,23 +20,29 @@ in {
   colorizer = {
     _ = regApplet "luisbocanegra.panel.colorizer";
     confG = {
+      blurPanelBgEnabled = "true";
+      enableCustomPadding = "true";
+      fgColorEnabled = "true";
       fgColorMode = "1";
+      fgContrastFixEnabled = "true";
       fgShadowEnabled = "true";
+      fgShadowRadius = "3";
       fgShadowX = "1";
-      fgShadowY = "1";
+      fgShadowY = "2";
       hideRealPanelBg = "true";
       hideWidget = "true";
       panelBgColorMode = "1";
       panelBgEnabled = "true";
       panelBgOpacity = "0.7";
-      panelBgRadius = "20";
+      panelBgRadius = "24";
       panelOutlineColorMode = "1";
       panelOutlineWidth = "1";
+      panelPadding = "10";
       panelShadowSize = "1";
       panelShadowX = "1";
-      panelWidgets = "org.kde.plasma.kickoff,应用程序启动器,distributor-logo-nixos|luisbocanegra.panel.colorizer,Panel colorizer,desktop|org.kde.plasma.icontasks,图标任务管理器,preferences-system-windows|";
-      panelWidgetsWithTray = "org.kde.plasma.kickoff,应用程序启动器,distributor-logo-nixos|luisbocanegra.panel.colorizer,Panel colorizer,desktop|org.kde.plasma.icontasks,图标任务管理器,preferences-system-windows|";
-      widgetBgEnabled = "false";
+      panelWidgets = "org.kde.plasma.kickoff,应用程序启动器,distributor-logo-nixos|luisbocanegra.panel.colorizer,Panel colorizer,desktop|org.kde.plasma.icontasks,图标任务管理器,preferences-system-windows";
+      panelWidgetsWithTray = "org.kde.plasma.kickoff,应用程序启动器,distributor-logo-nixos|luisbocanegra.panel.colorizer,Panel colorizer,desktop|org.kde.plasma.icontasks,图标任务管理器,preferences-system-windows";
+      widgetBgEnabled = "20";
     };
   };
 

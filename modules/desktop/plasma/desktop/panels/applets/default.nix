@@ -1,6 +1,7 @@
 { home, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    applet-window-buttons6
+    kdePackages.applet-window-buttons6
+    applet-panel-colorizer
   ];
 }
