@@ -18,12 +18,12 @@ in {
 
   # Load User-defined Modules
   modules = (lib.fold moduleScanner {} moduleRegistry) // {
-    # Load Module Utilities 
-    utils = { lib, ... }: {      
+    # Load Module Utilities
+    utils = { lib, ... }: {
       imports = lib.foldGetDir
         ./modules
         []
-        (x: y: [ ./modules/${x} ] ++ y);      
+        (x: y: [ ./modules/${x} ] ++ y);
     };
   };
 
@@ -31,7 +31,8 @@ in {
     (pkg: acc:
       { "${pkg}" = pkgs.callPackage (import /${path}/pkgs/${pkg}) { inherit lib; } ; } // acc
     );
-  
-  overlays.pkgs = final: prev:
-    lib.mapPackages (lib.callPackage final lib) "function" /${path}/pkgs;
+
+  overlays.pkgs = final: prev: {
+    flameworkPackages = lib.mapPackages (lib.callPackage final lib) "function" /${path}/pkgs;
+  };
 }
