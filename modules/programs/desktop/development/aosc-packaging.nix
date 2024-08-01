@@ -1,7 +1,7 @@
 { home, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    ciel-latest
+    ciel
     squashfsTools # necessary dep
     aosc-scriptlets
   ];
