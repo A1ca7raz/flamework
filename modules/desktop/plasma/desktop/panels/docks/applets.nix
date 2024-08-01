@@ -48,6 +48,7 @@ in {
 
   iconTasks = {
     _ = regApplet "org.kde.plasma.icontasks";
+    confG.iconSpacing = "3";
     confG.launchers = builtins.concatStringsSep "," [
       "preferred://filemanager"
       "preferred://browser"
