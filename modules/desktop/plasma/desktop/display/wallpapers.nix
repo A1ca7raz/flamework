@@ -4,6 +4,8 @@ with lib; let
 
   use = id: plugin: [(mkItem ["Containments" (builtins.toString id)] "wallpaperplugin" plugin)];
 
+  selectMonitor = index: offset: (elemAt monitorIds index) + offset;
+
   useImage = id: (use id "org.kde.image") ++ [
     (mkItem ["Containments" (builtins.toString id) "Wallpaper" "org.kde.image" "General"] "Image" "/run/current-system/sw/share/wallpapers/Next/")
   ];
@@ -13,6 +15,6 @@ with lib; let
     (mkItem ["Containments" (builtins.toString id) "Wallpaper" "org.kde.potd" "General"] "Provider" "bing")
   ];
 in {
-  utils.kconfig.files.appletsrc.items = (usePotd (elemAt monitorIds 0))
-    ++ (useImage (elemAt monitorIds 1));
+  utils.kconfig.files.appletsrc.items = (usePotd (selectMonitor 0 1))
+    ++ (useImage (selectMonitor 1 1));
 }
