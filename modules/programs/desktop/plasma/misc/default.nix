@@ -30,7 +30,7 @@
         # (ls "kded5")
         # (ls "keyrings")
         (ls "klipper")
-        (ls "kscreen")
+        # (ls "kscreen")
         (ls "kwalletd")
         # (c "plasma-nm")
       ];
