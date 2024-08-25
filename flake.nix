@@ -47,7 +47,8 @@
             allowUnfree = true;
           };
           overlays = [
-            inputs.nur.overlay
+            inputs.nur.overlays.default
+            inputs.nur.overlays.nixpaks
             utils.overlays.pkgs
           ];
         };
