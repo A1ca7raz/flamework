@@ -13,7 +13,10 @@
   };
 
   nixosModule = { user, ... }: {
-    programs.steam.enable = true;
+    programs.steam = {
+      enable = true;
+      protontricks.enable = true;
+    };
     environment.persistence."/nix/persist".users.${user}.directories = [
       ".local/share/Steam"
       ".steam"
