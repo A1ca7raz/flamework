@@ -9,12 +9,6 @@
       options = "--delete-older-than 5d";
     };
 
-    # nix-direnv
-    extraOptions = ''
-      keep-outputs = true
-      keep-derivations = true
-    '';
-
     channel.enable = false;
     # https://github.com/NixOS/nixpkgs/issues/204292
     registry.nixpkgs.flake = inputs.nixpkgs;
@@ -38,7 +32,11 @@
       use-cgroups = true;
       auto-optimise-store = true;
       builders-use-substitutes = true;
+
+      # nix-direnv
+      keep-outputs = true;
       keep-derivations = true;
+
       use-xdg-base-directories = true;
     };
   };
