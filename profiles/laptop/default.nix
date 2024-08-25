@@ -26,8 +26,11 @@ templates.desktop {
     (programs.desktop.exclude [
       "networking.cloudflare-warp"
       "development.jetbrains"
+      "messaging.matrix"
     ])
+
     services.client
+
     system.kernel.xanmod
     system.security.secureboot
     # system.security.kwallet
