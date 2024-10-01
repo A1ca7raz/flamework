@@ -9,6 +9,6 @@ buildEnv (rec {
 
   passthru = lib.foldGetDir ./. {}
     (pkg: acc:
-      { "${pkg}" = callPackage (import ./${pkg}) { inherit lib; } ; }
+      acc // { "${pkg}" = callPackage (import ./${pkg}) { inherit lib; } ; }
     );
 })
