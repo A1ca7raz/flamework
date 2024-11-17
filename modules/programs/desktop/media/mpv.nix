@@ -10,7 +10,7 @@ with pkgs; let
       mpris                 # Mpris
       thumbfast             # On-the-fly Thumbnail
       uosc                  # Feature-rich UI
-      autoload
+      # autoload
     ];
   };
 in {
