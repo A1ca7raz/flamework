@@ -111,7 +111,7 @@ in {
   };
 
   networking.hosts = {
-    "127.0.0.88" = [ "yacd.local" ];    # Yacd Dashboard
+    "127.0.0.88" = [ "cube.local" ];    # Yacd Dashboard
     "127.0.0.64" = [ "singbox.local" ]; # Sing-box
   };
 }
