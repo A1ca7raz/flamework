@@ -21,7 +21,7 @@
         "flakes"
         "auto-allocate-uids"
         "cgroups"
-        "repl-flake"
+        # "repl-flake"
         "ca-derivations"
       ];
       nix-path = [
