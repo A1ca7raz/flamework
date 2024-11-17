@@ -9,7 +9,7 @@
       lm_sensors
       anki
       qalculate-qt
-      step-cli
+      # step-cli
       flameworkPackages.desktop-toolkit
     ];
   };
