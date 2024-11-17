@@ -4,8 +4,6 @@ with lib; let
   configFile = "/var/lib/sing-box/config.json";
   updateTimeoutMin = "720";
   subscriptionEnv = config.sops.secrets.sing-box.path;
-
-  uiPackage = pkgs.clash-webui-yacd-meta;
 in {
   utils.secrets.sing-box.path = ./env.enc.json;
   sops.secrets.sing-box.mode = "0600";
@@ -108,7 +106,7 @@ in {
   services.lighttpd = {
     inherit enable;
     port = 80;
-    document-root = "${uiPackage}/share/clash/ui";
+    document-root = "${pkgs.metacubexd}";
     extraConfig = ''server.bind = "127.0.0.88"'';
   };
 
