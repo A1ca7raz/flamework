@@ -15,9 +15,15 @@
 
   environment.persistence."/nix/persist".users.nomad.directories = [
     # Home
-    ".cache" "Workspace"
-    "Desktop" "Documents" "Downloads"
-    "Music"   "Pictures"  "Videos"
+    ".cache"
+    ".local/state"
+    "Desktop"
+    "Documents"
+    "Downloads"
+    "Music"
+    "Pictures"
+    "Videos"
+    "Workspace"
   ];
 
   programs.fish.enable = lib.mkDefault true;

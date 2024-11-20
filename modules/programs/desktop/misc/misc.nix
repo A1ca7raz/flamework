@@ -21,7 +21,6 @@
       # (ls "networkmanagement")
       (ls "Trash")
       (ls "vulkan")
-      ".local/state/wireplumber"
 
       (ls "qalculate")                # Qalc
     ];
