@@ -12,7 +12,7 @@
         (kwinrc "Plugins" "forceblurEnabled" "true")
         (kwinrc "Effect-blurplus" "BlurMatching" "false")
         (kwinrc "Effect-blurplus" "BlurNonMatching" "true")
-        (kwinrc "Effect-blurplus" "BlurStrength" "9")
+        (kwinrc "Effect-blurplus" "BlurStrength" "8")
         (kwinrc "Effect-blurplus" "FakeBlur" "true")
         (kwinrc "Effect-blurplus" "PaintAsTranslucent" "true")
         (kwinrc "Effect-blurplus" "TransparentBlur" "false")
