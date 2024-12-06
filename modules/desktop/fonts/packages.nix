@@ -1,8 +1,6 @@
 { pkgs, ... }:
 {
   fonts.packages = with pkgs; [
-    my-nerd-font-pack
-
     fira-code-symbols
     font-awesome
 
@@ -19,5 +17,8 @@
     source-han-serif
     wqy_microhei
     twemoji-color-font
-  ];
+  ] ++ (with nerd-fonts; [
+    caskaydia-mono
+    caskaydia-cove
+  ]);
 }
