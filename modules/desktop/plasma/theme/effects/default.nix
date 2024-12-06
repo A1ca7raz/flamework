@@ -6,9 +6,17 @@
     in {
       utils.kconfig.rules = [
         ## Desktop Effects
-        (kwinrc "Plugins" "blurEnabled" "true")
-        (kwinrc "Effect-blur" "BlurStrength" "10")
-        (kwinrc "Effect-blur" "NoiseStrength" "11")
+        (kwinrc "Plugins" "blurEnabled" "false")
+        # (kwinrc "Effect-blur" "BlurStrength" "10")
+        # (kwinrc "Effect-blur" "NoiseStrength" "11")
+        (kwinrc "Plugins" "forceblurEnabled" "true")
+        (kwinrc "Effect-blurplus" "BlurMatching" "false")
+        (kwinrc "Effect-blurplus" "BlurNonMatching" "true")
+        (kwinrc "Effect-blurplus" "BlurStrength" "9")
+        (kwinrc "Effect-blurplus" "FakeBlur" "true")
+        (kwinrc "Effect-blurplus" "PaintAsTranslucent" "true")
+        (kwinrc "Effect-blurplus" "TransparentBlur" "false")
+        (kwinrc "Effect-blurplus" "WindowClasses" "")
         (kwinrc "Plugins" "contrastEnabled" "true")
         (kwinrc "Plugins" "dynamic_workspacesEnabled" "true")
         (kwinrc "Plugins" "kwin4_effect_eyeonscreenEnabled" "true")
@@ -62,6 +70,8 @@
     };
 
   homeModule = { pkgs, ... }: {
-    # home.packages = [ pkgs.kwin-dynamic-workspaces ];
+    home.packages = with pkgs; [
+      kwin-effects-forceblur
+    ];
   };
 }
