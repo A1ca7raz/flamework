@@ -1,6 +1,6 @@
 {
   homeModule = { pkgs, ... }: {
-    home.packages = [ pkgs.baidupcs-go ];
+    home.packages = [ pkgs.baidupcs-go-git ];
   };
 
   nixosModule = { user, lib, ... }:
