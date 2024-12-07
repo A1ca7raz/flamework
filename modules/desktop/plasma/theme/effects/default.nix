@@ -17,6 +17,7 @@
         (kwinrc "Effect-blurplus" "PaintAsTranslucent" "true")
         (kwinrc "Effect-blurplus" "TransparentBlur" "false")
         (kwinrc "Effect-blurplus" "WindowClasses" "")
+        (kwinrc "Effect-blurplus" "BlurDecorations" "true")
         (kwinrc "Plugins" "contrastEnabled" "true")
         (kwinrc "Plugins" "dynamic_workspacesEnabled" "true")
         (kwinrc "Plugins" "kwin4_effect_eyeonscreenEnabled" "true")
@@ -66,6 +67,7 @@
         ## KWin Scripts
         (mkRule "kwinrc" "Plugins" "minimizeallEnabled" "true")
         (mkRule "kwinrc" "Plugins" "synchronizeskipswitcherEnabled" "true")
+        (mkRule "kwinrc" "Plugins" "unmaxorminEnabled" "true")
       ];
     };
 
