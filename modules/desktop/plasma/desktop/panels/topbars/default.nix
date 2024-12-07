@@ -18,25 +18,19 @@ in with utils; {
     windowButtons
     windowTitle
     windowAppMenu
-    panelSpacer
+    spacerExtended # panelSpacer
     digitalClock # inlineClock # eventCalendar
-    panelSpacer
+    spacerExtended # panelSpacer
     systemTray
-    # virtualDesktopBar1080
-    # latteSeparator
     lockLogout
-    # latteSpacer
   ]) ++ (mkAppletPanel ((elemAt monitorIds 1) + 3) 2 3 [
     windowButtons
     windowTitle
     windowAppMenu
-    panelSpacer
+    spacerExtended # panelSpacer
     digitalClock # inlineClock # eventCalendar
-    panelSpacer
+    spacerExtended # panelSpacer
     systemTray
-    # virtualDesktopBar1080
-    # latteSeparator
     lockLogout
-    # latteSpacer
   ]);
 }

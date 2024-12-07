@@ -46,6 +46,19 @@ in {
 
   panelSpacer._ = regApplet "org.kde.plasma.panelspacer";
 
+  spacerExtended = {
+    _ = regApplet "luisbocanegra.panelspacer.extended";
+    confG = {
+      middleClickAction = "kwin,Window Close";
+      mouseWheelDownAction = "kwin,Window Unmaximize Or Minimize";
+      mouseWheelUpAction = "kwin,Window Maximize";
+      pressHoldAction = "kwin,Overview";
+      showHoverBg = "false";
+      showTooltip = "false";
+      singleClickAction = "Disabled,Disable";
+    };
+  };
+
   systemTray = {
     _ = regApplet "org.kde.plasma.systemtray";
     conf = containmentId: {
