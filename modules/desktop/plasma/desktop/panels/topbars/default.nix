@@ -21,7 +21,7 @@ in with utils; {
     spacerExtended # panelSpacer
     digitalClock # inlineClock # eventCalendar
     spacerExtended # panelSpacer
-    # plasmusicToolbar
+    plasmusicToolbar
     systemTray
     kara
     lockLogout
@@ -32,7 +32,7 @@ in with utils; {
     spacerExtended # panelSpacer
     digitalClock # inlineClock # eventCalendar
     spacerExtended # panelSpacer
-    # plasmusicToolbar
+    plasmusicToolbar
     systemTray
     kara
     lockLogout

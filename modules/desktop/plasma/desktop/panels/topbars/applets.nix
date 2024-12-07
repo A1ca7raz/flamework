@@ -103,6 +103,21 @@ in {
     };
   };
 
+  plasmusicToolbar = {
+    _ = regApplet "plasmusic-toolbar";
+    confG = {
+      albumCoverRadius = "25";
+      choosePlayerAutomatically = "false";
+      commandsInPanel = "false";
+      fallbackToIconWhenArtNotAvailable = "true";
+      maxSongWidthInPanel = "180";
+      preferredPlayerIdentity = "Spotify";
+      textScrollingBehaviour = "2";
+      textScrollingSpeed = "2";
+      useAlbumCoverAsPanelIcon = "true";
+    };
+  };
+
   # inlineClock = {
   #   _ = regApplet "org.kde.plasma.betterinlineclock";
   #   conf = {

@@ -5,5 +5,6 @@
     applet-panel-colorizer
     plasma-panel-spacer-extended
     kara
+    plasmusic-toolbar
   ];
 }
