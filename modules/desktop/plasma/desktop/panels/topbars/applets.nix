@@ -88,6 +88,21 @@ in {
     };
   };
 
+  kara = {
+    _ = regApplet "org.dhruv8sh.kara";
+    confg = {
+      animationDuration = "180";
+      spacing = "4";
+      type = "0";
+    };
+    conftype1 = {
+      t1activeHeight = "6";
+      t1activeWidth = "18";
+      t1height = "4";
+      t1width = "8";
+    };
+  };
+
   # inlineClock = {
   #   _ = regApplet "org.kde.plasma.betterinlineclock";
   #   conf = {
@@ -111,61 +126,6 @@ in {
   #     clockTimeFormat1 = "yyyy.M.'<font color=\"#55ff55\">'d'</font>' ddd A hh:mm:'<b><font color=\"#dd55dd\">'ss'</font></b>'";
   #     v71Migration = "true";
   #     v72Migration = "true";
-  #   };
-  # };
-
-  # virtualDesktopBar1440 = {
-  #   _ = regApplet "org.kde.plasma.virtualdesktopbar";
-  #   confP = {
-  #     AddDesktopButtonShow = "false";
-  #     DesktopButtonsHorizontalMargin = "7";
-  #     DesktopButtonsSetCommonSizeForAll = "true";
-  #     DesktopButtonsSpacing = "5";
-  #     DesktopIndicatorsCustomColorForCurrentDesktop = "#00aa7f";
-  #     DesktopIndicatorsCustomColorForDesktopsNeedingAttention = "#ffaa00";
-  #     DesktopIndicatorsCustomColorForOccupiedIdleDesktops = "#ffffff";
-  #     DesktopIndicatorsDistinctForDesktopsNeedingAttention = "true";
-  #     DesktopIndicatorsStyleLineThickness = "4";
-  #     DesktopLabelsBoldFontForCurrentDesktop = "true";
-  #     DesktopLabelsCustomColor = "#000000";
-  #     DesktopLabelsCustomFont = "CaskaydiaCove Nerd Font";
-  #     DesktopLabelsCustomFontSize = "17";
-  #     DesktopLabelsStyle = "1";
-  #   };
-  # };
-
-  # virtualDesktopBar1080 = {
-  #   _ = regApplet "org.kde.plasma.virtualdesktopbar";
-  #   confP = {
-  #     AddDesktopButtonShow = "false";
-  #     DesktopButtonsHorizontalMargin = "8";
-  #     DesktopButtonsSetCommonSizeForAll = "true";
-  #     DesktopButtonsSpacing = "5";
-  #     DesktopButtonsVerticalMargin = "0";
-  #     DesktopIndicatorsCustomColorForCurrentDesktop = "#00aa7f";
-  #     DesktopIndicatorsCustomColorForDesktopsNeedingAttention = "#ffaa00";
-  #     DesktopIndicatorsCustomColorForIdleDesktops = "#ffffff";
-  #     DesktopIndicatorsDistinctForDesktopsNeedingAttention = "true";
-  #     DesktopIndicatorsStyle = "1";
-  #     DesktopIndicatorsStyleLineThickness = "5";
-  #     DesktopLabelsBoldFontForCurrentDesktop = "true";
-  #     DesktopLabelsCustomColor = "#000000";
-  #     DesktopLabelsCustomFont = "CaskaydiaCove Nerd Font";
-  #     DesktopLabelsCustomFontSize = "17";
-  #     DesktopLabelsStyle = "1";
-  #   };
-  # };
-
-  # latteSeparator = {
-  #   _ = regApplet "org.kde.latte.separator";
-  #   confG.lengthMargin = "4";
-  # };
-
-  # latteSpacer = {
-  #   _ = regApplet "org.kde.latte.spacer";
-  #   confG = {
-  #     containmentType = "Plasma";
-  #     lengthPixels = "5";
   #   };
   # };
 }

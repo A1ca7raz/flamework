@@ -21,7 +21,9 @@ in with utils; {
     spacerExtended # panelSpacer
     digitalClock # inlineClock # eventCalendar
     spacerExtended # panelSpacer
+    # plasmusicToolbar
     systemTray
+    kara
     lockLogout
   ]) ++ (mkAppletPanel ((elemAt monitorIds 1) + 3) 2 3 [
     windowButtons
@@ -30,7 +32,9 @@ in with utils; {
     spacerExtended # panelSpacer
     digitalClock # inlineClock # eventCalendar
     spacerExtended # panelSpacer
+    # plasmusicToolbar
     systemTray
+    kara
     lockLogout
   ]);
 }
