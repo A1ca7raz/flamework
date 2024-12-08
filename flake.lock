@@ -206,6 +206,31 @@
         "type": "github"
       }
     },
+    "kwin-gestures": {
+      "inputs": {
+        "nixpkgs": [
+          "nur",
+          "nixpkgs"
+        ],
+        "utils": [
+          "nur",
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1729256394,
+        "narHash": "sha256-juXMOv4Dgbpoo1RggYow7P5xCnhGMk3912vrE3r2Q2Y=",
+        "owner": "taj-ny",
+        "repo": "kwin-gestures",
+        "rev": "2d1655190b2fc8e9c9efe4c14dbff85779270273",
+        "type": "github"
+      },
+      "original": {
+        "owner": "taj-ny",
+        "repo": "kwin-gestures",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": [
@@ -391,6 +416,7 @@
         "flake-utils": "flake-utils",
         "hercules-ci-effects": "hercules-ci-effects",
         "kwin-effects-forceblur": "kwin-effects-forceblur",
+        "kwin-gestures": "kwin-gestures",
         "lanzaboote": "lanzaboote",
         "nix-index-database": "nix-index-database",
         "nixpak": "nixpak",
@@ -402,11 +428,11 @@
         "spicetify-nix": "spicetify-nix"
       },
       "locked": {
-        "lastModified": 1733536458,
-        "narHash": "sha256-Tp9IG86K9NDTxOTXPgwu6JZ71b7ZBdbFKfeW71G++Ag=",
+        "lastModified": 1733627830,
+        "narHash": "sha256-/qjtJYmHs0m4rpEBwJSAkn9yrG9cULUoOxTOhtzsUrA=",
         "owner": "A1ca7raz",
         "repo": "nurpkgs",
-        "rev": "3b973a7717bff346fc48f4ed43d790007ab981d7",
+        "rev": "28548572c9c6fee9b85f4798225d1093ab92c8ba",
         "type": "github"
       },
       "original": {
