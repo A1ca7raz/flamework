@@ -6,5 +6,6 @@
     plasma-panel-spacer-extended
     kara
     plasmusic-toolbar
+    kwin-gestures
   ];
 }
