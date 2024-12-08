@@ -23,6 +23,7 @@
         (kwinrc "Plugins" "kwin4_effect_eyeonscreenEnabled" "true")
         (kwinrc "Plugins" "kwin4_effect_windowapertureEnabled" "false")
         (kwinrc "Plugins" "kwin4_effect_dimscreenEnabled" "true")
+        (kwinrc "Plugins" "kwin4_effect_geometry_changeEnabled" "true")
         (kwinrc "Effect-kwin4_effect_scale" "InScale" "0.3")
         (kwinrc "Effect-kwin4_effect_scale" "OutScale" "0.3")
         (kwinrc "Effect-slide" "HorizontalGap" "0")
@@ -74,6 +75,7 @@
   homeModule = { pkgs, ... }: {
     home.packages = with pkgs; [
       kwin-effects-forceblur
+      kwin-effects-geometry-change
     ];
   };
 }
