@@ -4,7 +4,15 @@
       enable = true;
 
       plugins = with pkgs; with obs-studio-plugins; [
-        input-overlay
+        # input-overlay # NOTE: broken on Wayland
+        advanced-scene-switcher
+        obs-teleport
+        obs-source-clone
+        obs-replay-source
+        obs-composite-blur
+        obs-source-switcher
+        obs-gradient-source
+        obs-text-pthread
         obs-move-transition
         obs-multi-rtmp
         obs-pipewire-audio-capture
