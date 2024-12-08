@@ -16,7 +16,7 @@ in with utils; {
 
   utils.kconfig.files.appletsrc.items = with applets; (mkAppletPanel ((elemAt monitorIds 0) + 3) 1 3 [
     windowButtons
-    windowTitle
+    betterWindowTitle # windowTitle
     windowAppMenu
     spacerExtended # panelSpacer
     digitalClock # inlineClock # eventCalendar
@@ -27,7 +27,7 @@ in with utils; {
     lockLogout
   ]) ++ (mkAppletPanel ((elemAt monitorIds 1) + 3) 2 3 [
     windowButtons
-    windowTitle
+    betterWindowTitle # windowTitle
     windowAppMenu
     spacerExtended # panelSpacer
     digitalClock # inlineClock # eventCalendar

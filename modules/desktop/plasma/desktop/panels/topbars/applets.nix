@@ -118,6 +118,26 @@ in {
     };
   };
 
+  betterWindowTitle = {
+    _ = regApplet "plasma6-window-title-applet";
+    confA = {
+      altTxt = "";
+      fillThickness = "true";
+      fixedLength = "200";
+      fontSize = "13";
+      isBold = "true";
+      lengthKind = "2";
+      midSpace = "4";
+      txt = "%a";
+    };
+    confBehavior = { filterByScreen = "true"; };
+    confSubstitutions = {
+      subsMatchApp = ''"Telegram Desktop","Gimp-.*","soffice.bin","Spotify.*","Kate.*","Dolphin .*","Thunderbird .*","Konsole .*","Google Chrome.*"'';
+      subsMatchTitle = ''".*",".*",".*",".*",".*",".*",".*",".*",".*"'';
+      subsReplace = ''"Telegram","Gimp","LibreOffice","Spotify","Kate","Dolphin","Thunderbird","Konsole","Chrome"'';
+    };
+  };
+
   # inlineClock = {
   #   _ = regApplet "org.kde.plasma.betterinlineclock";
   #   conf = {

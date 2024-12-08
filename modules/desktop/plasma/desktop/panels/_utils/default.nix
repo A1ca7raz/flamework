@@ -37,6 +37,8 @@ in rec {
       confA = conf ++ ["Appearance"];
       confg = conf ++ ["general"];
       conftype1 = conf ++ ["type1"];
+      confBehavior = conf ++ ["Behavior"];
+      confSubstitutions = conf ++ ["Substitutions"];
 
       mkApplets = apps:
         let
@@ -53,7 +55,9 @@ in rec {
           (if v ? confP then (mkAppletItems id i confP v.confP) else []) ++
           (if v ? confA then (mkAppletItems id i confA v.confA) else []) ++
           (if v ? confg then (mkAppletItems id i confg v.confg) else []) ++
-          (if v ? conftype1 then (mkAppletItems id i conftype1 v.conftype1) else [])
+          (if v ? conftype1 then (mkAppletItems id i conftype1 v.conftype1) else []) ++
+          (if v ? confBehavior then (mkAppletItems id i confBehavior v.confBehavior) else []) ++
+          (if v ? confSubstitutions then (mkAppletItems id i confSubstitutions v.confSubstitutions) else [])
         ) apps)) ++
         (mkPanelItems id ["General"] {
           AppletOrder = concatStringsSep ";" appIds;
