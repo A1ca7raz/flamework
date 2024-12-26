@@ -1,8 +1,11 @@
 { config, lib, pkgs, ... }:
 with lib; let
   pkg = pkgs.mihomo;
-  subscriptionEnv = config.sops.secrets.sing-box.path;
+  subscriptionEnv = config.sops.secrets.mihomo.path;
 in {
+  # FIXME: use tproxy
+  # imports = [ ./tproxy.nix ];
+
   utils.secrets.mihomo.path = ./env.enc.json;
   sops.secrets.mihomo.mode = "0600";
 
@@ -23,20 +26,31 @@ in {
     ];
 
     preStart = ''
-      [[ -f $STATE_DIRECTORY/config.yaml ]] && \
-        mv $STATE_DIRECTORY/config.yaml $STATE_DIRECTORY/config.bak.yaml
+      if [[ -f $STATE_DIRECTORY/config.yaml ]]; then
+        [[ `find $STATE_DIRECTORY/config.yaml -mmin -3` ]] && \
+          echo "Detected recent-updated configuration. Skip fetching latest configuration." && \
+          exit 0
 
+        echo "Backup last configuration."
+        mv $STATE_DIRECTORY/config.yaml $STATE_DIRECTORY/config.bak.yaml
+      fi
+
+      echo "Fetching latest configuration..."
       curl --connect-timeout 5 --retry 3 --retry-delay 1 \
         -L $MIHOMO_SUBSCRIPTION_URI \
         -o $STATE_DIRECTORY/config.yaml
 
-      if ! [[ -f $STATE_DIRECTORY/config.yaml && `mihomo -c -d $STATE_DIRECTORY -f $STATE_DIRECTORY/config.yaml` ]]; then
-        rm $STATE_DIRECTORY/config.yaml
+      # Restore backup if current config cannot pass the check
+      if ! [[ -f $STATE_DIRECTORY/config.yaml && `mihomo -t -d $STATE_DIRECTORY -f $STATE_DIRECTORY/config.yaml` ]]; then
+        echo "Fetching failed."
+        rm -f $STATE_DIRECTORY/config.yaml
 
-        if [[ -f $STATE_DIRECTORY/config.bak.yaml && `mihomo -c -d $STATE_DIRECTORY -f $STATE_DIRECTORY/config.bak.yaml` ]]; then
+        if [[ -f $STATE_DIRECTORY/config.bak.yaml && `mihomo -t -d $STATE_DIRECTORY -f $STATE_DIRECTORY/config.bak.yaml` ]]; then
+          echo "Backup is valid. Restore it."
           mv $STATE_DIRECTORY/config.bak.yaml $STATE_DIRECTORY/config.yaml
         else
-          rm $STATE_DIRECTORY/config.bak.yaml
+          rm -f $STATE_DIRECTORY/config.bak.yaml
+          echo "No valid backup. Failed to start the service."
           exit 1
         fi
       fi
@@ -46,15 +60,18 @@ in {
 
     preStop = ''
       if ! [[ -f $STATE_DIRECTORY/config.yaml && `find $STATE_DIRECTORY/config.yaml -mmin -2` ]]; then
+        echo "Updating configuration..."
         curl --connect-timeout 5 --retry 3 --retry-delay 1 \
           -L $MIHOMO_SUBSCRIPTION_URI \
           -o $STATE_DIRECTORY/config.new.yaml
 
-        if mihomo -c -d $STATE_DIRECTORY -f $STATE_DIRECTORY/config.new.yaml; then
+        if [[ -f $STATE_DIRECTORY/config.new.yaml && `mihomo -t -d $STATE_DIRECTORY -f $STATE_DIRECTORY/config.new.yaml` ]]; then
+          echo "Update complete. Backup the old configuration."
           mv $STATE_DIRECTORY/config.yaml $STATE_DIRECTORY/config.bak.yaml
           mv $STATE_DIRECTORY/config.new.yaml $STATE_DIRECTORY/config.yaml
         else
-          rm $STATE_DIRECTORY/config.new.yaml
+          echo "Update failed. Rollback the configuration."
+          rm -f $STATE_DIRECTORY/config.new.yaml
         fi
       fi
 
@@ -69,8 +86,8 @@ in {
 
       ExecStart = lib.concatStringsSep " " [
         (lib.getExe pkg)
-        "-d $STATE_DIRECTORY"
-        "-f $STATE_DIRECTORY/config.yaml"
+        "-d \${STATE_DIRECTORY}"
+        "-f \${STATE_DIRECTORY}/config.yaml"
       ];
 
       Restart = "on-failure";
@@ -120,6 +137,7 @@ in {
   };
 
   services.lighttpd = {
+    enable = true;
     port = 80;
     document-root = "${pkgs.metacubexd}";
     extraConfig = ''server.bind = "127.0.0.88"'';
