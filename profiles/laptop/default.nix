@@ -29,7 +29,9 @@ templates.desktop {
       "messaging.matrix"
     ])
 
-    services.client
+    (services.client.exclude [
+      "sing-box"
+    ])
 
     system.kernel.xanmod
     system.security.secureboot
