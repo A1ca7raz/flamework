@@ -1,15 +1,19 @@
 { lib, ... }:
-{
+let
+  disableModule = x: lib.mkRule "kded5rc" "Module-${x}" "autoload" "false";
+in {
   utils.kconfig.rules = with lib; [
     ## KDE Daemon
-    (mkRule "kded5rc" "Module-baloosearchmodule" "autoload" "false")
-    (mkRule "kded5rc" "Module-freespacenotifier" "autoload" "false")
-    (mkRule "kded5rc" "Module-kded_accounts" "autoload" "false")
-    (mkRule "kded5rc" "Module-kded_bolt" "autoload" "false")
-    (mkRule "kded5rc" "Module-browserintegrationreminder" "autoload" "false")
-    (mkRule "kded5rc" "Module-plasmavault" "autoload" "false")
-    (mkRule "kded5rc" "Module-proxyscout" "autoload" "false")
-    (mkRule "kded5rc" "Module-remotenotifier" "autoload" "false")
+    (disableModule "baloosearchmodule")
+    (disableModule "browserintegrationreminder")
+    (disableModule "colorcorrectlocationupdater")
+    (disableModule "device_automounter")
+    (disableModule "donationmessage")
+    (disableModule "freespacenotifier")
+    (disableModule "kded_accounts")
+    (disableModule "kded_bolt")
+    (disableModule "plasmavault")
+    (disableModule "proxyscout")
 
     ## Session
     (mkRule "ksmserverrc" "General" "loginMode" "emptySession")
