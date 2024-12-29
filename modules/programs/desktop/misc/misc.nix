@@ -11,6 +11,8 @@
       qalculate-qt
       # step-cli
       flameworkPackages.desktop-toolkit
+
+      deskflow
     ];
   };
 
@@ -23,5 +25,6 @@
       (ls "vulkan")
 
       (ls "qalculate")                # Qalc
+      (c "Deskflow")                  # Deskflow
     ];
 }
