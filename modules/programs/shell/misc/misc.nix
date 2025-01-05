@@ -14,6 +14,7 @@
     usbutils
     vim
     wget
+    jq
     whois
     wireguard-tools
     nvtopPackages.full
