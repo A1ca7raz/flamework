@@ -15,7 +15,7 @@
     laptop
   ];
 
-  modules = with self.nixosModules.modules; [
+  modules = with self.modules; [
     desktop.plasma
 
     hardware.amdcpu

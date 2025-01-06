@@ -1,7 +1,11 @@
 lib:
 let
-  inherit (import ./nix.nix lib) isNix removeNix hasDefault;
-  inherit (import ./fold.nix lib) foldFileIfExists;
+  inherit (lib)
+    isNix
+    removeNix
+    hasDefault
+    foldFileIfExists
+  ;
 in rec {
   _buildModuleSet = set: set // {
     "__isModuleSet__" = true;

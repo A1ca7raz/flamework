@@ -2,7 +2,7 @@
   nixosModule = { user, lib, ... }:
     with lib; mkPersistDirsModule user [ ".ssh" ];
 
-  homeModule = { var, ... }: {
+  homeModule = { const, ... }: {
     programs.ssh = {
       enable = true;
       includes = [
@@ -22,7 +22,7 @@
           user = "git";
         };
         "*.node" = {
-          port = var.port.ssh;
+          port = const.port.ssh;
         };
         archcn = {
           hostname = "build.archlinuxcn.org";

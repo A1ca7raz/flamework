@@ -1,4 +1,4 @@
-{ pkgs, config, lib, var, ... }:
+{ pkgs, config, lib, const, ... }:
 {
   utils.secrets.nomad_pwd.path = ./nomadpwd.enc.json;
   sops.secrets.nomad_pwd.neededForUsers = true;
@@ -10,7 +10,7 @@
 
     # Authentication
     hashedPasswordFile = config.sops.secrets.nomad_pwd.path;
-    openssh.authorizedKeys.keys = var.sshkeys;
+    openssh.authorizedKeys.keys = const.sshkeys;
   };
 
   environment.persistence."/nix/persist".users.nomad.directories = [

@@ -2,14 +2,16 @@
 let
   ipv4 = "198.18.0.1";
   ipv6 = "fcb7:25f7:5bf3:100::1";
-in templates.vps {
+in {
+  imports = [ templates.vps ];
+
   targetHost = ipv4;
   hostName = "oxygenbox";
   tags = with lib.tags; [
     local internal private
   ];
 
-  modules = with self.nixosModules.modules; [
+  modules = with self.modules; [
     hardware.intelcpu
 
     services.server.domains
@@ -33,7 +35,7 @@ in templates.vps {
   args = {
     privateIPv4 = ipv4;
     privateIPv6 = ipv6;
-    
+
     DHCPRangeV4 = [ "198.18.0.2" "198.18.0.50" "255.255.255.0" "12h" ];
   };
 }

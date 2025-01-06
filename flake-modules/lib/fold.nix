@@ -1,6 +1,10 @@
 lib:
 with builtins; let
   inherit (import ./nix.nix lib) isNix;
+
+  inherit (lib) hasPrefix;
+
+  isVisible = x: ! hasPrefix "_" x;
 in rec {
   # _getListFromDir "directory/regular/nix" /path/to/dir
   _getListFromDir = type: dir:
@@ -8,8 +12,16 @@ in rec {
     _dir = readDir dir;
   in lib.fold
     (x: y:
-      if ((type == "regular" || type == "directory") && _dir.${x} == type) ||
-        (type == "nix" && _dir.${x} == "regular" && isNix x)
+      if (
+        (type == "regular" || type == "directory") &&
+        _dir.${x} == type &&
+        isVisible x
+      ) || (
+        type == "nix" &&
+        _dir.${x} == "regular" &&
+        isNix x &&
+        isVisible x
+      )
       then [x] ++ y
       else y
     ) []

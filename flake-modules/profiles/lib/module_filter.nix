@@ -1,9 +1,18 @@
 lib:
-with lib; with builtins;
+# with lib; with builtins;
 let
+  inherit (builtins) attrValues;
+
+  inherit (lib)
+    forEach
+    filterAttrs
+    hasPrefix
+    foldr
+  ;
+
   inherit (import ./module_verifier.nix lib)
     isHomeModule
-    isHomeModuleUser
+    # isHomeModuleUser
     isNixosModule
     isNixosModuleUser
     isHybridModule

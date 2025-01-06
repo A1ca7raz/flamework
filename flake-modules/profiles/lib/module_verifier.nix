@@ -1,5 +1,18 @@
 lib:
-with lib; with builtins; rec {
+let
+  inherit (builtins)
+    isFunction
+    isAttrs
+    attrNames
+    functionArgs
+  ;
+
+  inherit (lib)
+    mutuallyExclusive
+    hasAttrByPath
+    intersectLists
+  ;
+in rec {
   # Home-manager Module with arg user
   isHomeModuleUser = x:
     isFunction x &&

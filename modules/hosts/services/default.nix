@@ -1,4 +1,4 @@
-{ config, lib, var, ... }:
+{ config, lib, const, ... }:
 with lib;
 if config.services.knot.enable
 then {
@@ -10,5 +10,5 @@ then {
         (cidr (elemAt v.ipAddrs 0)).ip
         v.domains
     )
-    var.services;
+    const.services;
 }

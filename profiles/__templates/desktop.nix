@@ -5,7 +5,7 @@
   system = lib.mkDefault "x86_64-linux";
   tags = [ lib.tags.desktop ];
 
-  modules = with self.nixosModules.modules; [
+  modules = with self.modules; [
     (desktop.exclude ["plasma"])
 
     hardware.fido

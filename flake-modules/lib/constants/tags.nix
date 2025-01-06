@@ -1,10 +1,10 @@
-{ lib, var }:
+{ lib, const }:
 with lib.tags;
 rec {
-  getTags = var.host.tags;
+  getTags = const.node.tags;
   tags = getTags;
 
-  hasTag = tag: var.host.tags ? "${tag}";
+  hasTag = tag: const.node.tags ? "${tag}";
   is = hasTag;
 
   isDesktop = is desktop;

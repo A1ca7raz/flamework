@@ -1,4 +1,4 @@
-{ lib, var }@args:
+{ lib, ... }@args:
 with lib;
 foldGetFile ./. {}
   (x: y:

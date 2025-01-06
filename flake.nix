@@ -17,6 +17,7 @@
     # Use inputs from my NUR flake
     nur.url = "github:A1ca7raz/nurpkgs";
     nixpkgs.follows = "nur/nixpkgs";
+    flake-parts.follows = "nur/flake-parts";
     flake-utils.follows = "nur/flake-utils";
     flake-compat.follows = "nur/flake-compat";
 
@@ -47,13 +48,50 @@
     nix-index-database.follows = "nur/nix-index-database";
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
+  outputs =
+    inputs@{ self, nixpkgs, flake-parts, ... }:
     let
-      SYSTEM = [ "x86_64-linux" ];
-      utils = import ./utils self;
-    in flake-utils.lib.eachSystem SYSTEM (system:
-      let
-        pkgs = import nixpkgs {
+      lib = import ./flake-modules/lib nixpkgs.lib;
+    in
+    flake-parts.lib.mkFlake {
+      inherit inputs;
+      specialArgs = { inherit lib; };
+    } {
+
+      debug = true;
+      systems = [
+        "x86_64-linux"
+      ];
+
+      imports = [
+        ./flake-modules/profiles
+        ./flake-modules/packages
+        ./flake-modules/modules
+      ];
+
+      flamework = {
+        profiles = {
+          profilesPath = ./profiles;
+          presetsPath = ./profiles/__templates;
+          constantsPath = ./constant;
+          enableColmenaHive = true;
+        };
+        packages.pkgsPath = ./pkgs;
+        modules.path = ./modules;
+      };
+
+      flake = {
+        nixosModules = with inputs; {
+          sops = sops-nix.nixosModules.sops;
+          impermanence = impermanence.nixosModules.impermanence;
+          home = home-manager.nixosModules.home-manager;
+          lanzaboote = lanzaboote.nixosModules.lanzaboote;
+          nur = inputs.nur.nixosModule;
+        };
+      };
+
+      perSystem = { config, pkgs, system, ... }: {
+        _module.args.pkgs = import nixpkgs {
           inherit system;
           config = {
             allowUnfree = true;
@@ -61,32 +99,18 @@
           overlays = [
             inputs.nur.overlays.default
             inputs.nur.overlays.nixpaks
-            utils.overlays.pkgs
+            self.overlays.pkgs
           ];
         };
-      in {
+
         formatter = pkgs.nixpkgs-fmt;
+
         devShells.default = with pkgs; mkShell {
           nativeBuildInputs = [
             colmena
             flameworkPackages.deploykit
           ];
         };
-        packages = utils.packages pkgs;
-      }
-    ) // {
-      nixosModules = utils.modules // (with inputs; {
-        sops = sops-nix.nixosModules.sops;
-        impermanence = impermanence.nixosModules.impermanence;
-        home = home-manager.nixosModules.home-manager;
-        lanzaboote = lanzaboote.nixosModules.lanzaboote;
-        nur = inputs.nur.nixosModule;
-      });
-
-      inherit (utils) overlays;
-
-      nixosConfigurations = utils.profiles.nixosConfigurations;
-      colmena = utils.profiles.colmena;
-      inherit utils;
+      };
     };
 }

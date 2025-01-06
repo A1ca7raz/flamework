@@ -1,6 +1,6 @@
 lib:
 with builtins; with lib; let
-  inherit (import ./nix.nix lib) isNix removeNix hasDefault;
+  # inherit (lib) isNix removeNix hasDefault;
 in rec {
   _flatPackages = _getter: path:
     let

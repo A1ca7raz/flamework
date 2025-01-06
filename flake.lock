@@ -449,6 +449,10 @@
           "nur",
           "flake-compat"
         ],
+        "flake-parts": [
+          "nur",
+          "flake-parts"
+        ],
         "flake-utils": [
           "nur",
           "flake-utils"

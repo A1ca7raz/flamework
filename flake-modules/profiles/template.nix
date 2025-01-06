@@ -6,6 +6,8 @@ let
     types
     attrNames
     unique
+    mkDefault
+    any
   ;
 in {
   options = {
@@ -37,6 +39,10 @@ in {
       default = [];
       description = "Tags of the target host.";
     };
+
+    allowLocalDeployment = mkEnableOption "Allow the configuration to be applied locally on the host running Colmena.";
+
+    buildOnTarget = mkEnableOption "Whether to build the system profiles on the target node itself.";
 
     system = mkOption {
       type = types.str;
@@ -76,5 +82,10 @@ in {
       if config.targetUser == "root"
       then attrNames config.users
       else unique (attrNames config.users ++ [ config.targetUser ]);
+
+    allowLocalDeployment =
+      if any (t: t == "local") config.tags
+      then mkDefault true
+      else mkDefault false;
   };
 }

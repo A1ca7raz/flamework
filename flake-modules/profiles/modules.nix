@@ -1,4 +1,4 @@
-{ lib, self, path, inputs, ... }:
+lib:
 {
   modules,
   users,
@@ -10,6 +10,10 @@ let
     if targetUser == "root"
     then attrNames users
     else unique (attrNames users ++ [ targetUser ]);
+
+  inherit (import ./lib lib)
+    classifyModules
+  ;
 
   moduleAttrs = classifyModules modules localUsers;
 

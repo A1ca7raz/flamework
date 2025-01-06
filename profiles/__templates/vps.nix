@@ -1,11 +1,11 @@
 { self, lib, ... }:
 {
-  targetPort = 48422;
+  targetPort = lib.mkDefault 48422;
   # targetUser = "nomad";
-  system = "x86_64-linux";
+  system = lib.mkDefault "x86_64-linux";
   tags = [ lib.tags.server ];
 
-  modules = with self.nixosModules.modules; [
+  modules = with self.modules; [
     # hosts.nodes
 
     nix.settings
