@@ -21,7 +21,7 @@ creation_rules:
   - path_regex: modules/*
     key_groups:
       - age: *keys
-  
+
   - path_regex: profiles/laptop/.*
     key_groups:
       - age: *laptop
