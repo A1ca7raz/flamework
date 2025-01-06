@@ -8,7 +8,7 @@
       includes = [
         (builtins.fetchurl {
           url = "https://raw.githubusercontent.com/AOSC-Dev/Buildbots/main/ssh_config";
-          sha256 = "sha256:15rn516vgdih0kqc08a33dqy6nivm5pgvmqi9mxjm2pnsxgffnal";
+          sha256 = "sha256:1zyc75cbzgd71wbmrlgha3nf5b3ifxpz2px7934hfnr7iaciqms3";
         })
       ];
 
@@ -37,7 +37,7 @@
     home.file.aosc-known-hosts = {
       source = builtins.fetchurl {
         url = "https://raw.githubusercontent.com/AOSC-Dev/Buildbots/main/ssh_known_hosts";
-        sha256 = "sha256:123mmjhihs89kczfjsnwfc5bfv4m0lfh6qzs7ck20v544qb2l2cw";
+        sha256 = "sha256:0nv9h7zhzkc9k1z1jxikmdfn0yrhlk06wcp1xksh98r221i2mnh0";
       };
       target = ".ssh/known_hosts.d/aosc";
     };
