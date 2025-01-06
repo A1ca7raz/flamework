@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Easy Effects
-Exec=sh -c "sleep 2; exec easyeffects --gapplication-service"
-Icon=com.github.wwmm.easyeffects
-StartupNotify=true
-DBusActivatable=true
-X-GNOME-UsesNotifications=true
-Terminal=false
-Type=Application

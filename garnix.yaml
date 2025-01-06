@@ -1,7 +1,0 @@
-builds:
-  include:
-    - nixosConfigurations.*
-    - devShell.x86_64-linux.*
-  exclude:
-    - nixosConfigurations.example
-    - nixosConfigurations.example_use_tpl

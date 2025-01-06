@@ -44,7 +44,7 @@ let
       specialArgs = { inherit self inputs const; };
 
       lib = extend (final: prev: {
-        utils = import ./../lib/constants { inherit lib const; };
+        utils = import ./../../lib/constants { inherit lib const; };
       });
     in {
       inherit system specialArgs lib;
