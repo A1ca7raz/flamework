@@ -3,19 +3,8 @@ with lib; let
   # module处理器
   module_parser = import ./modules.nix args;
 
-  # 获取profile列表
   profile_path = /${path}/profiles;
-  profile_list = remove "__templates" (_getListFromDir "directory" profile_path);
-
-  # 处理模板
-  inherit (import ./templates.nix args) templates blankTemplate; # 后处理模板集
-  passthruTpl = profile:
-    let
-      wrapped = profile ({ inherit templates; } // args);
-    in
-      if (hasAttrByPath [ "__isWrappedTpl__" ] wrapped)
-      then wrapped
-      else blankTemplate wrapped;
+  profiles = import ./eval.nix args;
 
   # 处理profile钩子: 生成colmena和nixos config两种配置
   # hook: args: profile:
@@ -88,20 +77,19 @@ with lib; let
         ];
     };
 
-  _profiles = fold
-    (x: y:
+  _profiles = foldlAttrs
+    (acc: n: v:
       [(
         mergeLoaderHooks (
-          (z: rec {
-            name = x;
-            inherit (z) system;
-            nixosSystem = mkSystem x z;
+          rec {
+            name = n;
+            inherit (v) system;
+            nixosSystem = mkSystem n v;
             modules = nixosSystem.modules;
-            deployment = { inherit (z) targetHost targetPort targetUser; };
-          })
-          (passthruTpl (import /${profile_path}/${x}))
+            deployment = { inherit (v) targetHost targetPort targetUser; };
+          }
         )
-      )] ++ y
-    ) [] profile_list;
+      )] ++ acc
+    ) [] profiles;
 in
   foldAttrs (n: a: n // a) {} _profiles

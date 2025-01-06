@@ -1,5 +1,9 @@
 { self, lib, templates, ... }:
-templates.desktop {
+{
+  imports = [
+    templates.desktop
+  ];
+
   targetHost = "192.168.10.3";
   targetPort = 22;
   targetUser = "nomad";

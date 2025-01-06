@@ -1,8 +1,8 @@
 { self, lib, ... }:
 {
   # targetPort = 22;
-  targetUser = "nomad";
-  system = "x86_64-linux";
+  targetUser = lib.mkDefault "nomad";
+  system = lib.mkDefault "x86_64-linux";
   tags = [ lib.tags.desktop ];
 
   modules = with self.nixosModules.modules; [
