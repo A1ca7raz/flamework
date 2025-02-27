@@ -41,7 +41,7 @@ let
         };
       };
 
-      specialArgs = { inherit self inputs const; };
+      specialArgs = { inherit self inputs const; } // cfg.extraSpecialArgs;
 
       lib = extend (final: prev: {
         utils = import ./../../lib/constants { inherit lib const; };

@@ -31,6 +31,12 @@ in {
 
     enableColmenaHive = mkEnableOption "Enable ColmenaHive for remote deployment.";
 
+    extraSpecialArgs = mkOption {
+      type = types.attrs;
+      default = {};
+      description = "Extra arguments passed to nixosSystem.";
+    };
+
     _profiles = mkOption {
       type = types.attrs;
       visible = false;
