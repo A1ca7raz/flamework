@@ -59,7 +59,7 @@ let
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              sharedModules = [ inputs.sops-nix.homeManagerModule ] ++ (importsFiles homeModulesPath);
+              sharedModules = [ self.homeModules.sops ] ++ (importsFiles homeModulesPath);
               extraSpecialArgs = specialArgs;
             };
         })
@@ -79,7 +79,7 @@ let
         ]
         # Enable Colmena Hive
         ++ optionals cfg.enableColmenaHive [
-          inputs.colmena.nixosModules.deploymentOptions
+          self.nixosModules.colmena
           {
             deployment = {
               inherit (profile)
