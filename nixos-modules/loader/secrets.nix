@@ -44,7 +44,7 @@ in {
         else if builtins.pathExists value.path
         then {
           sopsFile = value.path;
-        } // optionals (hasSuffix ".json" (toString value.path)) {
+        } // optionalAttrs (hasSuffix ".json" (toString value.path)) {
           format = "binary";
         }
         else throw "${value.path} does not exists."
