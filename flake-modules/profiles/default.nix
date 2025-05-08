@@ -37,6 +37,7 @@ let
       const = recursiveUpdate (import ./constant.nix lib cfg.constantsPath) {
         node = args // {
           inherit hostName;
+          profileName = name;
           tags = genAttrs tags (x: x);
         };
       };
