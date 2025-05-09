@@ -4,7 +4,7 @@ let
     metaConfig: nodes:
     # https://github.com/zhaofengli/colmena/blob/main/src/nix/hive/eval.nix
     with builtins; rec {
-      __schema = "v0.20241006";
+      __schema = "v0";
       inherit metaConfig nodes;
 
       toplevel = lib.mapAttrs (_: v: v.config.system.build.toplevel) nodes;
