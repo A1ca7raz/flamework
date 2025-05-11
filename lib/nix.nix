@@ -1,5 +1,10 @@
 lib:
-with lib; {
+let
+  inherit (lib)
+    hasSuffix
+    removeSuffix
+  ;
+in {
   isNix = hasSuffix ".nix";
   isDefault = x: x == "default.nix";
   removeNix = removeSuffix ".nix";

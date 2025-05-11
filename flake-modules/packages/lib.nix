@@ -1,6 +1,20 @@
 lib:
-with builtins; with lib; let
-  # inherit (lib) isNix removeNix hasDefault;
+let
+  inherit (lib)
+    mapAttrsToList
+    isNix
+    removeNix
+    hasDefault
+    hasPrefix
+    flatten
+  ;
+
+  inherit (builtins)
+    readDir
+    listToAttrs
+    mapAttrs
+    isFunction
+  ;
 in rec {
   _flatPackages = _getter: path:
     let

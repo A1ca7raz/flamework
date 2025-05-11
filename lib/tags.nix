@@ -1,7 +1,12 @@
 lib:
-{
+let
+  inherit (lib)
+    flip
+    genAttrs
+  ;
+in {
   # Pre-defined tags
-  tags = with lib; flip genAttrs (x: x) [
+  tags = flip genAttrs (x: x) [
     "desktop" "server"
 
     "local" "remote"  # Proximity to user or system

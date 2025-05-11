@@ -4,16 +4,26 @@ lib:
   users,
   targetUser
 }:
-with lib; with builtins;
 let
-  localUsers =
-    if targetUser == "root"
-    then attrNames users
-    else unique (attrNames users ++ [ targetUser ]);
+  inherit (lib)
+    unique
+    foldlAttrs
+    attrByPath
+    foldr
+  ;
+
+  inherit (builtins)
+    attrNames
+  ;
 
   inherit (import ./lib lib)
     classifyModules
   ;
+
+  localUsers =
+    if targetUser == "root"
+    then attrNames users
+    else unique (attrNames users ++ [ targetUser ]);
 
   moduleAttrs = classifyModules modules localUsers;
 

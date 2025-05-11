@@ -1,6 +1,12 @@
 lib:
 path:
-with lib;
+let
+  inherit (lib)
+    foldGetFile
+    isNix
+    recursiveUpdate
+  ;
+in
 foldGetFile
   path
   {}

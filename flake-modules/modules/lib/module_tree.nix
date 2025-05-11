@@ -5,17 +5,25 @@ let
     removeNix
     hasDefault
     foldFileIfExists
+    updateManyAttrsByPath
+    forEach
+    splitString
+    mapAttrs'
+  ;
+
+  inherit (builtins)
+    readDir
   ;
 in rec {
   _buildModuleSet = set: set // {
     "__isModuleSet__" = true;
-    exclude = list: with lib; (updateManyAttrsByPath
+    exclude = list: (updateManyAttrsByPath
       (forEach list (x: { path = splitString "." x; update = old: {}; }))
       set) // { "__isModuleSet__" = true; };
   };
 
   _mkModuleTree = type: _path:
-    with lib; with builtins; let
+    let
       _dir = readDir _path;
       _scanner_once = mapAttrs' (_recur _path) _dir;
       _scanner = dir:

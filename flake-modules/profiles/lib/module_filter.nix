@@ -1,5 +1,4 @@
 lib:
-# with lib; with builtins;
 let
   inherit (builtins) attrValues;
 

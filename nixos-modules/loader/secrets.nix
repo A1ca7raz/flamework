@@ -1,5 +1,20 @@
 { lib, self, config, ... }:
-with lib; let
+let
+  inherit (lib)
+    types
+    mkOption
+    mkIf
+    mkDefault
+    optionalAttrs
+    hasSuffix
+    filterAttrs
+  ;
+
+  inherit (builtins)
+    attrNames
+    mapAttrs
+  ;
+
   cfg = config.utils.secrets;
 
   secretType = types.submodule (

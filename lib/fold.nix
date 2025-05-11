@@ -1,8 +1,18 @@
 lib:
-with builtins; let
-  inherit (import ./nix.nix lib) isNix;
+let
+  inherit (builtins)
+    readDir
+    attrNames
+    pathExists
+  ;
 
-  inherit (lib) hasPrefix;
+  inherit (import ./nix.nix lib)
+    isNix
+  ;
+
+  inherit (lib)
+    hasPrefix
+  ;
 
   isVisible = x: ! hasPrefix "_" x;
 in rec {

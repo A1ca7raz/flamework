@@ -1,6 +1,25 @@
 lib:
-with builtins; with lib;
 let
+  inherit (builtins)
+    foldl'
+    concatStringsSep
+    elemAt
+    split
+    length
+    isList
+    match
+  ;
+
+  inherit (lib)
+    range
+    take
+    drop
+    forEach
+    splitString
+    toInt
+    assertMsg
+  ;
+
   regex = {
     ip4 = "^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$";
     # ip4cidr = "^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\/(3[0-2]|[1-2]?[0-9])$";
@@ -29,7 +48,7 @@ let
     in
       # Join the decimal groups into a subnet mask string
       concatStringsSep "." (map toString decimalGroups);
-in {
+in rec {
   removeCIDRSuffix = ip: elemAt (split "/([0-9]+)$" ip) 0;
 
   removeCIDRSuffixes = ips: forEach ips removeCIDRSuffix;
@@ -55,7 +74,7 @@ in {
         else if isList (match regex.ip6 ip)
         then "ipv6"
         else assertMsg false "Invalid IP Address";
-      
+
       isIpv4 = if type == "ipv4" then true else false;
       isIpv6 = if type == "ipv6" then true else false;
 
@@ -63,7 +82,7 @@ in {
         if isIpv4
         then splitString "." ip
         else splitString ":" ip;
-      
+
       maskCode =
         if isIpv4
         then
@@ -78,7 +97,7 @@ in {
           else if _mask >= 0 && _mask <= 128
           then _mask
           else assertMsg false "Invalid network mask";
-      
+
       # fullMask
       networkMask =
         if isIpv4

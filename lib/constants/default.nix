@@ -1,5 +1,10 @@
 { lib, ... }@args:
-with lib;
+let
+  inherit (lib)
+    foldGetFile
+    isNix
+  ;
+in
 foldGetFile ./. {}
   (x: y:
     if isNix x

@@ -1,5 +1,12 @@
 lib:
-with builtins;
+let
+  inherit (builtins)
+    foldl'
+    filter
+    attrNames
+    readDir
+  ;
+in
 foldl'
   (acc: f:
     acc //
