@@ -13,6 +13,7 @@ let
   # profilePath = /${path}/profiles;
   # presetPath = /${profilePath}/__templates;
   inherit (cfg)
+    extraSpecialArgs
     profilesPath
     presetsPath
   ;
@@ -32,7 +33,7 @@ let
         presetsPath
         {}
         (x: y: { "${removeNix x}" = /${presetsPath}/${x}; } // y );
-    };
+    } // extraSpecialArgs;
   }).config;
 in {
   flamework.profiles._profiles = foldGetDir
