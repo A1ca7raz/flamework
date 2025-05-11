@@ -6,6 +6,7 @@ let
     genAttrs
     extend
     optionals
+    optionalAttrs
     foldlAttrs
     nixosSystem
   ;
@@ -56,7 +57,7 @@ let
         self.nixosModules.nur
         /${profile_path}/${name}/hardware-configuration.nix
         # Enable Home Manager
-        (optionals module_parsed.enableHomeManager {
+        (optionalAttrs module_parsed.enableHomeManager {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
@@ -70,7 +71,7 @@ let
           {
             sops.defaultSopsFile = /${profile_path}/${name}/secrets.yml;
           }
-          (optionals module_parsed.enableHomeManager
+          (optionalAttrs module_parsed.enableHomeManager
             {
               home-manager.sharedModules = [{
                 sops.defaultSopsFile = /${profile_path}/${name}/secrets.yml;
