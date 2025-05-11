@@ -41,4 +41,7 @@ in rec {
     isAttrs x &&
     hasAttrByPath [ "__isModuleSet__" ] x &&
     x.__isModuleSet__ == true;
+
+  isCompatibleNixosModule = x:
+    isAttrs x && ! x ? "__isModuleSet__";
 }

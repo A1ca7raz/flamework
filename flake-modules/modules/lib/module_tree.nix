@@ -8,7 +8,7 @@ let
     updateManyAttrsByPath
     forEach
     splitString
-    mapAttrs'
+    foldlAttrs
   ;
 
   inherit (builtins)
@@ -25,33 +25,36 @@ in rec {
   _mkModuleTree = type: _path:
     let
       _dir = readDir _path;
-      _scanner_once = mapAttrs' (_recur _path) _dir;
+      _scanner_once = foldlAttrs (_recur _path) {} _dir;
       _scanner = dir:
-        mapAttrs' (_recur dir) (readDir dir);
+        foldlAttrs (_recur dir) {} (readDir dir);
 
-      _recur = path: n: v:
+      _recur = path: acc: n: v:
         let
           forceImportFiles = p: x: y:
             if isNix x
             then { "${removeNix x}" = import /${p}/${x}; } // y
             else y;
+
+          mod =
+            # 文件型模块
+            if v == "regular" && isNix n && type == "file"
+            then { "${removeNix n}" = import /${path}/${n}; }
+            # 目录型模块，声明读取文件型模块
+            else if (v == "directory" && hasDefault /${path}/${n} && (import /${path}/${n}/default.nix) == {})
+            then { "${n}" = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
+            else if (v == "directory" && builtins.pathExists /${path}/${n}/__.nix && (import /${path}/${n}/__.nix) == {})
+            then { "${n}" = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
+            # 目录型模块
+            else if v == "directory" && type == "dir" && hasDefault /${path}/${n}
+            then { "${n}" = import /${path}/${n}; }
+            # 非模块目录，递归扫描子目录
+            else if v == "directory"
+            then { "${n}" = _buildModuleSet (_scanner /${path}/${n}); }
+            # 无效文件,生成空模块
+            else {};
         in
-          # 文件型模块
-          if v == "regular" && isNix n && type == "file"
-          then { name = removeNix n; value = import /${path}/${n}; }
-          # 目录型模块，声明读取文件型模块
-          else if (v == "directory" && hasDefault /${path}/${n} && (import /${path}/${n}/default.nix) == {})
-          then { name = n; value = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
-          else if (v == "directory" && builtins.pathExists /${path}/${n}/__.nix && (import /${path}/${n}/__.nix) == {})
-          then { name = n; value = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
-          # 目录型模块
-          else if v == "directory" && type == "dir" && hasDefault /${path}/${n}
-          then { name = n; value = import /${path}/${n}; }
-          # 非模块目录，递归扫描子目录
-          else if v == "directory"
-          then { name = n; value = _buildModuleSet (_scanner /${path}/${n}); }
-          # 无效文件,生成空模块
-          else { name = removeNix n; value = {}; };
+          acc // mod;
     in
       _scanner_once // { "__isModuleSet__" = true; };
 

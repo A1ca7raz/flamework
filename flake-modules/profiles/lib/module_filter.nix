@@ -1,6 +1,9 @@
 lib:
 let
-  inherit (builtins) attrValues;
+  inherit (builtins)
+    attrValues
+    isPath
+  ;
 
   inherit (lib)
     forEach
@@ -15,7 +18,9 @@ let
     isNixosModule
     isNixosModuleUser
     isHybridModule
-    isModuleSet;
+    isModuleSet
+    isCompatibleNixosModule
+  ;
 in {
   classifyModules = mods: users:
     let
@@ -49,23 +54,28 @@ in {
       filterModuleSet = set: attrValues (filterAttrs (n: v: n != "exclude" && ! hasPrefix "_" n) set);
 
       _parser = mod: acc:
-        if isNixosModule mod
-        then acc // { nixosModules = acc.nixosModules ++ [ mod ]; }
-        else if isNixosModuleUser mod
-        then acc // { nixosModules = acc.nixosModules ++ wrapNixosModulesUser mod; }
-        else if isHomeModule mod
-        then acc // { homeModules = acc.homeModules ++ [ (wrapHomeModule mod) ]; }
-        else if isHybridModule mod
-        then
-          let
-            mods = parseHybridModule mod;
-          in {
-            nixosModules = acc.nixosModules ++ mods.nixosModules;
-            homeModules = acc.homeModules ++ mods.homeModules;
-          }
-        else if isModuleSet mod
-        then _recur acc (filterModuleSet mod)
-        else acc;
+        let
+          _mod = if isPath mod then import mod else mod;
+        in
+          if isNixosModule _mod
+          then acc // { nixosModules = acc.nixosModules ++ [ _mod ]; }
+          else if isNixosModuleUser _mod
+          then acc // { nixosModules = acc.nixosModules ++ wrapNixosModulesUser _mod; }
+          else if isHomeModule _mod
+          then acc // { homeModules = acc.homeModules ++ [ (wrapHomeModule _mod) ]; }
+          else if isHybridModule _mod
+          then
+            let
+              mods = parseHybridModule _mod;
+            in {
+              nixosModules = acc.nixosModules ++ mods.nixosModules;
+              homeModules = acc.homeModules ++ mods.homeModules;
+            }
+          else if isModuleSet _mod
+          then _recur acc (filterModuleSet _mod)
+          else if isCompatibleNixosModule _mod
+          then acc // { nixosModules = acc.nixosModules ++ [ _mod ]; }
+          else acc;
       _recur = foldr _parser;
     in
       foldr _parser initModuleSet mods;
