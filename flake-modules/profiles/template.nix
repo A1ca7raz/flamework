@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, name, ... }@args:
 let
   inherit (lib)
     mkOption
@@ -8,6 +8,8 @@ let
     unique
     mkDefault
     any
+    hasAttrByPath
+    toLower
   ;
 in {
   options = {
@@ -75,6 +77,12 @@ in {
       visible = false;
       readOnly = true;
     };
+
+    _realTargetHost = mkOption {
+      type = with types; nullOr str;
+      visible = false;
+      readOnly = true;
+    };
   };
 
   config = {
@@ -87,5 +95,10 @@ in {
       if any (t: t == "local") config.tags
       then mkDefault true
       else mkDefault false;
+
+    _realTargetHost =
+      if (toLower config.targetHost) == "redacted" && hasAttrByPath ["variables" "redact" name "targetHost"] args
+      then args.variables.redact."${name}".targetHost
+      else config.targetHost;
   };
 }

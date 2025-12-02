@@ -85,13 +85,13 @@ let
           {
             deployment = {
               inherit (profile)
-                targetHost
                 targetPort
                 targetUser
                 tags
                 allowLocalDeployment
                 buildOnTarget
               ;
+              targetHost = profile._realTargetHost;
             };
           }
         ];

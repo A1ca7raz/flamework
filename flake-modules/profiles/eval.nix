@@ -24,11 +24,12 @@ let
   (evalModules {
     modules = [
       base
-      profile
+      /${profilesPath}/${profile}
     ];
 
     specialArgs = {
       inherit self;
+      name = profile;
       templates = foldGetFile
         presetsPath
         {}
@@ -41,7 +42,7 @@ in {
     {}
     (x: y:
       {
-        "${x}" = wrapProfile /${profilesPath}/${x};
+        "${x}" = wrapProfile x;
       } // y
     );
 }
