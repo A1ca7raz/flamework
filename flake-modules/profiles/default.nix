@@ -86,12 +86,12 @@ let
             deployment = {
               inherit (profile)
                 targetPort
-                targetUser
                 tags
                 allowLocalDeployment
                 buildOnTarget
               ;
               targetHost = profile._realTargetHost;
+              targetUser = if profile.deployAsRoot then "root" else profile.targetUser;
             };
           }
         ];

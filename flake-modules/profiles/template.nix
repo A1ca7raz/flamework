@@ -42,6 +42,8 @@ in {
       description = "Tags of the target host.";
     };
 
+    deployAsRoot = mkEnableOption "Use ROOT user instead target user for colmena deployment";
+
     allowLocalDeployment = mkEnableOption "Allow the configuration to be applied locally on the host running Colmena.";
 
     buildOnTarget = mkEnableOption "Whether to build the system profiles on the target node itself.";
