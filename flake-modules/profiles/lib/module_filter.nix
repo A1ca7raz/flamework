@@ -75,7 +75,7 @@ in {
           then _recur acc (filterModuleSet _mod)
           else if isCompatibleNixosModule _mod
           then acc // { nixosModules = acc.nixosModules ++ [ _mod ]; }
-          else acc;
+          else builtins.trace "classifyModules: skipping unrecognized module" acc;
       _recur = foldr _parser;
     in
       foldr _parser initModuleSet mods;

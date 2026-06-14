@@ -9,14 +9,25 @@ let
     removeNix
   ;
 
+  inherit (builtins)
+    pathExists
+  ;
+
   cfg = config.flamework.profiles;
-  # profilePath = /${path}/profiles;
-  # presetPath = /${profilePath}/__templates;
+
   inherit (cfg)
     extraSpecialArgs
     profilesPath
     presetsPath
   ;
+
+  validProfilesPath = if pathExists profilesPath
+    then profilesPath
+    else throw "flamework.profiles: profilesPath '${toString cfg.profilesPath}' does not exist.";
+
+  validPresetsPath = if pathExists presetsPath
+    then presetsPath
+    else throw "flamework.profiles: presetsPath '${toString cfg.presetsPath}' does not exist.";
 
   base = import ./template.nix;
 
@@ -24,21 +35,21 @@ let
   (evalModules {
     modules = [
       base
-      /${profilesPath}/${profile}
+      /${validProfilesPath}/${profile}
     ];
 
     specialArgs = {
       inherit self;
       name = profile;
       templates = foldGetFile
-        presetsPath
+        validPresetsPath
         {}
-        (x: y: { "${removeNix x}" = /${presetsPath}/${x}; } // y );
+        (x: y: { "${removeNix x}" = /${validPresetsPath}/${x}; } // y );
     } // extraSpecialArgs;
   }).config;
 in {
   flamework.profiles._profiles = foldGetDir
-    profilesPath
+    validProfilesPath
     {}
     (x: y:
       {

@@ -12,7 +12,9 @@ let
   ;
 
   inherit (builtins)
+    pathExists
     readDir
+    trace
   ;
 in rec {
   _buildModuleSet = set: set // {
@@ -43,7 +45,7 @@ in rec {
             # 目录型模块，声明读取文件型模块
             else if (v == "directory" && hasDefault /${path}/${n} && (import /${path}/${n}/default.nix) == {})
             then { "${n}" = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
-            else if (v == "directory" && builtins.pathExists /${path}/${n}/__.nix && (import /${path}/${n}/__.nix) == {})
+            else if (v == "directory" && pathExists /${path}/${n}/__.nix && (import /${path}/${n}/__.nix) == {})
             then { "${n}" = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
             # 目录型模块
             else if v == "directory" && type == "dir" && hasDefault /${path}/${n}
@@ -51,8 +53,8 @@ in rec {
             # 非模块目录，递归扫描子目录
             else if v == "directory"
             then { "${n}" = _buildModuleSet (_scanner /${path}/${n}); }
-            # 无效文件,生成空模块
-            else {};
+            # Invalid file or directory entry; skip with a diagnostic trace.
+            else trace "module_tree: skipping unrecognized entry '${path}/${n}'" {};
         in
           acc // mod;
     in

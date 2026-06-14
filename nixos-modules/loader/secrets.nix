@@ -12,6 +12,7 @@ let
 
   inherit (builtins)
     attrNames
+    pathExists
     mapAttrs
   ;
 
@@ -56,13 +57,13 @@ in {
       secrets = mapAttrs (name: value:
         if isNull value.path
         then {}
-        else if builtins.pathExists value.path
+        else if pathExists value.path
         then {
           sopsFile = value.path;
         } // optionalAttrs (hasSuffix ".json" (toString value.path)) {
           format = "binary";
         }
-        else throw "${value.path} does not exists."
+        else throw "utils.secrets.${name}: ${toString value.path} does not exists."
       ) (filterAttrs (n: v: v.enable == true) cfg);
     };
   };
