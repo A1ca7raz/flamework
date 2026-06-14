@@ -11,6 +11,10 @@ let
     nixosSystem
   ;
 
+  inherit (builtins)
+    pathExists
+  ;
+
   cfg = config.flamework.profiles;
 
   profiles = cfg._profiles;
@@ -55,7 +59,7 @@ let
         self.nixosModules.impermanence
         self.nixosModules.home
         self.nixosModules.nur
-        /${profile_path}/${name}/hardware-configuration.nix
+
         # Enable Home Manager
         (optionalAttrs module_parsed.enableHomeManager {
             home-manager = {
@@ -65,6 +69,8 @@ let
               extraSpecialArgs = specialArgs;
             };
         })
+      ] ++ optionals (pathExists /${profile_path}/${name}/hardware-configuration.nix) [
+        /${profile_path}/${name}/hardware-configuration.nix
       ] ++ module_parsed.modules
         # Automatically load node secrets
         ++ optionals (builtins.pathExists /${profile_path}/${name}/secrets.yml) [
