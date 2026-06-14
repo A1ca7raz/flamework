@@ -13,6 +13,7 @@ let
 
   inherit (builtins)
     pathExists
+    warn
   ;
 
   cfg = config.flamework.profiles;
@@ -69,9 +70,11 @@ let
               extraSpecialArgs = specialArgs;
             };
         })
-      ] ++ optionals (pathExists /${profile_path}/${name}/hardware-configuration.nix) [
-        /${profile_path}/${name}/hardware-configuration.nix
-      ] ++ module_parsed.modules
+      ] ++ (
+        if (pathExists /${profile_path}/${name}/hardware-configuration.nix)
+        then [ /${profile_path}/${name}/hardware-configuration.nix ]
+        else warn "flamework.profile(${name}): hardware-configuration not found. Ignore it." []
+      ) ++ module_parsed.modules
         # Automatically load node secrets
         ++ optionals (builtins.pathExists /${profile_path}/${name}/secrets.yml) [
           {

@@ -18,7 +18,7 @@ in {
   importsFilesUser = user: dir: foldFileIfExists dir []
     (x: y:
       if isNix x
-      then [ (other@{ pkgs, ... }: (import dir) (other // { inherit user; })) ] ++ y
+      then [ (other@{ pkgs, ... }: (import /${dir}/${x}) (other // { inherit user; })) ] ++ y
       else y
     );
 }
