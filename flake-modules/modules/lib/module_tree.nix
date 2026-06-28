@@ -43,9 +43,9 @@ in rec {
             if v == "regular" && isNix n && type == "file"
             then { "${removeNix n}" = import /${path}/${n}; }
             # 目录型模块，声明读取文件型模块
-            else if (v == "directory" && hasDefault /${path}/${n} && (import /${path}/${n}/default.nix) == {})
-            then { "${n}" = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
             else if (v == "directory" && pathExists /${path}/${n}/__.nix && (import /${path}/${n}/__.nix) == {})
+            then { "${n}" = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
+            else if (v == "directory" && hasDefault /${path}/${n} && (import /${path}/${n}/default.nix) == {})
             then { "${n}" = _buildModuleSet (foldFileIfExists /${path}/${n} {} (forceImportFiles /${path}/${n})); }
             # 目录型模块
             else if v == "directory" && type == "dir" && hasDefault /${path}/${n}
